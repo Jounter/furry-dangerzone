@@ -1,0 +1,66 @@
+User:
+CREATE TABLE User
+(
+UserID int NOT NULL PRIMARY KEY,
+Username varchar(30) NOT NULL,
+Password varchar(255) NOT NULL,
+Name varchar(255),
+Email varchar(255),
+Birthdate date,
+LastEBookRead int FOREIGN KEY REFERENCES EBook(EBookID),
+LastChapterRead int FOREIGN KEY REFERENCES Chapter(ChapterID),
+LastLogin date
+)
+
+EBook:
+CREATE TABLE EBook
+(
+EBookID int NOT NULL PRIMARY KEY,
+EBookName varchar(255) NOT NULL,
+Author varchar(255) NOT NULL,
+Publisher varchar(255) NOT NULL,
+Subject text
+)
+
+Chapter:
+CREATE TABLE Chapter
+(
+ChapterID int NOT NULL PRIMARY KEY,
+ChapterName varchar(255),
+Number int,
+EBook FOREIGN KEY REFERENCES EBook(EBookID)
+)
+
+Bookmark:
+CREATE TABLE Bookmark
+(
+BookmarkID int NOT NULL PRIMARY KEY,
+EBook int FOREIGN KEY REFERENCES EBook(EBookID),
+Chapter int FOREIGN KEY REFERENCES Chapter(ChapterID)
+)
+
+Favorite:
+CREATE TABLE Favorite
+(
+FavoriteID int NOT NULL PRIMARY KEY,
+EBook int FOREIGN KEY REFERENCES EBook(EBookID),
+Chapter int FOREIGN KEY REFERENCES Chapter(ChapterID)
+)
+
+EBookStatistics:
+CREATE TABLE EBookStatistics
+(
+EBookStatID int NOT NULL PRIMARY KEY,
+UserID int FOREIGN KEY REFERENCES User(UserID),
+EBookID int FOREIGN KEY REFERENCES EBook(EBookID),
+ChapterID int FOREIGN KEY REFERENCES Chapter(ChapterID),
+NumTimesRead int DEFAULT 0
+)
+
+DateStatistics:
+CREATE TABLE DateStatistics
+(
+DateStatID int NOT NULL PRIMARY KEY,
+UserID int FOREIGN KEY REFERENCES User(UserID),
+Date date NOT NULL
+)
