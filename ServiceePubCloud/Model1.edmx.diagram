@@ -5,13 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4d8146ff9e7b42a59c5099d2226c384a" Name="Diagram1" ZoomLevel="96" >
-        <EntityTypeShape EntityType="Model1.User" Width="1.5" PointX="0.625" PointY="0.5" />
-        <EntityTypeShape EntityType="Model1.EBook" Width="1.5" PointX="3.375" PointY="1" />
-        <EntityTypeShape EntityType="Model1.Chapter" Width="1.5" PointX="5.625" PointY="3" />
-        <EntityTypeShape EntityType="Model1.Bookmark" Width="1.5" PointX="3.25" PointY="3.625" />
+        <EntityTypeShape EntityType="Model1.User" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.EBook" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.Chapter" Width="1.5" PointX="5" PointY="3.25" />
+        <EntityTypeShape EntityType="Model1.Bookmark" Width="1.5" PointX="7.25" PointY="4.125" />
         <EntityTypeShape EntityType="Model1.Favorite" Width="1.5" PointX="5.375" PointY="0.875" />
-        <EntityTypeShape EntityType="Model1.EBookStatistics" Width="1.5" PointX="7.5" PointY="2.75" />
+        <EntityTypeShape EntityType="Model1.EBookStatistics" Width="1.5" PointX="1.875" PointY="4.75" />
         <EntityTypeShape EntityType="Model1.DateStatistics" Width="1.5" PointX="7.625" PointY="1.125" />
+        <AssociationConnector Association="Model1.EBookName" />
+        <AssociationConnector Association="Model1.LastEBookRead" />
+        <AssociationConnector Association="Model1.UserChapter" />
+        <AssociationConnector Association="Model1.BookmarkChapter" />
+        <AssociationConnector Association="Model1.FavoriteEBook" />
+        <AssociationConnector Association="Model1.FavoriteChapter" />
+        <AssociationConnector Association="Model1.EBookStatisticsChapter" />
+        <AssociationConnector Association="Model1.EBookStatisticsUser" />
+        <AssociationConnector Association="Model1.DateStatisticsUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
