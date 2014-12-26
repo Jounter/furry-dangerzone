@@ -28,6 +28,12 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserSet" EntityType="Model1.User" />
+          <EntitySet Name="EBookSet" EntityType="Model1.EBook" />
+          <EntitySet Name="ChapterSet" EntityType="Model1.Chapter" />
+          <EntitySet Name="BookmarkSet" EntityType="Model1.Bookmark" />
+          <EntitySet Name="FavoriteSet" EntityType="Model1.Favorite" />
+          <EntitySet Name="EBookStatisticsSet" EntityType="Model1.EBookStatistics" />
+          <EntitySet Name="DateStatisticsSet" EntityType="Model1.DateStatistics" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -42,6 +48,50 @@
           <Property Type="Int32" Name="LastEBookRead" Nullable="true" />
           <Property Type="Int32" Name="LastChapterRead" Nullable="true" />
           <Property Type="DateTime" Name="LastLogin" Nullable="true" />
+        </EntityType>
+        <EntityType Name="EBook">
+          <Key>
+            <PropertyRef Name="EbookID" />
+          </Key>
+          <Property Type="Int32" Name="EbookID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EBookName" Nullable="false" />
+          <Property Type="String" Name="Author" Nullable="false" />
+          <Property Type="String" Name="Publisher" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="ChapterID" />
+          </Key>
+          <Property Type="Int32" Name="ChapterID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ChapterName" Nullable="false" />
+          <Property Type="String" Name="ChapterNumber" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Type="Int32" Name="BookmarkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Favorite">
+          <Key>
+            <PropertyRef Name="FavoriteID" />
+          </Key>
+          <Property Type="Int32" Name="FavoriteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="EBookStatistics">
+          <Key>
+            <PropertyRef Name="EBookStatID" />
+          </Key>
+          <Property Type="Int32" Name="EBookStatID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="NumTimesRead" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DateStatistics">
+          <Key>
+            <PropertyRef Name="DateStatID" />
+          </Key>
+          <Property Type="Int32" Name="DateStatID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
