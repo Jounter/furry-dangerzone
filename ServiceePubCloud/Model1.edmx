@@ -14,6 +14,7 @@
     <EntitySet Name="EBookStatisticsSet" EntityType="Model1.Store.EBookStatisticsSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DateStatisticsSet" EntityType="Model1.Store.DateStatisticsSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DateStatisticsUser" EntityType="Model1.Store.DateStatisticsUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EBookStatisticsUser" EntityType="Model1.Store.EBookStatisticsUser" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="EBookName" Association="Model1.Store.EBookName">
       <End Role="EBook" EntitySet="EBookSet" />
       <End Role="Chapter" EntitySet="ChapterSet" />
@@ -42,10 +43,6 @@
       <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
       <End Role="Chapter" EntitySet="ChapterSet" />
     </AssociationSet>
-    <AssociationSet Name="EBookStatisticsUser" Association="Model1.Store.EBookStatisticsUser">
-      <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
-      <End Role="User" EntitySet="UserSet" />
-    </AssociationSet>
     <AssociationSet Name="FK_DateStatisticsUser_DateStatistics" Association="Model1.Store.FK_DateStatisticsUser_DateStatistics">
       <End Role="DateStatistics" EntitySet="DateStatisticsSet" />
       <End Role="DateStatisticsUser" EntitySet="DateStatisticsUser" />
@@ -53,6 +50,14 @@
     <AssociationSet Name="FK_DateStatisticsUser_User" Association="Model1.Store.FK_DateStatisticsUser_User">
       <End Role="User" EntitySet="UserSet" />
       <End Role="DateStatisticsUser" EntitySet="DateStatisticsUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EBookStatisticsUser_EBookStatistics" Association="Model1.Store.FK_EBookStatisticsUser_EBookStatistics">
+      <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
+      <End Role="EBookStatisticsUser" EntitySet="EBookStatisticsUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EBookStatisticsUser_User" Association="Model1.Store.FK_EBookStatisticsUser_User">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="EBookStatisticsUser" EntitySet="EBookStatisticsUser" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
@@ -68,7 +73,7 @@
     <Property Name="LastLogin" Type="datetime" Nullable="true" />
     <Property Name="LastEBookRead" Type="int" Nullable="true" />
     <Property Name="LastChapterRead" Type="int" Nullable="true" />
-    <Property Name="EBookStatistics_EBookStatID" Type="int" Nullable="false" />
+    <Property Name="EBookStatisticsEBookStatID" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="EBookSet">
     <Key>
@@ -125,6 +130,14 @@
       <PropertyRef Name="User_UserID" />
     </Key>
     <Property Name="DateStatistics_DateStatID" Type="int" Nullable="false" />
+    <Property Name="User_UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EBookStatisticsUser">
+    <Key>
+      <PropertyRef Name="EBookStatistics_EBookStatID" />
+      <PropertyRef Name="User_UserID" />
+    </Key>
+    <Property Name="EBookStatistics_EBookStatID" Type="int" Nullable="false" />
     <Property Name="User_UserID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="EBookName">
@@ -211,18 +224,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="EBookStatisticsUser">
-    <End Role="EBookStatistics" Type="Model1.Store.EBookStatisticsSet" Multiplicity="1" />
-    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EBookStatistics">
-        <PropertyRef Name="EBookStatID" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="EBookStatistics_EBookStatID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_DateStatisticsUser_DateStatistics">
     <End Role="DateStatistics" Type="Model1.Store.DateStatisticsSet" Multiplicity="1" />
     <End Role="DateStatisticsUser" Type="Model1.Store.DateStatisticsUser" Multiplicity="*" />
@@ -243,6 +244,30 @@
         <PropertyRef Name="UserID" />
       </Principal>
       <Dependent Role="DateStatisticsUser">
+        <PropertyRef Name="User_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EBookStatisticsUser_EBookStatistics">
+    <End Role="EBookStatistics" Type="Model1.Store.EBookStatisticsSet" Multiplicity="1" />
+    <End Role="EBookStatisticsUser" Type="Model1.Store.EBookStatisticsUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EBookStatistics">
+        <PropertyRef Name="EBookStatID" />
+      </Principal>
+      <Dependent Role="EBookStatisticsUser">
+        <PropertyRef Name="EBookStatistics_EBookStatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EBookStatisticsUser_User">
+    <End Role="EBookStatisticsUser" Type="Model1.Store.EBookStatisticsUser" Multiplicity="*" />
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="EBookStatisticsUser">
         <PropertyRef Name="User_UserID" />
       </Dependent>
     </ReferentialConstraint>
@@ -312,8 +337,8 @@
           <NavigationProperty Name="Chapter" Relationship="Model1.UserChapter" FromRole="User" ToRole="Chapter" />
           <Property Type="Int32" Name="LastChapterRead" Nullable="true" />
           <NavigationProperty Name="DateStatistics" Relationship="Model1.DateStatisticsUser" FromRole="User" ToRole="DateStatistics" />
-          <NavigationProperty Name="EBookStatistics" Relationship="Model1.EBookStatisticsUser" FromRole="User" ToRole="EBookStatistics" />
           <Property Type="Int32" Name="EBookStatisticsEBookStatID" Nullable="true" />
+          <NavigationProperty Name="EBookStatistics" Relationship="Model1.EBookStatisticsUser" FromRole="User" ToRole="EBookStatistics" />
         </EntityType>
         <EntityType Name="EBook">
           <Key>
@@ -458,16 +483,8 @@
           <End Type="Model1.User" Role="User" Multiplicity="*" />
         </Association>
         <Association Name="EBookStatisticsUser">
-          <End Type="Model1.EBookStatistics" Role="EBookStatistics" Multiplicity="0..1" />
+          <End Type="Model1.EBookStatistics" Role="EBookStatistics" Multiplicity="*" />
           <End Type="Model1.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EBookStatistics">
-              <PropertyRef Name="EBookStatID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="EBookStatisticsEBookStatID" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -487,6 +504,7 @@
           <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
           <ScalarProperty Name="LastEBookRead" ColumnName="LastEBookRead" />
           <ScalarProperty Name="LastChapterRead" ColumnName="LastChapterRead" />
+          <ScalarProperty Name="EBookStatisticsEBookStatID" ColumnName="EBookStatisticsEBookStatID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -555,6 +573,14 @@
     <AssociationSetMapping Name="DateStatisticsUser" TypeName="Model1.DateStatisticsUser" StoreEntitySet="DateStatisticsUser">
       <EndProperty Name="DateStatistics">
         <ScalarProperty Name="DateStatID" ColumnName="DateStatistics_DateStatID" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserID" ColumnName="User_UserID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EBookStatisticsUser" TypeName="Model1.EBookStatisticsUser" StoreEntitySet="EBookStatisticsUser">
+      <EndProperty Name="EBookStatistics">
+        <ScalarProperty Name="EBookStatID" ColumnName="EBookStatistics_EBookStatID" />
       </EndProperty>
       <EndProperty Name="User">
         <ScalarProperty Name="UserID" ColumnName="User_UserID" />

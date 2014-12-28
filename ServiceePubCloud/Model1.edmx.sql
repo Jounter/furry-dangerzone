@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/28/2014 15:31:31
+-- Date Created: 12/28/2014 15:55:09
 -- Generated from EDMX file: E:\IPL\3 Ano\IS\ISProject\trunk\ServiceePubCloud\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,36 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_EBookName]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ChapterSet] DROP CONSTRAINT [FK_EBookName];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LastEBookRead]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_LastEBookRead];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_UserChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BookmarkChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BookmarkSet] DROP CONSTRAINT [FK_BookmarkChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FavoriteEBook]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_FavoriteEBook];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FavoriteChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_FavoriteChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EBookStatisticsSet] DROP CONSTRAINT [FK_EBookStatisticsChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_EBookStatisticsUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DateStatisticsUser_DateStatistics]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DateStatisticsUser] DROP CONSTRAINT [FK_DateStatisticsUser_DateStatistics];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DateStatisticsUser_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DateStatisticsUser] DROP CONSTRAINT [FK_DateStatisticsUser_User];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -43,6 +73,9 @@ GO
 IF OBJECT_ID(N'[dbo].[DateStatisticsSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[DateStatisticsSet];
 GO
+IF OBJECT_ID(N'[dbo].[DateStatisticsUser]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DateStatisticsUser];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -59,7 +92,7 @@ CREATE TABLE [dbo].[UserSet] (
     [LastLogin] datetime  NULL,
     [LastEBookRead] int  NULL,
     [LastChapterRead] int  NULL,
-    [EBookStatistics_EBookStatID] int  NOT NULL
+    [EBookStatisticsEBookStatID] int  NULL
 );
 GO
 
@@ -119,6 +152,13 @@ CREATE TABLE [dbo].[DateStatisticsUser] (
 );
 GO
 
+-- Creating table 'EBookStatisticsUser'
+CREATE TABLE [dbo].[EBookStatisticsUser] (
+    [EBookStatistics_EBookStatID] int  NOT NULL,
+    [User_UserID] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -169,6 +209,12 @@ GO
 ALTER TABLE [dbo].[DateStatisticsUser]
 ADD CONSTRAINT [PK_DateStatisticsUser]
     PRIMARY KEY NONCLUSTERED ([DateStatistics_DateStatID], [User_UserID] ASC);
+GO
+
+-- Creating primary key on [EBookStatistics_EBookStatID], [User_UserID] in table 'EBookStatisticsUser'
+ALTER TABLE [dbo].[EBookStatisticsUser]
+ADD CONSTRAINT [PK_EBookStatisticsUser]
+    PRIMARY KEY NONCLUSTERED ([EBookStatistics_EBookStatID], [User_UserID] ASC);
 GO
 
 -- --------------------------------------------------
@@ -273,20 +319,6 @@ ON [dbo].[EBookStatisticsSet]
     ([Chapter_ChapterID]);
 GO
 
--- Creating foreign key on [EBookStatistics_EBookStatID] in table 'UserSet'
-ALTER TABLE [dbo].[UserSet]
-ADD CONSTRAINT [FK_EBookStatisticsUser]
-    FOREIGN KEY ([EBookStatistics_EBookStatID])
-    REFERENCES [dbo].[EBookStatisticsSet]
-        ([EBookStatID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_EBookStatisticsUser'
-CREATE INDEX [IX_FK_EBookStatisticsUser]
-ON [dbo].[UserSet]
-    ([EBookStatistics_EBookStatID]);
-GO
-
 -- Creating foreign key on [DateStatistics_DateStatID] in table 'DateStatisticsUser'
 ALTER TABLE [dbo].[DateStatisticsUser]
 ADD CONSTRAINT [FK_DateStatisticsUser_DateStatistics]
@@ -307,6 +339,29 @@ ADD CONSTRAINT [FK_DateStatisticsUser_User]
 -- Creating non-clustered index for FOREIGN KEY 'FK_DateStatisticsUser_User'
 CREATE INDEX [IX_FK_DateStatisticsUser_User]
 ON [dbo].[DateStatisticsUser]
+    ([User_UserID]);
+GO
+
+-- Creating foreign key on [EBookStatistics_EBookStatID] in table 'EBookStatisticsUser'
+ALTER TABLE [dbo].[EBookStatisticsUser]
+ADD CONSTRAINT [FK_EBookStatisticsUser_EBookStatistics]
+    FOREIGN KEY ([EBookStatistics_EBookStatID])
+    REFERENCES [dbo].[EBookStatisticsSet]
+        ([EBookStatID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [User_UserID] in table 'EBookStatisticsUser'
+ALTER TABLE [dbo].[EBookStatisticsUser]
+ADD CONSTRAINT [FK_EBookStatisticsUser_User]
+    FOREIGN KEY ([User_UserID])
+    REFERENCES [dbo].[UserSet]
+        ([UserID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_EBookStatisticsUser_User'
+CREATE INDEX [IX_FK_EBookStatisticsUser_User]
+ON [dbo].[EBookStatisticsUser]
     ([User_UserID]);
 GO
 
