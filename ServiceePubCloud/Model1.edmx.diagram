@@ -19,8 +19,8 @@
         <AssociationConnector Association="Model1.FavoriteEBook" />
         <AssociationConnector Association="Model1.FavoriteChapter" />
         <AssociationConnector Association="Model1.EBookStatisticsChapter" />
-        <AssociationConnector Association="Model1.EBookStatisticsUser" />
         <AssociationConnector Association="Model1.DateStatisticsUser" />
+        <AssociationConnector Association="Model1.EBookStatisticsUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

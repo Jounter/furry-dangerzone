@@ -13,6 +13,47 @@
     <EntitySet Name="FavoriteSet" EntityType="Model1.Store.FavoriteSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EBookStatisticsSet" EntityType="Model1.Store.EBookStatisticsSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DateStatisticsSet" EntityType="Model1.Store.DateStatisticsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DateStatisticsUser" EntityType="Model1.Store.DateStatisticsUser" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EBookName" Association="Model1.Store.EBookName">
+      <End Role="EBook" EntitySet="EBookSet" />
+      <End Role="Chapter" EntitySet="ChapterSet" />
+    </AssociationSet>
+    <AssociationSet Name="LastEBookRead" Association="Model1.Store.LastEBookRead">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="EBook" EntitySet="EBookSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserChapter" Association="Model1.Store.UserChapter">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Chapter" EntitySet="ChapterSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookmarkChapter" Association="Model1.Store.BookmarkChapter">
+      <End Role="Bookmark" EntitySet="BookmarkSet" />
+      <End Role="Chapter" EntitySet="ChapterSet" />
+    </AssociationSet>
+    <AssociationSet Name="FavoriteEBook" Association="Model1.Store.FavoriteEBook">
+      <End Role="Favorite" EntitySet="FavoriteSet" />
+      <End Role="EBook" EntitySet="EBookSet" />
+    </AssociationSet>
+    <AssociationSet Name="FavoriteChapter" Association="Model1.Store.FavoriteChapter">
+      <End Role="Favorite" EntitySet="FavoriteSet" />
+      <End Role="Chapter" EntitySet="ChapterSet" />
+    </AssociationSet>
+    <AssociationSet Name="EBookStatisticsChapter" Association="Model1.Store.EBookStatisticsChapter">
+      <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
+      <End Role="Chapter" EntitySet="ChapterSet" />
+    </AssociationSet>
+    <AssociationSet Name="EBookStatisticsUser" Association="Model1.Store.EBookStatisticsUser">
+      <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DateStatisticsUser_DateStatistics" Association="Model1.Store.FK_DateStatisticsUser_DateStatistics">
+      <End Role="DateStatistics" EntitySet="DateStatisticsSet" />
+      <End Role="DateStatisticsUser" EntitySet="DateStatisticsUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DateStatisticsUser_User" Association="Model1.Store.FK_DateStatisticsUser_User">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="DateStatisticsUser" EntitySet="DateStatisticsUser" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
     <Key>
@@ -24,9 +65,10 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Birthdate" Type="datetime" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="true" />
     <Property Name="LastEBookRead" Type="int" Nullable="true" />
     <Property Name="LastChapterRead" Type="int" Nullable="true" />
-    <Property Name="LastLogin" Type="datetime" Nullable="true" />
+    <Property Name="EBookStatistics_EBookStatID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EBookSet">
     <Key>
@@ -45,18 +87,22 @@
     <Property Name="ChapterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ChapterNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EBookID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="BookmarkSet">
     <Key>
       <PropertyRef Name="BookmarkID" />
     </Key>
     <Property Name="BookmarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="FavoriteSet">
     <Key>
       <PropertyRef Name="FavoriteID" />
     </Key>
     <Property Name="FavoriteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EBookID" Type="int" Nullable="false" />
+    <Property Name="ChapterID" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="EBookStatisticsSet">
     <Key>
@@ -64,6 +110,7 @@
     </Key>
     <Property Name="EBookStatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumTimesRead" Type="int" Nullable="false" />
+    <Property Name="Chapter_ChapterID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="DateStatisticsSet">
     <Key>
@@ -72,6 +119,134 @@
     <Property Name="DateStatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="DateStatisticsUser">
+    <Key>
+      <PropertyRef Name="DateStatistics_DateStatID" />
+      <PropertyRef Name="User_UserID" />
+    </Key>
+    <Property Name="DateStatistics_DateStatID" Type="int" Nullable="false" />
+    <Property Name="User_UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EBookName">
+    <End Role="EBook" Type="Model1.Store.EBookSet" Multiplicity="1" />
+    <End Role="Chapter" Type="Model1.Store.ChapterSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EBook">
+        <PropertyRef Name="EbookID" />
+      </Principal>
+      <Dependent Role="Chapter">
+        <PropertyRef Name="EBookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LastEBookRead">
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="*" />
+    <End Role="EBook" Type="Model1.Store.EBookSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EBook">
+        <PropertyRef Name="EbookID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="LastEBookRead" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserChapter">
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="*" />
+    <End Role="Chapter" Type="Model1.Store.ChapterSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Chapter">
+        <PropertyRef Name="ChapterID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="LastChapterRead" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookmarkChapter">
+    <End Role="Bookmark" Type="Model1.Store.BookmarkSet" Multiplicity="*" />
+    <End Role="Chapter" Type="Model1.Store.ChapterSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Chapter">
+        <PropertyRef Name="ChapterID" />
+      </Principal>
+      <Dependent Role="Bookmark">
+        <PropertyRef Name="ChapterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FavoriteEBook">
+    <End Role="Favorite" Type="Model1.Store.FavoriteSet" Multiplicity="*" />
+    <End Role="EBook" Type="Model1.Store.EBookSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="EBook">
+        <PropertyRef Name="EbookID" />
+      </Principal>
+      <Dependent Role="Favorite">
+        <PropertyRef Name="EBookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FavoriteChapter">
+    <End Role="Favorite" Type="Model1.Store.FavoriteSet" Multiplicity="*" />
+    <End Role="Chapter" Type="Model1.Store.ChapterSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Chapter">
+        <PropertyRef Name="ChapterID" />
+      </Principal>
+      <Dependent Role="Favorite">
+        <PropertyRef Name="ChapterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EBookStatisticsChapter">
+    <End Role="EBookStatistics" Type="Model1.Store.EBookStatisticsSet" Multiplicity="*" />
+    <End Role="Chapter" Type="Model1.Store.ChapterSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Chapter">
+        <PropertyRef Name="ChapterID" />
+      </Principal>
+      <Dependent Role="EBookStatistics">
+        <PropertyRef Name="Chapter_ChapterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EBookStatisticsUser">
+    <End Role="EBookStatistics" Type="Model1.Store.EBookStatisticsSet" Multiplicity="1" />
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EBookStatistics">
+        <PropertyRef Name="EBookStatID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="EBookStatistics_EBookStatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DateStatisticsUser_DateStatistics">
+    <End Role="DateStatistics" Type="Model1.Store.DateStatisticsSet" Multiplicity="1" />
+    <End Role="DateStatisticsUser" Type="Model1.Store.DateStatisticsUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DateStatistics">
+        <PropertyRef Name="DateStatID" />
+      </Principal>
+      <Dependent Role="DateStatisticsUser">
+        <PropertyRef Name="DateStatistics_DateStatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DateStatisticsUser_User">
+    <End Role="DateStatisticsUser" Type="Model1.Store.DateStatisticsUser" Multiplicity="*" />
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="DateStatisticsUser">
+        <PropertyRef Name="User_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -112,12 +287,12 @@
             <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
             <End Role="Chapter" EntitySet="ChapterSet" />
           </AssociationSet>
-          <AssociationSet Name="EBookStatisticsUser" Association="Model1.EBookStatisticsUser">
-            <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
-            <End Role="User" EntitySet="UserSet" />
-          </AssociationSet>
           <AssociationSet Name="DateStatisticsUser" Association="Model1.DateStatisticsUser">
             <End Role="DateStatistics" EntitySet="DateStatisticsSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="EBookStatisticsUser" Association="Model1.EBookStatisticsUser">
+            <End Role="EBookStatistics" EntitySet="EBookStatisticsSet" />
             <End Role="User" EntitySet="UserSet" />
           </AssociationSet>
         </EntityContainer>
@@ -136,8 +311,9 @@
           <Property Type="Int32" Name="LastEBookRead" Nullable="true" />
           <NavigationProperty Name="Chapter" Relationship="Model1.UserChapter" FromRole="User" ToRole="Chapter" />
           <Property Type="Int32" Name="LastChapterRead" Nullable="true" />
-          <NavigationProperty Name="EBookStatistics" Relationship="Model1.EBookStatisticsUser" FromRole="User" ToRole="EBookStatistics" />
           <NavigationProperty Name="DateStatistics" Relationship="Model1.DateStatisticsUser" FromRole="User" ToRole="DateStatistics" />
+          <NavigationProperty Name="EBookStatistics" Relationship="Model1.EBookStatisticsUser" FromRole="User" ToRole="EBookStatistics" />
+          <Property Type="Int32" Name="EBookStatisticsEBookStatID" Nullable="true" />
         </EntityType>
         <EntityType Name="EBook">
           <Key>
@@ -277,13 +453,21 @@
           <End Type="Model1.EBookStatistics" Role="EBookStatistics" Multiplicity="1" />
           <End Type="Model1.Chapter" Role="Chapter" Multiplicity="1" />
         </Association>
-        <Association Name="EBookStatisticsUser">
-          <End Type="Model1.EBookStatistics" Role="EBookStatistics" Multiplicity="1" />
-          <End Type="Model1.User" Role="User" Multiplicity="*" />
-        </Association>
         <Association Name="DateStatisticsUser">
           <End Type="Model1.DateStatistics" Role="DateStatistics" Multiplicity="*" />
           <End Type="Model1.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="EBookStatisticsUser">
+          <End Type="Model1.EBookStatistics" Role="EBookStatistics" Multiplicity="0..1" />
+          <End Type="Model1.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EBookStatistics">
+              <PropertyRef Name="EBookStatID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EBookStatisticsEBookStatID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -301,6 +485,8 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
           <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="LastEBookRead" ColumnName="LastEBookRead" />
+          <ScalarProperty Name="LastChapterRead" ColumnName="LastChapterRead" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -321,6 +507,7 @@
           <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
           <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
           <ScalarProperty Name="ChapterNumber" ColumnName="ChapterNumber" />
+          <ScalarProperty Name="EBookID" ColumnName="EBookID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -328,6 +515,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Bookmark)">
         <MappingFragment StoreEntitySet="BookmarkSet">
           <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
+          <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -335,6 +523,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Favorite)">
         <MappingFragment StoreEntitySet="FavoriteSet">
           <ScalarProperty Name="FavoriteID" ColumnName="FavoriteID" />
+          <ScalarProperty Name="EBookID" ColumnName="EBookID" />
+          <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -354,6 +544,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="EBookStatisticsChapter" TypeName="Model1.EBookStatisticsChapter" StoreEntitySet="EBookStatisticsSet">
+      <EndProperty Name="Chapter">
+        <ScalarProperty Name="ChapterID" ColumnName="Chapter_ChapterID" />
+      </EndProperty>
+      <EndProperty Name="EBookStatistics">
+        <ScalarProperty Name="EBookStatID" ColumnName="EBookStatID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DateStatisticsUser" TypeName="Model1.DateStatisticsUser" StoreEntitySet="DateStatisticsUser">
+      <EndProperty Name="DateStatistics">
+        <ScalarProperty Name="DateStatID" ColumnName="DateStatistics_DateStatID" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserID" ColumnName="User_UserID" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
