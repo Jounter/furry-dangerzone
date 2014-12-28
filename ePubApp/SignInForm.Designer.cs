@@ -57,6 +57,7 @@
             this.btnAcc.TabIndex = 10;
             this.btnAcc.Text = "Create account";
             this.btnAcc.UseVisualStyleBackColor = true;
+            this.btnAcc.Click += new System.EventHandler(this.btnAcc_Click);
             // 
             // lblPass
             // 
@@ -146,6 +147,7 @@
             this.Controls.Add(this.txtPass);
             this.Name = "SignInForm";
             this.Text = "Sign In";
+            this.Load += new System.EventHandler(this.SignInForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

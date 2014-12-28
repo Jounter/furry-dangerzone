@@ -14,14 +14,26 @@ namespace ServiceePubCloud
     
     public partial class User
     {
+        public User()
+        {
+            this.DateStatistics = new HashSet<DateStatistics>();
+            this.EBookStatistics = new HashSet<EBookStatistics>();
+        }
+    
         public int UserID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public System.DateTime Birthdate { get; set; }
+        public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<int> LastEBookRead { get; set; }
         public Nullable<int> LastChapterRead { get; set; }
-        public Nullable<System.DateTime> LastLogin { get; set; }
+        public Nullable<int> EBookStatisticsEBookStatID { get; set; }
+    
+        public virtual EBook EBook { get; set; }
+        public virtual Chapter Chapter { get; set; }
+        public virtual ICollection<DateStatistics> DateStatistics { get; set; }
+        public virtual ICollection<EBookStatistics> EBookStatistics { get; set; }
     }
 }

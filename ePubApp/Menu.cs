@@ -15,16 +15,14 @@ namespace ePubApp
     public partial class Menu : Form
     {
         private string[] epubFiles;
-        private string epubPath = "D:\\Escola\\1Semestre\\IS\\Projecto_IS\\IS-RAR.git\\trunk\\ePubApp\\bin\\Debug";
+        private string epubPath = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks";
         public Menu()
         {
             InitializeComponent();
             byte[] bytes = Encoding.Default.GetBytes(epubPath);
             epubPath = Encoding.UTF8.GetString(bytes);
-            MessageBox.Show(epubPath);
             epubFiles = Directory.GetFiles(epubPath, "*.epub").
                 Select(path => Path.GetFileName(path)).ToArray();
-            MessageBox.Show(epubPath);
             listBox1.DataSource = epubFiles.ToList();
 
        
@@ -38,6 +36,16 @@ namespace ePubApp
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConfigs_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
         {
 
         }

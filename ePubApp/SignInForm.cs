@@ -21,5 +21,15 @@ namespace ePubApp
         {
 
         }
+
+        private void btnAcc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SignInForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

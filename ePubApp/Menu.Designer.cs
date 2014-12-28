@@ -64,6 +64,7 @@
             this.btnConfigs.TabIndex = 2;
             this.btnConfigs.Text = "Configs";
             this.btnConfigs.UseVisualStyleBackColor = true;
+            this.btnConfigs.Click += new System.EventHandler(this.btnConfigs_Click);
             // 
             // btnStats
             // 
@@ -115,6 +116,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "Menu";
             this.Text = "Menu";
+            this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

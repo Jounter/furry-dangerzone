@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/28/2014 15:55:09
--- Generated from EDMX file: E:\IPL\3 Ano\IS\ISProject\trunk\ServiceePubCloud\Model1.edmx
+-- Date Created: 12/28/2014 16:01:42
+-- Generated from EDMX file: D:\Escola\1Semestre\IS\projeto\trunk\ServiceePubCloud\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -38,14 +38,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsChapter]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EBookStatisticsSet] DROP CONSTRAINT [FK_EBookStatisticsChapter];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_EBookStatisticsUser];
-GO
 IF OBJECT_ID(N'[dbo].[FK_DateStatisticsUser_DateStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DateStatisticsUser] DROP CONSTRAINT [FK_DateStatisticsUser_DateStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DateStatisticsUser_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DateStatisticsUser] DROP CONSTRAINT [FK_DateStatisticsUser_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsUser_EBookStatistics]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EBookStatisticsUser] DROP CONSTRAINT [FK_EBookStatisticsUser_EBookStatistics];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsUser_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EBookStatisticsUser] DROP CONSTRAINT [FK_EBookStatisticsUser_User];
 GO
 
 -- --------------------------------------------------
@@ -75,6 +78,9 @@ IF OBJECT_ID(N'[dbo].[DateStatisticsSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[DateStatisticsUser]', 'U') IS NOT NULL
     DROP TABLE [dbo].[DateStatisticsUser];
+GO
+IF OBJECT_ID(N'[dbo].[EBookStatisticsUser]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EBookStatisticsUser];
 GO
 
 -- --------------------------------------------------

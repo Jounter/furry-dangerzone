@@ -41,6 +41,8 @@
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblAuthor = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -50,11 +52,12 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(168, 173);
             this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 9);
+            this.label1.Location = new System.Drawing.Point(92, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 1;
@@ -68,6 +71,7 @@
             this.btnAll.TabIndex = 2;
             this.btnAll.Text = "Read All";
             this.btnAll.UseVisualStyleBackColor = true;
+            this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
             // 
             // label2
             // 
@@ -139,6 +143,7 @@
             this.btnPrevious.TabIndex = 10;
             this.btnPrevious.Text = "<< Previous Page";
             this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
@@ -158,11 +163,31 @@
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             // 
-            // Livro
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(71, 246);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(33, 13);
+            this.lblTitle.TabIndex = 13;
+            this.lblTitle.Text = "Titulo";
+            // 
+            // lblAuthor
+            // 
+            this.lblAuthor.AutoSize = true;
+            this.lblAuthor.Location = new System.Drawing.Point(84, 268);
+            this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(32, 13);
+            this.lblAuthor.TabIndex = 14;
+            this.lblAuthor.Text = "Autor";
+            // 
+            // Book
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 343);
+            this.Controls.Add(this.lblAuthor);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
@@ -176,7 +201,7 @@
             this.Controls.Add(this.btnAll);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
-            this.Name = "Livro";
+            this.Name = "Book";
             this.Text = "Book";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -199,5 +224,7 @@
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblAuthor;
     }
 }

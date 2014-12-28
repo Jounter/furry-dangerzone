@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="eBdb.EpubReader">
-      <HintPath>..\Projecto_IS\bin\Debug\eBdb.EpubReader.dll</HintPath>
+      <HintPath>..\ePubBooks\eBdb.EpubReader.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\Projecto_IS\bin\Debug\Ionic.Zip.dll</HintPath>
+      <HintPath>..\ePubBooks\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
