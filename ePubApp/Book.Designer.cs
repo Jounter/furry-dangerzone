@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAll = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,16 +42,10 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lblPub = new System.Windows.Forms.Label();
+            this.lblSub = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(35, 39);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(168, 173);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -111,15 +104,15 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(247, 21);
+            this.webBrowser1.Location = new System.Drawing.Point(253, 9);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(273, 250);
+            this.webBrowser1.Size = new System.Drawing.Size(491, 389);
             this.webBrowser1.TabIndex = 7;
             // 
             // btnBookmark
             // 
-            this.btnBookmark.Location = new System.Drawing.Point(247, 308);
+            this.btnBookmark.Location = new System.Drawing.Point(371, 443);
             this.btnBookmark.Name = "btnBookmark";
             this.btnBookmark.Size = new System.Drawing.Size(75, 23);
             this.btnBookmark.TabIndex = 8;
@@ -128,7 +121,7 @@
             // 
             // btnFavorite
             // 
-            this.btnFavorite.Location = new System.Drawing.Point(342, 308);
+            this.btnFavorite.Location = new System.Drawing.Point(466, 443);
             this.btnFavorite.Name = "btnFavorite";
             this.btnFavorite.Size = new System.Drawing.Size(75, 23);
             this.btnFavorite.TabIndex = 9;
@@ -137,7 +130,7 @@
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(266, 279);
+            this.btnPrevious.Location = new System.Drawing.Point(390, 414);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(116, 23);
             this.btnPrevious.TabIndex = 10;
@@ -147,7 +140,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(401, 279);
+            this.btnNext.Location = new System.Drawing.Point(525, 414);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(94, 23);
             this.btnNext.TabIndex = 11;
@@ -156,7 +149,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(438, 309);
+            this.btnExit.Location = new System.Drawing.Point(562, 444);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 12;
@@ -181,11 +174,40 @@
             this.lblAuthor.TabIndex = 14;
             this.lblAuthor.Text = "Autor";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(35, 41);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(168, 160);
+            this.listBox1.TabIndex = 15;
+            // 
+            // lblPub
+            // 
+            this.lblPub.AutoSize = true;
+            this.lblPub.Location = new System.Drawing.Point(92, 289);
+            this.lblPub.Name = "lblPub";
+            this.lblPub.Size = new System.Drawing.Size(50, 13);
+            this.lblPub.TabIndex = 16;
+            this.lblPub.Text = "Publisher";
+            // 
+            // lblSub
+            // 
+            this.lblSub.AutoSize = true;
+            this.lblSub.Location = new System.Drawing.Point(95, 308);
+            this.lblSub.Name = "lblSub";
+            this.lblSub.Size = new System.Drawing.Size(43, 13);
+            this.lblSub.TabIndex = 17;
+            this.lblSub.Text = "Subject";
+            // 
             // Book
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 343);
+            this.ClientSize = new System.Drawing.Size(768, 485);
+            this.Controls.Add(this.lblSub);
+            this.Controls.Add(this.lblPub);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.lblAuthor);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnExit);
@@ -200,7 +222,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAll);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Name = "Book";
             this.Text = "Book";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -211,7 +232,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAll;
         private System.Windows.Forms.Label label2;
@@ -226,5 +246,8 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAuthor;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label lblPub;
+        private System.Windows.Forms.Label lblSub;
     }
 }

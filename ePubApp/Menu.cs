@@ -50,6 +50,11 @@ namespace ePubApp
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Epub epub = listBox1.SelectedValue;
+        }
+
     }
 }
 

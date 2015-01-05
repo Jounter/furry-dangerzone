@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignInForm));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAcc = new System.Windows.Forms.Button();
             this.lblPass = new System.Windows.Forms.Label();
@@ -38,103 +39,97 @@
             this.txtRetypePass = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(73, 194);
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 11;
-            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAcc
             // 
-            this.btnAcc.Location = new System.Drawing.Point(163, 194);
+            resources.ApplyResources(this.btnAcc, "btnAcc");
             this.btnAcc.Name = "btnAcc";
-            this.btnAcc.Size = new System.Drawing.Size(101, 23);
-            this.btnAcc.TabIndex = 10;
-            this.btnAcc.Text = "Create account";
             this.btnAcc.UseVisualStyleBackColor = true;
             this.btnAcc.Click += new System.EventHandler(this.btnAcc_Click);
             // 
             // lblPass
             // 
-            this.lblPass.AutoSize = true;
-            this.lblPass.Location = new System.Drawing.Point(95, 122);
+            resources.ApplyResources(this.lblPass, "lblPass");
             this.lblPass.Name = "lblPass";
-            this.lblPass.Size = new System.Drawing.Size(56, 13);
-            this.lblPass.TabIndex = 9;
-            this.lblPass.Text = "Password:";
             // 
             // lblUser
             // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(70, 80);
+            resources.ApplyResources(this.lblUser, "lblUser");
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(81, 13);
-            this.lblUser.TabIndex = 8;
-            this.lblUser.Text = "New username:";
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(163, 80);
+            resources.ApplyResources(this.txtUser, "txtUser");
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(100, 20);
-            this.txtUser.TabIndex = 7;
-            this.txtUser.Text = "hey";
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(163, 119);
+            resources.ApplyResources(this.txtPass, "txtPass");
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(100, 20);
-            this.txtPass.TabIndex = 6;
-            this.txtPass.Text = "123";
             this.txtPass.UseSystemPasswordChar = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 158);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Retype password:";
             // 
             // txtRetypePass
             // 
-            this.txtRetypePass.Location = new System.Drawing.Point(164, 155);
+            resources.ApplyResources(this.txtRetypePass, "txtRetypePass");
             this.txtRetypePass.Name = "txtRetypePass";
-            this.txtRetypePass.Size = new System.Drawing.Size(100, 20);
-            this.txtRetypePass.TabIndex = 12;
-            this.txtRetypePass.Text = "123";
             this.txtRetypePass.UseSystemPasswordChar = true;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 45);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Name:";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(163, 45);
+            resources.ApplyResources(this.txtName, "txtName");
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 20);
-            this.txtName.TabIndex = 14;
-            this.txtName.Text = "hey";
             this.txtName.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // textBox2
+            // 
+            resources.ApplyResources(this.textBox2, "textBox2");
+            this.textBox2.Name = "textBox2";
             // 
             // SignInForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 285);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtName);
@@ -146,7 +141,6 @@
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.txtPass);
             this.Name = "SignInForm";
-            this.Text = "Sign In";
             this.Load += new System.EventHandler(this.SignInForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -165,5 +159,9 @@
         private System.Windows.Forms.TextBox txtRetypePass;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projecto_IS", "Projecto_IS\Projecto_IS.csproj", "{5EDDD0FB-8866-4F29-BC69-B6F66D2A6B50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePubApp", "ePubApp\ePubApp.csproj", "{6610D996-AFF0-4236-AB83-0F137A52538D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1965922-2335-4270-8395-55901ED7AD66} = {F1965922-2335-4270-8395-55901ED7AD66}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceePubCloud", "ServiceePubCloud\ServiceePubCloud.csproj", "{F1965922-2335-4270-8395-55901ED7AD66}"
 EndProject

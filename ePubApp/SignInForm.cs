@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ePubApp.ServiceReference1;
 
 namespace ePubApp
 {
@@ -24,12 +25,19 @@ namespace ePubApp
 
         private void btnAcc_Click(object sender, EventArgs e)
         {
-
+            LoginForm form = new LoginForm();
+            form.Show();
         }
 
         private void SignInForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            LoginForm form = new LoginForm();
+            form.Show();
         }
     }
 }

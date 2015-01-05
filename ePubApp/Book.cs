@@ -18,11 +18,8 @@ namespace ePubApp
         public Book()
         {
             InitializeComponent();
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            epub = new Epub(@"D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks");
+            epub = new Epub(@"D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks\\ebookExample2.ePub");
 
             string title = epub.Title[0];
             string author = epub.Creator[0];
@@ -30,9 +27,37 @@ namespace ePubApp
             lblAuthor.Text = author;
             lblTitle.Text = title;
 
-            List<NavPoint> navPoints = epub.TOC;
+            loadContents(epub);
 
-            listBox1.DataSource = navPoints;
+        }
+
+        private void loadContents(Epub epub)
+        {
+            NavPoint navPoints = epub.TOC;
+
+            if (navPoints.Count != 0) //se não existirem navPoints
+            {
+                tocAvailable = true;
+                foreach (NavPoint item in navPoints)
+                {
+                    listBox.Items.Add(item.Title);
+                }
+            }
+            else
+            {
+                tocAvailable = false;
+                int chIdx = 0;
+                foreach (DictionaryEntry item in _epub.Content)
+                {
+                    chIdx++;
+                    listBox.Items.Add("Chapter " + chIdx);
+                }
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
 
         }
 

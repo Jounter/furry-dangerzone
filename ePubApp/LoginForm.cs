@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ePubApp.ServiceReference1;
 namespace ePubApp
 {
 
     public partial class LoginForm : Form
     {
-        private string username = "hey";
-        private string pass = "123";
+
         public LoginForm()
         {
             InitializeComponent();
@@ -21,18 +21,8 @@ namespace ePubApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (txtUser.Text == username && txtPass.Text == pass)
-            {
-                Menu li = new Menu();
+                Book li = new Book();
                 li.Show();
-
-            }
-            else
-            {
-                MessageBox.Show("Credenciais Invalidas");
-            }
-
-
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
