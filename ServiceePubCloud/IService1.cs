@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml;
 
 namespace ServiceePubCloud
 {
@@ -23,8 +24,15 @@ namespace ServiceePubCloud
         int UserExists(string username, string password);
 
         [OperationContract]
-        UserWeb GetUser(string username);
+        UserWeb GetUser(string username, string password);
 
+        [OperationContract]
+        string CreateEbook(XmlDocument doc);
+
+        [OperationContract]
+        string CreateChapter(XmlDocument doc);
+
+       
 
     }
 

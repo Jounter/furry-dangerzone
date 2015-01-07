@@ -15,6 +15,7 @@ namespace ServiceePubCloud
     public partial class Bookmark
     {
         public int BookmarkID { get; set; }
+        public System.DateTime Date { get; set; }
         public int ChapterID { get; set; }
     
         public virtual Chapter Chapter { get; set; }

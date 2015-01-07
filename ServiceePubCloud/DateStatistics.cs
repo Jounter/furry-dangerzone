@@ -14,14 +14,10 @@ namespace ServiceePubCloud
     
     public partial class DateStatistics
     {
-        public DateStatistics()
-        {
-            this.User = new HashSet<User>();
-        }
-    
         public int DateStatID { get; set; }
         public System.DateTime Date { get; set; }
+        public int UserID { get; set; }
     
-        public virtual ICollection<User> User { get; set; }
+        public virtual User User { get; set; }
     }
 }

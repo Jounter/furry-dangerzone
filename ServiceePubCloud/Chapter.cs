@@ -16,8 +16,9 @@ namespace ServiceePubCloud
     {
         public Chapter()
         {
-            this.User = new HashSet<User>();
             this.Bookmark = new HashSet<Bookmark>();
+            this.EBookStatistics = new HashSet<EBookStatistics>();
+            this.User = new HashSet<User>();
             this.Favorite = new HashSet<Favorite>();
         }
     
@@ -27,9 +28,9 @@ namespace ServiceePubCloud
         public int EBookID { get; set; }
     
         public virtual EBook EBook { get; set; }
-        public virtual ICollection<User> User { get; set; }
         public virtual ICollection<Bookmark> Bookmark { get; set; }
+        public virtual ICollection<EBookStatistics> EBookStatistics { get; set; }
+        public virtual ICollection<User> User { get; set; }
         public virtual ICollection<Favorite> Favorite { get; set; }
-        public virtual EBookStatistics EBookStatistics { get; set; }
     }
 }

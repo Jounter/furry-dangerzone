@@ -15,6 +15,7 @@ namespace ServiceePubCloud
     public partial class Favorite
     {
         public int FavoriteID { get; set; }
+        public System.DateTime Date { get; set; }
         public int EBookID { get; set; }
         public Nullable<int> ChapterID { get; set; }
     

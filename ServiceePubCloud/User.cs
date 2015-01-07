@@ -16,8 +16,8 @@ namespace ServiceePubCloud
     {
         public User()
         {
-            this.DateStatistics = new HashSet<DateStatistics>();
             this.EBookStatistics = new HashSet<EBookStatistics>();
+            this.DateStatistics = new HashSet<DateStatistics>();
         }
     
         public int UserID { get; set; }
@@ -29,11 +29,10 @@ namespace ServiceePubCloud
         public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<int> LastEBookRead { get; set; }
         public Nullable<int> LastChapterRead { get; set; }
-        public Nullable<int> EBookStatisticsEBookStatID { get; set; }
     
+        public virtual ICollection<EBookStatistics> EBookStatistics { get; set; }
+        public virtual ICollection<DateStatistics> DateStatistics { get; set; }
         public virtual EBook EBook { get; set; }
         public virtual Chapter Chapter { get; set; }
-        public virtual ICollection<DateStatistics> DateStatistics { get; set; }
-        public virtual ICollection<EBookStatistics> EBookStatistics { get; set; }
     }
 }
