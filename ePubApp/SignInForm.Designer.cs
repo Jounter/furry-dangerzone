@@ -42,7 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -117,19 +117,19 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // textBox2
+            // dateTimePicker1
             // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
+            this.dateTimePicker1.Name = "dateTimePicker1";
             // 
             // SignInForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtName);
@@ -162,6 +162,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

@@ -13,9 +13,13 @@ namespace ePubApp
 {
     public partial class SignInForm : Form
     {
+        Service1Client serv;
+
         public SignInForm()
         {
             InitializeComponent();
+
+            serv = new Service1Client();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -25,8 +29,39 @@ namespace ePubApp
 
         private void btnAcc_Click(object sender, EventArgs e)
         {
-            LoginForm form = new LoginForm();
-            form.Show();
+            if (txtUser.Text == "" || txtPass.Text == "" || txtRetypePass.Text == "" || txtName.Text == "" || textBox1.Text == "")
+            {
+                MessageBox.Show("The fields cannot be empty");
+            }
+            else if (!txtPass.Text.Equals(txtRetypePass.Text))
+            {
+                MessageBox.Show("The passwords do not match");
+            }
+            else
+            {
+                try
+                {
+                    //UI
+                    this.Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+                    string msg = serv.CreateUser(txtUser.Text, txtPass.Text, txtName.Text, textBox1.Text, dateTimePicker1.Value);
+                    MessageBox.Show(msg);
+                }
+                finally
+                {
+                    //UI
+                    this.Cursor = Cursors.Default;
+                }
+
+                this.Hide();
+
+                Form login = new LoginForm();
+                login.Show();
+
+                this.Close();
+            }
+
         }
 
         private void SignInForm_Load(object sender, EventArgs e)
@@ -36,8 +71,12 @@ namespace ePubApp
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoginForm form = new LoginForm();
-            form.Show();
+            this.Hide();
+
+            Form login = new LoginForm();
+            login.Show();
+
+            this.Close();
         }
     }
 }

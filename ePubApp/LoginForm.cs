@@ -63,7 +63,12 @@ else
 
         private void btnSignIn_Click(object sender, EventArgs e)
         {
+            this.Hide();
 
+            Form signup = new SignInForm();
+            signup.ShowDialog();
+
+            this.Close();
         }
 
         private void showErr()
