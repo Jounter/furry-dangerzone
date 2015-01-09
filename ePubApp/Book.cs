@@ -33,7 +33,9 @@ namespace ePubApp
 
         private void loadContents(Epub epub)
         {
-            NavPoint navPoints = epub.TOC;
+            /*
+            var navPoints = new List<NavPoint>();
+            navPoints = epub.TOC;
 
             if (navPoints.Count != 0) //se não existirem navPoints
             {
@@ -52,7 +54,7 @@ namespace ePubApp
                     chIdx++;
                     listBox.Items.Add("Chapter " + chIdx);
                 }
-            }
+            }*/
         }
 
         private void Form1_Load(object sender, EventArgs e)

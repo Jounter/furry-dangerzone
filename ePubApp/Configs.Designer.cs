@@ -45,6 +45,7 @@
             this.btnPath.TabIndex = 0;
             this.btnPath.Text = "...";
             this.btnPath.UseVisualStyleBackColor = true;
+            this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
             // 
             // Path
             // 
@@ -86,6 +87,7 @@
             this.btnWSPath.TabIndex = 5;
             this.btnWSPath.Text = "...";
             this.btnWSPath.UseVisualStyleBackColor = true;
+            this.btnWSPath.Click += new System.EventHandler(this.btnWSPath_Click);
             // 
             // btnExit
             // 
