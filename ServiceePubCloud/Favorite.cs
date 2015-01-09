@@ -18,8 +18,10 @@ namespace ServiceePubCloud
         public System.DateTime Date { get; set; }
         public int EBookID { get; set; }
         public Nullable<int> ChapterID { get; set; }
+        public int UserID { get; set; }
     
         public virtual EBook EBook { get; set; }
         public virtual Chapter Chapter { get; set; }
+        public virtual User User { get; set; }
     }
 }

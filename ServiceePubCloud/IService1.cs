@@ -27,10 +27,10 @@ namespace ServiceePubCloud
         UserWeb GetUser(string username, string password);
 
         [OperationContract]
-        string CreateEbook(XmlDocument doc);
+        string CreateEbook(string xmlDoc);
 
         [OperationContract]
-        string CreateChapter(XmlDocument doc);
+        string CreateChapter(string xmlDoc);
 
        
 

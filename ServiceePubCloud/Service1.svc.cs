@@ -121,10 +121,11 @@ namespace ServiceePubCloud
         //    }
         //}
 
-        public string CreateEbook(XmlDocument doc)
+        public string CreateEbook(string xmlDoc)
         {
+            XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
-            doc.LoadXml(doc.ToString());
+            doc.LoadXml(xmlDoc);
             XmlNodeList lista = doc.SelectNodes("/ePubType/book");
             foreach (XmlNode item in lista)
             {
@@ -162,10 +163,11 @@ namespace ServiceePubCloud
         }
 
         //TODO METER PUBLISHER no ebooktype do xsd
-        public string CreateChapter(XmlDocument doc)
+        public string CreateChapter(string xmlDoc)
         {
+            XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
-            doc.LoadXml(doc.ToString());
+            doc.LoadXml(xmlDoc);
             XmlNodeList lista = doc.SelectNodes("/ePubType/book");
             foreach (XmlNode item in lista)
             {
@@ -190,7 +192,7 @@ namespace ServiceePubCloud
                     {
                         novoCapitulo.EBookID = ebook.EbookID;
                         novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
-                        novoCapitulo.ChapterNumber = itemC["number"].InnerText;
+                        novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
                         context.ChapterSet.Add(novoCapitulo);
                         context.SaveChanges();
                         return "Capitulo Criado !";
@@ -220,11 +222,11 @@ namespace ServiceePubCloud
                             foreach (XmlNode itemC in capitulos)
                             {
                                 //guardar capitulo
-                                if (!(chapter.ChapterName == itemC["chaptertitle"].InnerText) && !(chapter.ChapterNumber == itemC["number"].InnerText))
+                                if (!(chapter.ChapterName == itemC["chaptertitle"].InnerText) && !(chapter.ChapterNumber == Convert.ToInt32(itemC["number"].InnerText)))
                                 {
                                     novoCapitulo.EBookID = ebook.EbookID;
                                     novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
-                                    novoCapitulo.ChapterNumber = itemC["number"].InnerText;
+                                    novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
                                     context.ChapterSet.Add(novoCapitulo);
                                     context.SaveChanges();
                                     return "Capitulo Criado!";
@@ -238,30 +240,43 @@ namespace ServiceePubCloud
             return "Capitulo Criado!";
         }
 
-        public string createBookmark(XmlDocument doc)
+        public string createBookmark(string xmlDoc)
         {
+            XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
-            CreateChapter(doc);
-            doc.LoadXml(doc.ToString());
-            XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
-            foreach (XmlNode itemC in capitulos)
+            CreateChapter(xmlDoc);
+            doc.LoadXml(xmlDoc);
+            //verificar existe user
+            XmlNodeList user = doc.SelectNodes("/ePubType/user");
+            foreach (XmlNode itemU in user)
             {
-                Chapter chapter = context.ChapterSet.Where(i => i.ChapterNumber == itemC["number"].InnerText).First();
-                if (context.BookmarkSet.Count() == 0)
+                if (context.UserSet.Count() != 0)
                 {
-                    Bookmark novoBookmark = new Bookmark();
-                    novoBookmark.ChapterID = chapter.ChapterID;
-                    novoBookmark.Date = DateTime.Today;
-                    context.BookmarkSet.Add(novoBookmark);
-                    context.SaveChanges();
+                    User userExist = context.UserSet.Where(i => i.Username == itemU["username"].InnerText).First();
+                    XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
+                    foreach (XmlNode itemC in capitulos)
+                    {
+                        Chapter chapter = context.ChapterSet.Where(i => i.ChapterNumber == Convert.ToInt32(itemC["number"].InnerText)).First();
+                        if (context.BookmarkSet.Count() == 0)
+                        {
+                            Bookmark novoBookmark = new Bookmark();
+                            novoBookmark.UserID = userExist.UserID;
+                            novoBookmark.ChapterID = chapter.ChapterID;
+                            novoBookmark.Date = DateTime.Today;
+                            context.BookmarkSet.Add(novoBookmark);
+                            context.SaveChanges();
 
+                        }
+                        else
+                        {
+                           //if(context.BookmarkSet.){}
+
+                        }
+                        return "";
+                    }
+                    return "";
                 }
-                else
-                {
-                }
-                return "";
             }
-            return "";
         }
     }
 }

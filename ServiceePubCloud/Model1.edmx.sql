@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 01/09/2015 13:58:46
--- Generated from EDMX file: E:\Users\Ricardo\Documents\IS\Projecto\trunk\ServiceePubCloud\Model1.edmx
+-- Date Created: 01/09/2015 14:41:12
+-- Generated from EDMX file: E:\IPL\3 Ano\IS\ISProject\trunk\ServiceePubCloud\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -43,6 +43,12 @@ IF OBJECT_ID(N'[dbo].[FK_UserChapter]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_FavoriteChapter]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_FavoriteChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserBookmark]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BookmarkSet] DROP CONSTRAINT [FK_UserBookmark];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserFavorite]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_UserFavorite];
 GO
 
 -- --------------------------------------------------

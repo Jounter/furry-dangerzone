@@ -17,7 +17,9 @@ namespace ServiceePubCloud
         public int BookmarkID { get; set; }
         public System.DateTime Date { get; set; }
         public int ChapterID { get; set; }
+        public int UserID { get; set; }
     
         public virtual Chapter Chapter { get; set; }
+        public virtual User User { get; set; }
     }
 }

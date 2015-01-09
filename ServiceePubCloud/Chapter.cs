@@ -24,7 +24,7 @@ namespace ServiceePubCloud
     
         public int ChapterID { get; set; }
         public string ChapterName { get; set; }
-        public string ChapterNumber { get; set; }
+        public int ChapterNumber { get; set; }
         public int EBookID { get; set; }
     
         public virtual EBook EBook { get; set; }
