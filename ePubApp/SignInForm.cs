@@ -29,6 +29,8 @@ namespace ePubApp
 
         private void btnAcc_Click(object sender, EventArgs e)
         {
+            Boolean err = false;
+
             if (txtUser.Text == "" || txtPass.Text == "" || txtRetypePass.Text == "" || txtName.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("The fields cannot be empty");
@@ -46,7 +48,13 @@ namespace ePubApp
                     Application.DoEvents();
 
                     string msg = serv.CreateUser(txtUser.Text, txtPass.Text, txtName.Text, textBox1.Text, dateTimePicker1.Value);
+                    
                     MessageBox.Show(msg);
+
+                    if (msg.Equals("User already exists."))
+                    {
+                        err = true;
+                    }
                 }
                 finally
                 {
@@ -54,12 +62,15 @@ namespace ePubApp
                     this.Cursor = Cursors.Default;
                 }
 
-                this.Hide();
+                if (!err)
+                {
+                    this.Hide();
 
-                Form login = new LoginForm();
-                login.Show();
+                    Form login = new LoginForm();
+                    login.ShowDialog();
 
-                this.Close();
+                    this.Close();   
+                }
             }
 
         }
@@ -74,7 +85,7 @@ namespace ePubApp
             this.Hide();
 
             Form login = new LoginForm();
-            login.Show();
+            login.ShowDialog();
 
             this.Close();
         }

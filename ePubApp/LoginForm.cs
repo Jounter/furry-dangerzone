@@ -24,36 +24,34 @@ namespace ePubApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Book li = new Book();
-            //li.Show();
 
-            /*if (txtUser == null || txtPass == null)
-{
-    showErr();
-}
-else
-{
-    if (serv.UserExists(txtUser.Text, txtPass.Text) == 0)
-    {
-        showErr();
-    }
-    else
-    {
-        this.Hide();
+            if (txtUser == null || txtPass == null)
+            {
+                showErr();
+            }
+            else
+            {
+                if (serv.UserExists(txtUser.Text, txtPass.Text) == 0)
+                {
+                    showErr();
+                }
+                else
+                {
+                    this.Hide();
 
-        Form menu = new Menu();
-        menu.ShowDialog();
+                    Form menu = new Menu();
+                    menu.ShowDialog();
 
-        this.Close();
-    }
-}*/
-
+                    this.Close();
+                }
+            }
+            /*
             this.Hide();
 
             Form menu = new Menu();
             menu.ShowDialog();
 
-            this.Close();
+            this.Close();*/
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
