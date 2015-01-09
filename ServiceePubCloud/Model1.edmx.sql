@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/31/2014 17:50:43
+-- Date Created: 01/09/2015 13:58:46
 -- Generated from EDMX file: E:\Users\Ricardo\Documents\IS\Projecto\trunk\ServiceePubCloud\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,33 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ChapterEBook]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ChapterSet] DROP CONSTRAINT [FK_ChapterEBook];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BookmarkChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BookmarkSet] DROP CONSTRAINT [FK_BookmarkChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FavoriteEBook]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_FavoriteEBook];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EBookStatisticsSet] DROP CONSTRAINT [FK_EBookStatisticsChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EBookStatisticsUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EBookStatisticsSet] DROP CONSTRAINT [FK_EBookStatisticsUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DateStatisticsUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DateStatisticsSet] DROP CONSTRAINT [FK_DateStatisticsUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserEBook]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_UserEBook];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_UserChapter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FavoriteChapter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FavoriteSet] DROP CONSTRAINT [FK_FavoriteChapter];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -76,7 +103,7 @@ GO
 CREATE TABLE [dbo].[ChapterSet] (
     [ChapterID] int IDENTITY(1,1) NOT NULL,
     [ChapterName] nvarchar(max)  NOT NULL,
-    [ChapterNumber] nvarchar(max)  NOT NULL,
+    [ChapterNumber] int  NOT NULL,
     [EBookID] int  NOT NULL
 );
 GO
@@ -85,7 +112,8 @@ GO
 CREATE TABLE [dbo].[BookmarkSet] (
     [BookmarkID] int IDENTITY(1,1) NOT NULL,
     [Date] datetime  NOT NULL,
-    [ChapterID] int  NOT NULL
+    [ChapterID] int  NOT NULL,
+    [UserID] int  NOT NULL
 );
 GO
 
@@ -94,7 +122,8 @@ CREATE TABLE [dbo].[FavoriteSet] (
     [FavoriteID] int IDENTITY(1,1) NOT NULL,
     [Date] datetime  NOT NULL,
     [EBookID] int  NOT NULL,
-    [ChapterID] int  NULL
+    [ChapterID] int  NULL,
+    [UserID] int  NOT NULL
 );
 GO
 
@@ -289,6 +318,34 @@ ADD CONSTRAINT [FK_FavoriteChapter]
 CREATE INDEX [IX_FK_FavoriteChapter]
 ON [dbo].[FavoriteSet]
     ([ChapterID]);
+GO
+
+-- Creating foreign key on [UserID] in table 'BookmarkSet'
+ALTER TABLE [dbo].[BookmarkSet]
+ADD CONSTRAINT [FK_UserBookmark]
+    FOREIGN KEY ([UserID])
+    REFERENCES [dbo].[UserSet]
+        ([UserID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserBookmark'
+CREATE INDEX [IX_FK_UserBookmark]
+ON [dbo].[BookmarkSet]
+    ([UserID]);
+GO
+
+-- Creating foreign key on [UserID] in table 'FavoriteSet'
+ALTER TABLE [dbo].[FavoriteSet]
+ADD CONSTRAINT [FK_UserFavorite]
+    FOREIGN KEY ([UserID])
+    REFERENCES [dbo].[UserSet]
+        ([UserID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserFavorite'
+CREATE INDEX [IX_FK_UserFavorite]
+ON [dbo].[FavoriteSet]
+    ([UserID]);
 GO
 
 -- --------------------------------------------------

@@ -49,6 +49,14 @@
       <End Role="Favorite" EntitySet="FavoriteSet" />
       <End Role="Chapter" EntitySet="ChapterSet" />
     </AssociationSet>
+    <AssociationSet Name="UserBookmark" Association="Model1.Store.UserBookmark">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Bookmark" EntitySet="BookmarkSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserFavorite" Association="Model1.Store.UserFavorite">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Favorite" EntitySet="FavoriteSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
     <Key>
@@ -80,7 +88,7 @@
     </Key>
     <Property Name="ChapterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ChapterNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChapterNumber" Type="int" Nullable="false" />
     <Property Name="EBookID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="BookmarkSet">
@@ -90,6 +98,7 @@
     <Property Name="BookmarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="ChapterID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="FavoriteSet">
     <Key>
@@ -99,6 +108,7 @@
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="EBookID" Type="int" Nullable="false" />
     <Property Name="ChapterID" Type="int" Nullable="true" />
+    <Property Name="UserID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EBookStatisticsSet">
     <Key>
@@ -225,6 +235,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="UserBookmark">
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="1" />
+    <End Role="Bookmark" Type="Model1.Store.BookmarkSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Bookmark">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserFavorite">
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="1" />
+    <End Role="Favorite" Type="Model1.Store.FavoriteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Favorite">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -273,6 +307,14 @@
             <End Role="Favorite" EntitySet="FavoriteSet" />
             <End Role="Chapter" EntitySet="ChapterSet" />
           </AssociationSet>
+          <AssociationSet Name="UserBookmark" Association="Model1.UserBookmark">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Bookmark" EntitySet="BookmarkSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserFavorite" Association="Model1.UserFavorite">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Favorite" EntitySet="FavoriteSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -291,6 +333,8 @@
           <Property Type="Int32" Name="LastEBookRead" Nullable="true" />
           <NavigationProperty Name="Chapter" Relationship="Model1.UserChapter" FromRole="User" ToRole="Chapter" />
           <Property Type="Int32" Name="LastChapterRead" Nullable="true" />
+          <NavigationProperty Name="Bookmark" Relationship="Model1.UserBookmark" FromRole="User" ToRole="Bookmark" />
+          <NavigationProperty Name="Favorite" Relationship="Model1.UserFavorite" FromRole="User" ToRole="Favorite" />
         </EntityType>
         <EntityType Name="EBook">
           <Key>
@@ -311,7 +355,7 @@
           </Key>
           <Property Type="Int32" Name="ChapterID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="ChapterName" Nullable="false" />
-          <Property Type="String" Name="ChapterNumber" Nullable="false" />
+          <Property Type="Int32" Name="ChapterNumber" Nullable="false" />
           <NavigationProperty Name="EBook" Relationship="Model1.ChapterEBook" FromRole="Chapter" ToRole="EBook" />
           <Property Type="Int32" Name="EBookID" Nullable="false" />
           <NavigationProperty Name="Bookmark" Relationship="Model1.BookmarkChapter" FromRole="Chapter" ToRole="Bookmark" />
@@ -327,6 +371,8 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <NavigationProperty Name="Chapter" Relationship="Model1.BookmarkChapter" FromRole="Bookmark" ToRole="Chapter" />
           <Property Type="Int32" Name="ChapterID" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model1.UserBookmark" FromRole="Bookmark" ToRole="User" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
         </EntityType>
         <EntityType Name="Favorite">
           <Key>
@@ -338,6 +384,8 @@
           <Property Type="Int32" Name="EBookID" Nullable="false" />
           <NavigationProperty Name="Chapter" Relationship="Model1.FavoriteChapter" FromRole="Favorite" ToRole="Chapter" />
           <Property Type="Int32" Name="ChapterID" Nullable="true" />
+          <NavigationProperty Name="User" Relationship="Model1.UserFavorite" FromRole="Favorite" ToRole="User" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
         </EntityType>
         <EntityType Name="EBookStatistics">
           <Key>
@@ -467,6 +515,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="UserBookmark">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Bookmark" Role="Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserFavorite">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Favorite" Role="Favorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Favorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -515,6 +587,7 @@
           <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -525,6 +598,7 @@
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="EBookID" ColumnName="EBookID" />
           <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

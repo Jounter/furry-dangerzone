@@ -1,4 +1,4 @@
-﻿// Default code generation is disabled for model 'E:\IPL\3 Ano\IS\ISProject\trunk\ServiceePubCloud\Model1.edmx'. 
+﻿// Default code generation is disabled for model 'E:\Users\Ricardo\Documents\IS\Projecto\trunk\ServiceePubCloud\Model1.edmx'. 
 // To enable default code generation, change the value of the 'Code Generation Strategy' designer
 // property to an alternate value. This property is available in the Properties Window when the model is
 // open in the designer.

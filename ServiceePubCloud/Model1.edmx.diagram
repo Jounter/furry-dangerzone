@@ -21,6 +21,8 @@
         <AssociationConnector Association="Model1.UserEBook" />
         <AssociationConnector Association="Model1.UserChapter" />
         <AssociationConnector Association="Model1.FavoriteChapter" />
+        <AssociationConnector Association="Model1.UserBookmark" />
+        <AssociationConnector Association="Model1.UserFavorite" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
