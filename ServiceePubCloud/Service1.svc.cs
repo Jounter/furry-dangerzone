@@ -237,5 +237,31 @@ namespace ServiceePubCloud
             }
             return "Capitulo Criado!";
         }
+
+        public string createBookmark(XmlDocument doc)
+        {
+            Model1Container context = new Model1Container();
+            CreateChapter(doc);
+            doc.LoadXml(doc.ToString());
+            XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
+            foreach (XmlNode itemC in capitulos)
+            {
+                Chapter chapter = context.ChapterSet.Where(i => i.ChapterNumber == itemC["number"].InnerText).First();
+                if (context.BookmarkSet.Count() == 0)
+                {
+                    Bookmark novoBookmark = new Bookmark();
+                    novoBookmark.ChapterID = chapter.ChapterID;
+                    novoBookmark.Date = DateTime.Today;
+                    context.BookmarkSet.Add(novoBookmark);
+                    context.SaveChanges();
+
+                }
+                else
+                {
+                }
+                return "";
+            }
+            return "";
+        }
     }
 }
