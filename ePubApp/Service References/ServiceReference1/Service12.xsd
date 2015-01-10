@@ -38,6 +38,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -45,6 +46,34 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="GetUserResult" nillable="true" type="q1:UserWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateEbook">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="xmlDoc" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateEbookResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateEbookResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateChapter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="xmlDoc" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateChapterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateChapterResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

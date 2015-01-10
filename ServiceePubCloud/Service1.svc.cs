@@ -67,7 +67,7 @@ namespace ServiceePubCloud
                     userWeb.LastChapterRead = userExists.LastChapterRead;
                     userExists.LastLogin = DateTime.Now;
                     userWeb.LastLogin = userExists.LastLogin;
-
+                    context.SaveChanges();
                     return userWeb;
                 }
             }
@@ -79,6 +79,7 @@ namespace ServiceePubCloud
             Model1Container context = new Model1Container();         
             DateStatistics dateS = new DateStatistics();
             dateS.UserID = IdUser;
+            dateS.Date = lastLogin;
             context.DateStatisticsSet.Add(dateS);
             context.SaveChanges();        
         }
@@ -89,6 +90,7 @@ namespace ServiceePubCloud
             UserWeb user = GetUser(username, password);
             if (user != null)
             {
+                LastLogin(user.Id, (DateTime)user.LastLogin);
                 return true;
             }
             return false;

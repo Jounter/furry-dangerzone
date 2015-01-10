@@ -203,10 +203,22 @@ namespace ePubApp.ServiceReference1 {
         System.Threading.Tasks.Task<int> UserExistsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUser", ReplyAction="http://tempuri.org/IService1/GetUserResponse")]
-        ePubApp.ServiceReference1.UserWeb GetUser(string username);
+        ePubApp.ServiceReference1.UserWeb GetUser(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUser", ReplyAction="http://tempuri.org/IService1/GetUserResponse")]
-        System.Threading.Tasks.Task<ePubApp.ServiceReference1.UserWeb> GetUserAsync(string username);
+        System.Threading.Tasks.Task<ePubApp.ServiceReference1.UserWeb> GetUserAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateEbook", ReplyAction="http://tempuri.org/IService1/CreateEbookResponse")]
+        string CreateEbook(string xmlDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateEbook", ReplyAction="http://tempuri.org/IService1/CreateEbookResponse")]
+        System.Threading.Tasks.Task<string> CreateEbookAsync(string xmlDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateChapter", ReplyAction="http://tempuri.org/IService1/CreateChapterResponse")]
+        string CreateChapter(string xmlDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateChapter", ReplyAction="http://tempuri.org/IService1/CreateChapterResponse")]
+        System.Threading.Tasks.Task<string> CreateChapterAsync(string xmlDoc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -252,12 +264,28 @@ namespace ePubApp.ServiceReference1 {
             return base.Channel.UserExistsAsync(username, password);
         }
         
-        public ePubApp.ServiceReference1.UserWeb GetUser(string username) {
-            return base.Channel.GetUser(username);
+        public ePubApp.ServiceReference1.UserWeb GetUser(string username, string password) {
+            return base.Channel.GetUser(username, password);
         }
         
-        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.UserWeb> GetUserAsync(string username) {
-            return base.Channel.GetUserAsync(username);
+        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.UserWeb> GetUserAsync(string username, string password) {
+            return base.Channel.GetUserAsync(username, password);
+        }
+        
+        public string CreateEbook(string xmlDoc) {
+            return base.Channel.CreateEbook(xmlDoc);
+        }
+        
+        public System.Threading.Tasks.Task<string> CreateEbookAsync(string xmlDoc) {
+            return base.Channel.CreateEbookAsync(xmlDoc);
+        }
+        
+        public string CreateChapter(string xmlDoc) {
+            return base.Channel.CreateChapter(xmlDoc);
+        }
+        
+        public System.Threading.Tasks.Task<string> CreateChapterAsync(string xmlDoc) {
+            return base.Channel.CreateChapterAsync(xmlDoc);
         }
     }
 }

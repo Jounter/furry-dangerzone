@@ -25,6 +25,18 @@
   <wsdl:message name="IService1_GetUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_CreateEbook_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEbook" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateEbook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEbookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateChapter" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateChapterResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CreateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateUser" message="tns:IService1_CreateUser_InputMessage" />
@@ -37,6 +49,14 @@
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUser" message="tns:IService1_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserResponse" message="tns:IService1_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEbook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateEbook" message="tns:IService1_CreateEbook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateEbookResponse" message="tns:IService1_CreateEbook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateChapter" message="tns:IService1_CreateChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateChapterResponse" message="tns:IService1_CreateChapter_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -61,6 +81,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetUser">
       <soap:operation soapAction="http://tempuri.org/IService1/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEbook">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateEbook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateChapter">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateChapter" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
