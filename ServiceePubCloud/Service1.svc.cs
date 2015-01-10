@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Xml;
+using System.IO;
 
 
 namespace ServiceePubCloud
@@ -16,85 +17,66 @@ namespace ServiceePubCloud
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+        string folderPath = Directory.GetCurrentDirectory();
 
         public string CreateUser(string username, string password, string name, string email, DateTime birthdate)
         {
             Model1Container context = new Model1Container();
             //TODO verificar se a bd está vazia
-            if ((context.UserSet.Count() == 0))
-            {
-                User novo = new User();
-                novo.Username = username;
-                novo.Password = password;
-                novo.Name = name;
-                novo.Email = email;
-                novo.Birthdate = birthdate;
 
-                context.UserSet.Add(novo);
-                context.SaveChanges();
-            }
-            else
+            var user1 = context.UserSet.Where(i => i.Username == username);
+            if (user1.Count() != 0)
             {
-                User user = context.UserSet.Where(i => i.Username == username).First();
-                if (user.Username != username)
-                {
-                    User novo = new User();
-                    novo.Username = username;
-                    novo.Password = password;
-                    novo.Name = name;
-                    novo.Email = email;
-                    novo.Birthdate = birthdate;
-
-                    context.UserSet.Add(novo);
-                    context.SaveChanges();
-                }
-                return "Username existente";
+                return "Username already exists.";
             }
-            return "User Criado";
+
+            User novo = new User();
+            novo.Username = username;
+            novo.Password = password;
+            novo.Name = name;
+            novo.Email = email;
+            novo.Birthdate = birthdate;
+
+            context.UserSet.Add(novo);
+            context.SaveChanges();
+            return "User Created!";
         }
 
         public UserWeb GetUser(string username, string password)
         {
             Model1Container context = new Model1Container();
-
-            try
+            var user = context.UserSet.Where(i => i.Username == username && i.Password == password);
+            if (user.Count() != 0)
             {
-                User user = context.UserSet.Where(i => i.Username == username && i.Password == password).First();
+                User userExists=null;
+                foreach(var us in user){
+                    userExists = user.First();
+                }
+
                 UserWeb userWeb = new UserWeb();
                 if (user != null)
                 {
-                    userWeb.Id = user.UserID;
-                    userWeb.Username = user.Username;
-                    userWeb.Name = user.Name;
-                    userWeb.Password = user.Password;
-                    userWeb.Email = user.Email;
-                    userWeb.Birthdate = user.Birthdate;
-                    userWeb.LastEBookRead = user.LastEBookRead;
-                    userWeb.LastChapterRead = user.LastChapterRead;
-                    user.LastLogin = DateTime.Now;
-                    userWeb.LastLogin = user.LastLogin;
-
-                    //user.Username = reader.GetString(reader.GetOrdinal("Username"));
-                    //user.Password = reader.GetString(reader.GetOrdinal("Password"));
-                    //user.Name = reader.GetString(reader.GetOrdinal("Name"));
-                    //user.Email = reader.GetString(reader.GetOrdinal("Email"));
-                    //user.Birthdate = reader.GetDateTime(reader.GetOrdinal("Birthdate"));
-                    //user.LastEBookRead = reader.GetSqlInt32(reader.GetOrdinal("LastEBookRead")).Value;
-                    //user.LastChapterRead = reader.GetSqlInt32(reader.GetOrdinal("LastChapterRead")).Value;
-                    //user.LastLogin = reader.GetDateTime(reader.GetOrdinal("LastLogin"));
+                    userWeb.Id = userExists.UserID;
+                    userWeb.Username = userExists.Username;
+                    userWeb.Name = userExists.Name;
+                    userWeb.Password = userExists.Password;
+                    userWeb.Email = userExists.Email;
+                    userWeb.Birthdate = userExists.Birthdate;
+                    userWeb.LastEBookRead = userExists.LastEBookRead;
+                    userWeb.LastChapterRead = userExists.LastChapterRead;
+                    userExists.LastLogin = DateTime.Now;
+                    userWeb.LastLogin = userExists.LastLogin;
 
                     return userWeb;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
             return null;
+
         }
 
         public int UserExists(string username, string password)
         {
+            //Apanhar a exception e enviar mensagem
             UserWeb user = GetUser(username, password);
             if (user != null)
             {
@@ -123,10 +105,12 @@ namespace ServiceePubCloud
 
         public string CreateEbook(string xmlDoc)
         {
+            MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\EBookSchema.xsd");
+            xml.ValidateXML();
             XmlDocument doc = new XmlDocument();
-            Model1Container context = new Model1Container();
             doc.LoadXml(xmlDoc);
-            XmlNodeList lista = doc.SelectNodes("/ePubType/book");
+            Model1Container context = new Model1Container();
+            XmlNodeList lista = doc.SelectNodes("/ebooks/ebook");
             foreach (XmlNode item in lista)
             {
                 // TODO: verificar se  BD está vazia 
@@ -136,16 +120,17 @@ namespace ServiceePubCloud
                     novo.EBookName = item["title"].InnerText;
                     novo.Author = item["author"].InnerText;
                     novo.Subject = item["subject"].InnerText;
+                    novo.Publisher = item["publisher"].InnerText;
                     context.EBookSet.Add(novo);
                     context.SaveChanges();
-                    return "Ebook criado com sucesso!";
+                    return "Ebook created sucessfully!";
                 }
                 else
                 {
                     //verificar se o livro já existe
                     if (context.EBookSet.Equals(item["title"].InnerText) && context.EBookSet.Equals(item["author"].InnerText) && context.EBookSet.Equals(item["subject"].InnerText) && context.EBookSet.Equals(item["publisher"].InnerText))
                     {
-                        return "Ebook já existente!";
+                        return "Ebook already exists!";
                     }
                     else
                     {
@@ -159,7 +144,7 @@ namespace ServiceePubCloud
                     }
                 }
             }
-            return "Ebook criado com sucesso!";
+            return "Ebook created sucessfully!";
         }
 
         //TODO METER PUBLISHER no ebooktype do xsd
@@ -168,7 +153,9 @@ namespace ServiceePubCloud
             XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
             doc.LoadXml(xmlDoc);
-            XmlNodeList lista = doc.SelectNodes("/ePubType/book");
+            //XmlNode root = doc.DocumentElement;
+            //root.OuterXml;
+            XmlNodeList lista = doc.SelectNodes("/ebooks/ebook");
             foreach (XmlNode item in lista)
             {
                 // TODO: verificar se BD está vazia
@@ -229,15 +216,14 @@ namespace ServiceePubCloud
                                     novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
                                     context.ChapterSet.Add(novoCapitulo);
                                     context.SaveChanges();
-                                    return "Capitulo Criado!";
+                                    return "Chapter Created!";
                                 }
                             }
-                            return "Capítulo já Existe!";
                         }
                     }
                 }
             }
-            return "Capitulo Criado!";
+            return "Chapter Already Exists!";
         }
 
         public string createBookmark(string xmlDoc)
@@ -265,18 +251,28 @@ namespace ServiceePubCloud
                             novoBookmark.Date = DateTime.Today;
                             context.BookmarkSet.Add(novoBookmark);
                             context.SaveChanges();
+                            return "Bookmark Created";
 
                         }
                         else
                         {
-                           //if(context.BookmarkSet.){}
+                            Bookmark bookmark = context.BookmarkSet.Where(i => i.UserID == userExist.UserID).First();
+                            if (bookmark.ChapterID != chapter.ChapterID)
+                            {
 
+                                Bookmark novoBookmark = new Bookmark();
+                                novoBookmark.UserID = userExist.UserID;
+                                novoBookmark.ChapterID = chapter.ChapterID;
+                                novoBookmark.Date = DateTime.Today;
+                                context.BookmarkSet.Add(novoBookmark);
+                                context.SaveChanges();
+                                return "Bookmark Created";
+                            }
                         }
-                        return "";
                     }
-                    return "";
                 }
             }
+            return "Bookmark Already Exists";
         }
     }
 }
