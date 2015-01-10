@@ -48,8 +48,9 @@ namespace ServiceePubCloud
             var user = context.UserSet.Where(i => i.Username == username && i.Password == password);
             if (user.Count() != 0)
             {
-                User userExists=null;
-                foreach(var us in user){
+                User userExists = null;
+                foreach (var us in user)
+                {
                     userExists = user.First();
                 }
 
@@ -122,17 +123,14 @@ namespace ServiceePubCloud
                     novo.Subject = item["subject"].InnerText;
                     novo.Publisher = item["publisher"].InnerText;
                     context.EBookSet.Add(novo);
+                    CreateChapter(doc);
                     context.SaveChanges();
                     return "Ebook created sucessfully!";
                 }
                 else
                 {
                     //verificar se o livro já existe
-                    if (context.EBookSet.Equals(item["title"].InnerText) && context.EBookSet.Equals(item["author"].InnerText) && context.EBookSet.Equals(item["subject"].InnerText) && context.EBookSet.Equals(item["publisher"].InnerText))
-                    {
-                        return "Ebook already exists!";
-                    }
-                    else
+                    if (!(context.EBookSet.Equals(item["title"].InnerText)) && !(context.EBookSet.Equals(item["author"].InnerText)) && !(context.EBookSet.Equals(item["subject"].InnerText)) && !(context.EBookSet.Equals(item["publisher"].InnerText)))
                     {
                         EBook novo = new EBook();
                         novo.EBookName = item["title"].InnerText;
@@ -140,97 +138,49 @@ namespace ServiceePubCloud
                         novo.Subject = item["subject"].InnerText;
                         novo.Publisher = item["publisher"].InnerText;
                         context.EBookSet.Add(novo);
+                        CreateChapter(doc);
                         context.SaveChanges();
+                        return "Ebook created sucessfully!";
                     }
                 }
             }
-            return "Ebook created sucessfully!";
+            return "Ebook already exists!";
         }
 
         //TODO METER PUBLISHER no ebooktype do xsd
-        public string CreateChapter(string xmlDoc)
+        public void CreateChapter(XmlDocument xmlDoc)
         {
-            XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
-            doc.LoadXml(xmlDoc);
             //XmlNode root = doc.DocumentElement;
             //root.OuterXml;
-            XmlNodeList lista = doc.SelectNodes("/ebooks/ebook");
+            XmlNodeList lista = xmlDoc.SelectNodes("/ebooks/ebook");
             foreach (XmlNode item in lista)
             {
-                // TODO: verificar se BD está vazia
-                if ((context.ChapterSet.Count() == 0))
+                var ebook = context.EBookSet.Where(i => i.EBookName == item["title"].InnerText && i.Author == item["author"].InnerText && i.Publisher == item["publisher"].InnerText && i.Subject == item["subject"].InnerText);
+                if (ebook.Count() != 0)
                 {
-
-                    //verificar se o livro já está guardado
-                    if (context.EBookSet.Count() == 0)
+                    EBook ebookExists = null;
+                    foreach (var us in ebook)
                     {
-                        return "Crie um Ebook primeiro!";
+                        ebookExists = ebook.First();
                     }
-                    if (!context.EBookSet.Equals(item["title"].InnerText) && !context.EBookSet.Equals(item["author"].InnerText) && !context.EBookSet.Equals(item["subject"].InnerText) && !context.EBookSet.Equals(item["publisher"].InnerText))
-                    {
-                        return "Crie um Ebook com o titulo: " + item["title"].InnerText + ", com o nome de autor: " + item["author"].InnerText + ", com o seguinte tema: " + item["subject"].InnerText + ", e com a seguinte editora: " + item["publisher"].InnerText + "antes de tentar guardar o capítulo!";
-                    }
-
-                    EBook ebook = context.EBookSet.Where(i => i.EBookName == item["title"].InnerText).First();
-                    XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
+                    XmlNodeList capitulos = xmlDoc.SelectNodes("/ePubType/book/chapters");
                     Chapter novoCapitulo = new Chapter();
                     foreach (XmlNode itemC in capitulos)
                     {
-                        novoCapitulo.EBookID = ebook.EbookID;
+                        novoCapitulo.EBookID = ebookExists.EbookID;
                         novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
                         novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
-                        context.ChapterSet.Add(novoCapitulo);
-                        context.SaveChanges();
-                        return "Capitulo Criado !";
-                    }
-                }
-                else
-                {
-                    //verificar se o livro já está guardado
-                    if (context.EBookSet.Count() == 0)
-                    {
-                        return "Crie um Ebook primeiro!";
-                    }
-                    if (!context.EBookSet.Equals(item["title"].InnerText) && !context.EBookSet.Equals(item["author"].InnerText) && !context.EBookSet.Equals(item["subject"].InnerText) && !context.EBookSet.Equals(item["publisher"].InnerText))
-                    {
-                        return "Crie um Ebook com o titulo: " + item["title"].InnerText + ", com o nome de autor: " + item["author"].InnerText + ", com o seguinte tema: " + item["subject"].InnerText + ", e com a seguinte editora: " + item["publisher"].InnerText + "antes de tentar guardar o capítulo!";
-                    }
-                    //verificar se o capitulo já existe
-                    else
-                    {
-                        EBook ebook = context.EBookSet.Where(i => i.EBookName == item["title"].InnerText).First();
-                        Chapter chapter = context.ChapterSet.Where(i => i.EBookID == ebook.EbookID).First();
-                        //comparar os ids
-                        if (ebook.EbookID == chapter.EBookID)
-                        {
-                            XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
-                            Chapter novoCapitulo = new Chapter();
-                            foreach (XmlNode itemC in capitulos)
-                            {
-                                //guardar capitulo
-                                if (!(chapter.ChapterName == itemC["chaptertitle"].InnerText) && !(chapter.ChapterNumber == Convert.ToInt32(itemC["number"].InnerText)))
-                                {
-                                    novoCapitulo.EBookID = ebook.EbookID;
-                                    novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
-                                    novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
-                                    context.ChapterSet.Add(novoCapitulo);
-                                    context.SaveChanges();
-                                    return "Chapter Created!";
-                                }
-                            }
-                        }
+                        context.ChapterSet.Add(novoCapitulo);                      
                     }
                 }
             }
-            return "Chapter Already Exists!";
         }
 
         public string createBookmark(string xmlDoc)
         {
             XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
-            CreateChapter(xmlDoc);
             doc.LoadXml(xmlDoc);
             //verificar existe user
             XmlNodeList user = doc.SelectNodes("/ePubType/user");
