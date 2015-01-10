@@ -76,9 +76,11 @@ namespace ServiceePubCloud
         }
 
         public void LastLogin(int IdUser, DateTime lastLogin) {
+            Model1Container context = new Model1Container();         
             DateStatistics dateS = new DateStatistics();
             dateS.UserID = IdUser;
-        
+            context.DateStatisticsSet.Add(dateS);
+            context.SaveChanges();        
         }
 
         public bool UserExists(string username, string password)
