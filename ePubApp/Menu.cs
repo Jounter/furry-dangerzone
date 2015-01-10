@@ -17,9 +17,12 @@ namespace ePubApp
         private string[] epubFiles;
         List<string> list = new List<string>();
         private string epubPath = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks";
-        public Menu()
+        string logedUser;
+
+        public Menu(string username)
         {
             InitializeComponent();
+            this.logedUser = username;
             byte[] bytes = Encoding.Default.GetBytes(epubPath);
             epubPath = Encoding.UTF8.GetString(bytes);
             epubFiles = Directory.GetFiles(epubPath, "*.epub").
@@ -41,7 +44,7 @@ namespace ePubApp
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Error reading the following eBook:" + book);
+                        MessageBox.Show("Error reading the following eBook: " + book);
                         list.Add(book + "- Corruped!");
                     }
                 }
@@ -127,6 +130,11 @@ namespace ePubApp
         {
             Form bookmacks = new Bookmarks();
             bookmacks.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

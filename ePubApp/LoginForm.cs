@@ -39,7 +39,7 @@ namespace ePubApp
                 {
                     this.Hide();
 
-                    Form menu = new Menu();
+                    Form menu = new Menu(txtUser.Text);
                     menu.ShowDialog();
 
                     this.Close();
@@ -48,7 +48,7 @@ namespace ePubApp
             */
             this.Hide();
 
-            Form menu = new Menu();
+            Form menu = new Menu(txtUser.Text);
             menu.ShowDialog();
 
             this.Close();
