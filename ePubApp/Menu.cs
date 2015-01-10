@@ -14,19 +14,47 @@ namespace ePubApp
 {
     public partial class Menu : Form
     {
-        //private string[] epubFiles;
-        //private string epubPath = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks";
+        private string[] epubFiles;
+        List<string> list = new List<string>();
+        private string epubPath = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks";
         public Menu()
         {
             InitializeComponent();
-            /*byte[] bytes = Encoding.Default.GetBytes(epubPath);
+            byte[] bytes = Encoding.Default.GetBytes(epubPath);
             epubPath = Encoding.UTF8.GetString(bytes);
             epubFiles = Directory.GetFiles(epubPath, "*.epub").
                 Select(path => Path.GetFileName(path)).ToArray();
-            listBox1.DataSource = epubFiles.ToList();
-            */
+
+            Epub livro;
+
+            foreach (String epub in epubFiles)
+            {
+                for (int i = 0; i < epubFiles.Count(); i++)
+                {
+                    string book = epubFiles.ElementAt(i);
+
+                    string path = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks\\" + book;
+
+                    livro = null;
+                    try
+                    {
+                        livro = new Epub(@path);
+                        list.Add(livro.Title[0]);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error reading the following eBook:" + book);
+                        list.Add(book);
+                    }
+                }
 
 
+
+                listBox1.DataSource = list;
+
+
+            }
+            
 
         }
 
@@ -53,7 +81,31 @@ namespace ePubApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Epub epub = (Epub) listBox1.SelectedValue;
+            int selectedIndex = listBox1.SelectedIndex;
+
+            string book = epubFiles.ElementAt(selectedIndex);
+            
+            string path = "D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks\\" + book;
+
+            Epub epub = null;
+            Boolean error;
+            try
+            {
+                epub = new Epub(@path);
+                error = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error opening eBook!");
+                error = true;
+            }
+
+            if (error == false)
+            {
+                Book li = new Book(epub);
+                li.Show();
+            }
+
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -72,6 +124,12 @@ namespace ePubApp
             {
                 
             }
+        }
+
+        private void btnBM_Click(object sender, EventArgs e)
+        {
+            Form bookmacks = new Bookmarks();
+            bookmacks.ShowDialog();
         }
 
     }

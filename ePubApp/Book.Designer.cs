@@ -35,16 +35,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.btnBookmark = new System.Windows.Forms.Button();
             this.btnFavorite = new System.Windows.Forms.Button();
-            this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.lblPub = new System.Windows.Forms.Label();
-            this.lblSub = new System.Windows.Forms.Label();
+            this.ReadChapter = new System.Windows.Forms.Button();
+            this.btnBookmarkChapter = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtSubject = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -58,18 +58,18 @@
             // 
             // btnAll
             // 
-            this.btnAll.Location = new System.Drawing.Point(35, 208);
+            this.btnAll.Location = new System.Drawing.Point(35, 304);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(168, 23);
             this.btnAll.TabIndex = 2;
-            this.btnAll.Text = "Read All";
+            this.btnAll.Text = "Read All Chapters";
             this.btnAll.UseVisualStyleBackColor = true;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 246);
+            this.label2.Location = new System.Drawing.Point(240, 414);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 3;
@@ -78,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 268);
+            this.label3.Location = new System.Drawing.Point(240, 438);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 4;
@@ -87,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 308);
+            this.label4.Location = new System.Drawing.Point(441, 411);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 5;
@@ -96,7 +96,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 289);
+            this.label5.Location = new System.Drawing.Point(240, 463);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 6;
@@ -104,62 +104,35 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(253, 9);
+            this.webBrowser1.Location = new System.Drawing.Point(235, 9);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(491, 389);
+            this.webBrowser1.Size = new System.Drawing.Size(795, 389);
             this.webBrowser1.TabIndex = 7;
-            // 
-            // btnBookmark
-            // 
-            this.btnBookmark.Location = new System.Drawing.Point(371, 443);
-            this.btnBookmark.Name = "btnBookmark";
-            this.btnBookmark.Size = new System.Drawing.Size(75, 23);
-            this.btnBookmark.TabIndex = 8;
-            this.btnBookmark.Text = "Bookmark";
-            this.btnBookmark.UseVisualStyleBackColor = true;
             // 
             // btnFavorite
             // 
-            this.btnFavorite.Location = new System.Drawing.Point(466, 443);
+            this.btnFavorite.Location = new System.Drawing.Point(37, 414);
             this.btnFavorite.Name = "btnFavorite";
-            this.btnFavorite.Size = new System.Drawing.Size(75, 23);
+            this.btnFavorite.Size = new System.Drawing.Size(167, 23);
             this.btnFavorite.TabIndex = 9;
-            this.btnFavorite.Text = "Favorite";
+            this.btnFavorite.Text = "Mark This Book As Favorite";
             this.btnFavorite.UseVisualStyleBackColor = true;
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.Location = new System.Drawing.Point(390, 414);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(116, 23);
-            this.btnPrevious.TabIndex = 10;
-            this.btnPrevious.Text = "<< Previous Page";
-            this.btnPrevious.UseVisualStyleBackColor = true;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(525, 414);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(94, 23);
-            this.btnNext.TabIndex = 11;
-            this.btnNext.Text = "Next Page >>";
-            this.btnNext.UseVisualStyleBackColor = true;
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(562, 444);
+            this.btnExit.Location = new System.Drawing.Point(81, 453);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 12;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(71, 246);
+            this.lblTitle.Location = new System.Drawing.Point(276, 414);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(33, 13);
             this.lblTitle.TabIndex = 13;
@@ -168,7 +141,7 @@
             // lblAuthor
             // 
             this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(84, 268);
+            this.lblAuthor.Location = new System.Drawing.Point(288, 438);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(32, 13);
             this.lblAuthor.TabIndex = 14;
@@ -177,44 +150,74 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(35, 41);
+            this.listBox1.Location = new System.Drawing.Point(35, 25);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(168, 160);
+            this.listBox1.Size = new System.Drawing.Size(168, 238);
             this.listBox1.TabIndex = 15;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // lblPub
             // 
             this.lblPub.AutoSize = true;
-            this.lblPub.Location = new System.Drawing.Point(92, 289);
+            this.lblPub.Location = new System.Drawing.Point(296, 463);
             this.lblPub.Name = "lblPub";
             this.lblPub.Size = new System.Drawing.Size(50, 13);
             this.lblPub.TabIndex = 16;
             this.lblPub.Text = "Publisher";
             // 
-            // lblSub
+            // ReadChapter
             // 
-            this.lblSub.AutoSize = true;
-            this.lblSub.Location = new System.Drawing.Point(95, 308);
-            this.lblSub.Name = "lblSub";
-            this.lblSub.Size = new System.Drawing.Size(43, 13);
-            this.lblSub.TabIndex = 17;
-            this.lblSub.Text = "Subject";
+            this.ReadChapter.Location = new System.Drawing.Point(35, 275);
+            this.ReadChapter.Name = "ReadChapter";
+            this.ReadChapter.Size = new System.Drawing.Size(168, 23);
+            this.ReadChapter.TabIndex = 18;
+            this.ReadChapter.Text = "Read Chapter";
+            this.ReadChapter.UseVisualStyleBackColor = true;
+            this.ReadChapter.Click += new System.EventHandler(this.ReadChapter_Click);
+            // 
+            // btnBookmarkChapter
+            // 
+            this.btnBookmarkChapter.Location = new System.Drawing.Point(36, 346);
+            this.btnBookmarkChapter.Name = "btnBookmarkChapter";
+            this.btnBookmarkChapter.Size = new System.Drawing.Size(168, 23);
+            this.btnBookmarkChapter.TabIndex = 19;
+            this.btnBookmarkChapter.Text = "Bookmark Selected Chapter";
+            this.btnBookmarkChapter.UseVisualStyleBackColor = true;
+            this.btnBookmarkChapter.Click += new System.EventHandler(this.btnBookmarkChapter_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(36, 375);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(167, 23);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Favorite Selected Chapter";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // txtSubject
+            // 
+            this.txtSubject.Enabled = false;
+            this.txtSubject.Location = new System.Drawing.Point(493, 411);
+            this.txtSubject.Multiline = true;
+            this.txtSubject.Name = "txtSubject";
+            this.txtSubject.Size = new System.Drawing.Size(518, 62);
+            this.txtSubject.TabIndex = 21;
             // 
             // Book
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 485);
-            this.Controls.Add(this.lblSub);
+            this.ClientSize = new System.Drawing.Size(1042, 485);
+            this.Controls.Add(this.txtSubject);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnBookmarkChapter);
+            this.Controls.Add(this.ReadChapter);
             this.Controls.Add(this.lblPub);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.lblAuthor);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnFavorite);
-            this.Controls.Add(this.btnBookmark);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -239,15 +242,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button btnBookmark;
         private System.Windows.Forms.Button btnFavorite;
-        private System.Windows.Forms.Button btnPrevious;
-        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAuthor;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label lblPub;
-        private System.Windows.Forms.Label lblSub;
+        private System.Windows.Forms.Button ReadChapter;
+        private System.Windows.Forms.Button btnBookmarkChapter;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtSubject;
     }
 }

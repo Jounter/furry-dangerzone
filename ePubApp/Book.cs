@@ -1,5 +1,6 @@
 ﻿using eBdb.EpubReader;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,48 +14,96 @@ namespace ePubApp
 {
     public partial class Book : Form
     {
-        Epub epub;
+        Epub book;
+        Boolean tocAvailable;
 
-        public Book()
+        public Book(Epub book)
         {
             InitializeComponent();
 
-            epub = new Epub(@"D:\\Escola\\1Semestre\\IS\\projeto\\trunk\\ePubBooks\\ebookExample2.ePub");
+            this.book = book;
 
-            string title = epub.Title[0];
-            string author = epub.Creator[0];
+            insertSpecs();
 
-            lblAuthor.Text = author;
-            lblTitle.Text = title;
+            loadContents();
 
-            loadContents(epub);
+            if (tocAvailable == false)
+            {
+                ReadChapter.Enabled = false;
+            }
 
         }
 
-        private void loadContents(Epub epub)
+        private void insertSpecs()
         {
-            /*
+            try
+            {
+                string title = book.Title[0];
+                lblTitle.Text = title;
+            }
+            catch (Exception)
+            {
+                string title = "Anonymous";
+                lblTitle.Text = title;
+            }
+
+            try
+            {
+                string author = book.Creator[0];
+                lblAuthor.Text = author;
+            }
+            catch (Exception)
+            {
+                string author = "Anonymous";
+                lblAuthor.Text = author;
+            }
+
+            try
+            {
+                string publisher = book.Publisher[0];
+                lblPub.Text = publisher;
+            }
+            catch (Exception)
+            {
+                string publisher = "Anonymous";
+                lblPub.Text = publisher;
+            }
+
+            try
+            {
+                string subject = book.Subject[0];
+                lblPub.Text = subject;
+            }
+            catch (Exception)
+            {
+                string subject = "No subject";
+                txtSubject.Text = subject;
+            }
+        }
+
+        private void loadContents()
+        {
             var navPoints = new List<NavPoint>();
-            navPoints = epub.TOC;
+            navPoints = book.TOC;
 
             if (navPoints.Count != 0) //se não existirem navPoints
             {
                 tocAvailable = true;
                 foreach (NavPoint item in navPoints)
                 {
-                    listBox.Items.Add(item.Title);
+                    listBox1.Items.Add(item.Title);
                 }
             }
             else
             {
                 tocAvailable = false;
                 int chIdx = 0;
-                foreach (DictionaryEntry item in _epub.Content)
+                foreach (DictionaryEntry item in book.Content)
                 {
                     chIdx++;
-                    listBox.Items.Add("Chapter " + chIdx);
+                    listBox1.Items.Add("Chapter " + chIdx);
                 }
-            }*/
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -70,14 +119,45 @@ namespace ePubApp
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            string htmlText = epub.GetContentAsHtml();
+            string htmlText = book.GetContentAsHtml();
 
             webBrowser1.DocumentText = htmlText;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ContentData contentData = epub.Content[0] as ContentData;
+
+        }
+
+        private void ReadChapter_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = listBox1.SelectedIndex;
+
+            var navPoints = new List<NavPoint>();
+            navPoints = book.TOC;
+
+            String contentData = navPoints[selectedIndex].ContentData.Content;
+
+            webBrowser1.DocumentText = contentData;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            this.Close();
+        }
+
+        private void btnBookmarkChapter_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = listBox1.SelectedIndex;
+
+            var navPoints = new List<NavPoint>();
+            navPoints = book.TOC;
+
+            foreach (NavPoint item in navPoints)
+            {
+                listBox1.Items.Add(item.Title);
+            }
         }
     }
 }

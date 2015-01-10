@@ -36,6 +36,7 @@
             this.btnFavs = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -59,7 +60,7 @@
             // 
             // btnConfigs
             // 
-            this.btnConfigs.Location = new System.Drawing.Point(307, 61);
+            this.btnConfigs.Location = new System.Drawing.Point(282, 60);
             this.btnConfigs.Name = "btnConfigs";
             this.btnConfigs.Size = new System.Drawing.Size(75, 23);
             this.btnConfigs.TabIndex = 2;
@@ -69,7 +70,8 @@
             // 
             // btnStats
             // 
-            this.btnStats.Location = new System.Drawing.Point(307, 113);
+            this.btnStats.Enabled = false;
+            this.btnStats.Location = new System.Drawing.Point(282, 107);
             this.btnStats.Name = "btnStats";
             this.btnStats.Size = new System.Drawing.Size(75, 23);
             this.btnStats.TabIndex = 3;
@@ -78,16 +80,17 @@
             // 
             // btnBM
             // 
-            this.btnBM.Location = new System.Drawing.Point(307, 162);
+            this.btnBM.Location = new System.Drawing.Point(282, 150);
             this.btnBM.Name = "btnBM";
             this.btnBM.Size = new System.Drawing.Size(75, 23);
             this.btnBM.TabIndex = 4;
             this.btnBM.Text = "Bookmarks";
             this.btnBM.UseVisualStyleBackColor = true;
+            this.btnBM.Click += new System.EventHandler(this.btnBM_Click);
             // 
             // btnFavs
             // 
-            this.btnFavs.Location = new System.Drawing.Point(307, 211);
+            this.btnFavs.Location = new System.Drawing.Point(282, 197);
             this.btnFavs.Name = "btnFavs";
             this.btnFavs.Size = new System.Drawing.Size(75, 23);
             this.btnFavs.TabIndex = 5;
@@ -96,7 +99,7 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(307, 264);
+            this.btnLogout.Location = new System.Drawing.Point(282, 289);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 23);
             this.btnLogout.TabIndex = 6;
@@ -106,19 +109,29 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(89, 328);
+            this.button1.Location = new System.Drawing.Point(70, 318);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(143, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "READ";
+            this.button1.Text = "Read Selected Book";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(282, 242);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Synchronize";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 373);
+            this.ClientSize = new System.Drawing.Size(401, 373);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnFavs);
@@ -145,6 +158,7 @@
         private System.Windows.Forms.Button btnFavs;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
 
 
     }
