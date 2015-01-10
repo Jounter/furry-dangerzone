@@ -27,8 +27,6 @@ namespace ePubApp
 
             Epub livro;
 
-            foreach (String epub in epubFiles)
-            {
                 for (int i = 0; i < epubFiles.Count(); i++)
                 {
                     string book = epubFiles.ElementAt(i);
@@ -44,7 +42,7 @@ namespace ePubApp
                     catch (Exception)
                     {
                         MessageBox.Show("Error reading the following eBook:" + book);
-                        list.Add(book);
+                        list.Add(book + "- Corruped!");
                     }
                 }
 
@@ -53,7 +51,6 @@ namespace ePubApp
                 listBox1.DataSource = list;
 
 
-            }
             
 
         }
