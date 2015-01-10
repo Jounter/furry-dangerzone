@@ -118,6 +118,7 @@
             this.btnFavorite.TabIndex = 9;
             this.btnFavorite.Text = "Mark This Book As Favorite";
             this.btnFavorite.UseVisualStyleBackColor = true;
+            this.btnFavorite.Click += new System.EventHandler(this.btnFavorite_Click);
             // 
             // btnExit
             // 

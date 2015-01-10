@@ -25,7 +25,7 @@ namespace ePubApp
         private void button1_Click(object sender, EventArgs e)
         {
 
-            /*if (txtUser == null || txtPass == null)
+            if (txtUser == null || txtPass == null)
             {
                 showErr();
             }
@@ -45,13 +45,13 @@ namespace ePubApp
                     this.Close();
                 }
             }
-            */
+            /*
             this.Hide();
 
             Form menu = new Menu(txtUser.Text);
             menu.ShowDialog();
 
-            this.Close();
+            this.Close();*/
         }
 
         private void LoginForm_Load(object sender, EventArgs e)

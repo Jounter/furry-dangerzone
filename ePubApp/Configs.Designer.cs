@@ -33,7 +33,6 @@
             this.txtPath = new System.Windows.Forms.TextBox();
             this.txtWSPath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnWSPath = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -67,7 +66,7 @@
             // 
             this.txtWSPath.Location = new System.Drawing.Point(40, 134);
             this.txtWSPath.Name = "txtWSPath";
-            this.txtWSPath.Size = new System.Drawing.Size(202, 20);
+            this.txtWSPath.Size = new System.Drawing.Size(292, 20);
             this.txtWSPath.TabIndex = 3;
             // 
             // label2
@@ -78,16 +77,6 @@
             this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Web Service";
-            // 
-            // btnWSPath
-            // 
-            this.btnWSPath.Location = new System.Drawing.Point(257, 134);
-            this.btnWSPath.Name = "btnWSPath";
-            this.btnWSPath.Size = new System.Drawing.Size(75, 23);
-            this.btnWSPath.TabIndex = 5;
-            this.btnWSPath.Text = "...";
-            this.btnWSPath.UseVisualStyleBackColor = true;
-            this.btnWSPath.Click += new System.EventHandler(this.btnWSPath_Click);
             // 
             // btnExit
             // 
@@ -105,7 +94,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 255);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnWSPath);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtWSPath);
             this.Controls.Add(this.txtPath);
@@ -125,7 +113,6 @@
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.TextBox txtWSPath;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnWSPath;
         private System.Windows.Forms.Button btnExit;
     }
 }

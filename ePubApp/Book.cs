@@ -159,5 +159,10 @@ namespace ePubApp
                 listBox1.Items.Add(item.Title);
             }
         }
+
+        private void btnFavorite_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

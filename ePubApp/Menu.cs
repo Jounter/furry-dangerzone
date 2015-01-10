@@ -49,9 +49,16 @@ namespace ePubApp
                     }
                 }
 
-
-
-                listBox1.DataSource = list;
+                if (list.Count > 0)
+                {
+                    listBox1.DataSource = list;
+                }
+                else
+                {
+                    MessageBox.Show("Please choose a directory containing books!");
+                    list.Add("No books were found!");
+                    listBox1.DataSource = list;
+                }
 
 
             
