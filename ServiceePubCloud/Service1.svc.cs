@@ -75,34 +75,23 @@ namespace ServiceePubCloud
 
         }
 
-        public int UserExists(string username, string password)
+        public void lastLogin(int IdUser, DateTime lastLogin) {
+            DateStatistics dateS = new DateStatistics();
+            dateS.UserID = IdUser;
+        
+        }
+
+        public bool UserExists(string username, string password)
         {
             //Apanhar a exception e enviar mensagem
             UserWeb user = GetUser(username, password);
             if (user != null)
             {
-                return user.Id;
+                return true;
             }
-            return 0;
+            return false;
         }
 
-        // TODO FAZER cREATEFAVORITOS
-        //public void Favorites(XmlDocument doc)
-        //{
-        //    Model1Container context = new Model1Container();
-        //    doc.Load();
-        //    XmlNodeList lista = doc.SelectNodes("/ePubType/favorites");
-        //    Favorites favorites = new Favorites();
-        //    for (int i = 0; i < lista.Count; i++)
-        //    {
-        //         favorites.
-        //    }
-        //    foreach (XmlNode item in lista)
-        //    {
-        //       ;
-        //       //context.
-        //    }
-        //}
 
         public string CreateEbook(string xmlDoc)
         {
@@ -130,24 +119,32 @@ namespace ServiceePubCloud
                 else
                 {
                     //verificar se o livro já existe
-                    if (!(context.EBookSet.Equals(item["title"].InnerText)) && !(context.EBookSet.Equals(item["author"].InnerText)) && !(context.EBookSet.Equals(item["subject"].InnerText)) && !(context.EBookSet.Equals(item["publisher"].InnerText)))
-                    {
-                        EBook novo = new EBook();
-                        novo.EBookName = item["title"].InnerText;
-                        novo.Author = item["author"].InnerText;
-                        novo.Subject = item["subject"].InnerText;
-                        novo.Publisher = item["publisher"].InnerText;
-                        context.EBookSet.Add(novo);
-                        CreateChapter(doc);
-                        context.SaveChanges();
-                        return "Ebook created sucessfully!";
-                    }
+                    EbookExists(item["title"].InnerText, item["author"].InnerText, item["publisher"].InnerText);
+
+                    EBook novo = new EBook();
+                    novo.EBookName = item["title"].InnerText;
+                    novo.Author = item["author"].InnerText;
+                    novo.Subject = item["subject"].InnerText;
+                    novo.Publisher = item["publisher"].InnerText;
+                    context.EBookSet.Add(novo);
+                    CreateChapter(doc);
+                    context.SaveChanges();
+                    return "Ebook created sucessfully!";
                 }
             }
             return "Ebook already exists!";
         }
 
-        //TODO METER PUBLISHER no ebooktype do xsd
+        public bool EbookExists(string title, string author, string publisher)
+        {
+            Model1Container context = new Model1Container();
+            if (context.EBookSet.Equals(title) && context.EBookSet.Equals(author) && context.EBookSet.Equals(publisher))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void CreateChapter(XmlDocument xmlDoc)
         {
             Model1Container context = new Model1Container();
@@ -164,61 +161,173 @@ namespace ServiceePubCloud
                     {
                         ebookExists = ebook.First();
                     }
-                    XmlNodeList capitulos = xmlDoc.SelectNodes("/ePubType/book/chapters");
+                    XmlNodeList capitulos = xmlDoc.SelectNodes("/ebooks/ebook/chapter");
                     Chapter novoCapitulo = new Chapter();
                     foreach (XmlNode itemC in capitulos)
                     {
                         novoCapitulo.EBookID = ebookExists.EbookID;
                         novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
                         novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
-                        context.ChapterSet.Add(novoCapitulo);                      
+                        context.ChapterSet.Add(novoCapitulo);
                     }
                 }
             }
         }
 
+        public bool ChapterExists(string chapterName, int chapterNumber, int EbookID)
+        {
+            Model1Container context = new Model1Container();
+            if (context.ChapterSet.Equals(chapterName) && context.ChapterSet.Equals(chapterNumber) && context.ChapterSet.Equals(EbookID))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         public string createBookmark(string xmlDoc)
         {
+            MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\BookmarkSchema.xsd");
+            xml.ValidateXML();
             XmlDocument doc = new XmlDocument();
             Model1Container context = new Model1Container();
             doc.LoadXml(xmlDoc);
             //verificar existe user
-            XmlNodeList user = doc.SelectNodes("/ePubType/user");
+            XmlNodeList user = doc.SelectNodes("/bookmark");
             foreach (XmlNode itemU in user)
             {
-                if (context.UserSet.Count() != 0)
+                var userSearch = context.UserSet.Where(i => i.Username == itemU["owner"].InnerText);
+                if (userSearch.Count() != 0)
                 {
-                    User userExist = context.UserSet.Where(i => i.Username == itemU["username"].InnerText).First();
-                    XmlNodeList capitulos = doc.SelectNodes("/ePubType/book/chapters");
-                    foreach (XmlNode itemC in capitulos)
+                    User userExists = null;
+                    foreach (var us in user)
                     {
-                        Chapter chapter = context.ChapterSet.Where(i => i.ChapterNumber == Convert.ToInt32(itemC["number"].InnerText)).First();
-                        if (context.BookmarkSet.Count() == 0)
+                        userExists = userSearch.First();
+                    }
+                    //book
+                    XmlNodeList books = doc.SelectNodes("/bookmark/book");
+                    foreach (XmlNode itemB in books)
+                    {
+                        var bookSearch = context.EBookSet.Where(i => i.EBookName == itemB["bookname"].InnerText && i.Author == itemB["author"].InnerText && i.Publisher == itemB["publisher"].InnerText);
+                        if (userSearch.Count() != 0)
                         {
-                            Bookmark novoBookmark = new Bookmark();
-                            novoBookmark.UserID = userExist.UserID;
-                            novoBookmark.ChapterID = chapter.ChapterID;
-                            novoBookmark.Date = DateTime.Today;
-                            context.BookmarkSet.Add(novoBookmark);
-                            context.SaveChanges();
-                            return "Bookmark Created";
-
-                        }
-                        else
-                        {
-                            Bookmark bookmark = context.BookmarkSet.Where(i => i.UserID == userExist.UserID).First();
-                            if (bookmark.ChapterID != chapter.ChapterID)
+                            EBook bookExists = null;
+                            foreach (var us in user)
                             {
-
-                                Bookmark novoBookmark = new Bookmark();
-                                novoBookmark.UserID = userExist.UserID;
-                                novoBookmark.ChapterID = chapter.ChapterID;
-                                novoBookmark.Date = DateTime.Today;
-                                context.BookmarkSet.Add(novoBookmark);
-                                context.SaveChanges();
-                                return "Bookmark Created";
+                                bookExists = bookSearch.First();
+                            }
+                            //chapter
+                            XmlNodeList chapters = doc.SelectNodes("/bookmark/chapter");
+                            foreach (XmlNode itemC in chapters)
+                            {
+                                var chapterSearch = context.ChapterSet.Where(i => i.ChapterName == itemC["chaptername"].InnerText && i.EBookID == bookExists.EbookID && i.ChapterNumber == Convert.ToInt32(itemC["chapternumber"].InnerText));
+                                Chapter chapterExists = null;
+                                if (userSearch.Count() != 0)
+                                {
+                                    chapterExists = chapterSearch.First();
+                                }
+                                if (!(context.BookmarkSet.Equals(chapterExists.ChapterID)) && !(context.BookmarkSet.Equals(userExists.UserID)))
+                                {
+                                    Bookmark novoBookmark = new Bookmark();
+                                    novoBookmark.UserID = userExists.UserID;
+                                    novoBookmark.ChapterID = chapterExists.ChapterID;
+                                    novoBookmark.Date = DateTime.Today;
+                                    context.BookmarkSet.Add(novoBookmark);
+                                    context.SaveChanges();
+                                    return "Bookmark Created";
+                                }
+                                return "Bookmark already exists.";
                             }
                         }
+                        return "Book doesn´t exists.";
+                    }
+                }
+            }
+            return "Bookmark Already Exists";
+        }
+
+        public bool BookmarkExists(DateTime date, int chapterID, int userID)
+        {
+            Model1Container context = new Model1Container();
+            if (context.BookmarkSet.Equals(date) && context.BookmarkSet.Equals(chapterID) && context.BookmarkSet.Equals(userID))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string createFavorite(string xmlDoc)
+        {
+            MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\FavoriteSchema.xsd");
+            xml.ValidateXML();
+            XmlDocument doc = new XmlDocument();
+            Model1Container context = new Model1Container();
+            doc.LoadXml(xmlDoc);
+            //verificar existe user
+            XmlNodeList user = doc.SelectNodes("/bookmark");
+            foreach (XmlNode itemU in user)
+            {
+                var userSearch = context.UserSet.Where(i => i.Username == itemU["owner"].InnerText);
+                if (userSearch.Count() != 0)
+                {
+                    User userExists = null;
+                    foreach (var us in user)
+                    {
+                        userExists = userSearch.First();
+                    }
+                    //book
+                    XmlNodeList books = doc.SelectNodes("/bookmark/book");
+                    foreach (XmlNode itemB in books)
+                    {
+                        var bookSearch = context.EBookSet.Where(i => i.EBookName == itemB["bookname"].InnerText && i.Author == itemB["author"].InnerText && i.Publisher == itemB["publisher"].InnerText);
+                        if (userSearch.Count() != 0)
+                        {
+                            EBook bookExists = null;
+                            foreach (var us in user)
+                            {
+                                bookExists = bookSearch.First();
+                            }
+                            //chapter
+                            XmlNodeList chapters = doc.SelectNodes("/bookmark/chapter");
+                            if (chapters != null)
+                            {
+                                foreach (XmlNode itemC in chapters)
+                                {
+                                    var chapterSearch = context.ChapterSet.Where(i => i.ChapterName == itemC["chaptername"].InnerText && i.EBookID == bookExists.EbookID && i.ChapterNumber == Convert.ToInt32(itemC["chapternumber"].InnerText));
+                                    Chapter chapterExists = null;
+                                    if (userSearch.Count() != 0)
+                                    {
+                                        chapterExists = chapterSearch.First();
+                                    }
+                                    if (!(context.FavoriteSet.Equals(chapterExists.ChapterID)) && !(context.FavoriteSet.Equals(userExists.UserID)) && !(context.FavoriteSet.Equals(bookExists.EbookID)))
+                                    {
+                                        Favorite novoFavorite = new Favorite();
+                                        novoFavorite.UserID = userExists.UserID;
+                                        novoFavorite.ChapterID = chapterExists.ChapterID;
+                                        novoFavorite.EBookID = bookExists.EbookID;
+                                        novoFavorite.Date = DateTime.Today;
+                                        context.FavoriteSet.Add(novoFavorite);
+                                        context.SaveChanges();
+                                        return "Favorite Created.";
+                                    }
+                                    return "Favorite already exists.";
+                                }
+                            }
+                            else {
+                                if (!(context.FavoriteSet.Equals(bookExists.EbookID)) && !(context.FavoriteSet.Equals(userExists.UserID)))
+                                {
+                                    Favorite novoFavorite= new Favorite();
+                                    novoFavorite.UserID = userExists.UserID;
+                                    novoFavorite.EBookID = bookExists.EbookID;
+                                    novoFavorite.ChapterID = 0;
+                                    novoFavorite.Date = DateTime.Today;
+                                    context.FavoriteSet.Add(novoFavorite);
+                                    context.SaveChanges();
+                                    return "Favorite Created";
+                                }
+                            }
+                        }
+                        return "Book doesn´t exists.";
                     }
                 }
             }

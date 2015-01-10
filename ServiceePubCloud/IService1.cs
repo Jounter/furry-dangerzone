@@ -21,7 +21,7 @@ namespace ServiceePubCloud
         string CreateUser(string username, string password, string name, string email, DateTime birthdate);
 
         [OperationContract]
-        int UserExists(string username, string password);
+        bool UserExists(string username, string password);
 
         [OperationContract]
         UserWeb GetUser(string username, string password);
@@ -31,6 +31,22 @@ namespace ServiceePubCloud
 
         [OperationContract]
         string CreateChapter(string xmlDoc);
+
+        [OperationContract]
+        string createBookmark(string xmlDoc);
+
+        [OperationContract]
+        bool ChapterExists(string chapterName, int chapterNumber, int EbookID);
+
+        [OperationContract]
+        bool EbookExists(string title, string author, string publisher, string subject);
+
+        [OperationContract]
+        bool BookmarkExists(DateTime date, int chapterID, int userID);
+
+        [OperationContract]
+        string createFavorite(string xmlDoc);
+
 
        
 
