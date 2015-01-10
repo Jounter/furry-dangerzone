@@ -31,9 +31,10 @@ namespace ePubApp
             }
             else
             {
-                if (serv.UserExists(txtUser.Text, txtPass.Text) == 0)
+                if (!serv.UserExists(txtUser.Text, txtPass.Text))
                 {
                     showErr();
+                    
                 }
                 else
                 {

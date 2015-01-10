@@ -27,24 +27,7 @@ namespace ePubApp
             //if (files.Length == 0)
             if (!File.Exists(folderPath + "\\epubConfigurations.xml"))
             {
-                //usefull link: http://csharp.net-tutorials.com/xml/writing-xml-with-the-xmldocument-class/
-
-                XmlDocument xml = new XmlDocument();
-
-                XmlDeclaration xmlDeclaration = xml.CreateXmlDeclaration("1.0", "UTF-8", null);
-                xml.AppendChild(xmlDeclaration);
-                XmlNode rootNode = xml.CreateElement("configs");
-                xml.AppendChild(rootNode);
-
-                XmlNode pathNode = xml.CreateElement("path");
-                pathNode.InnerText = txtPath.Text;
-                rootNode.AppendChild(pathNode);
-                
-                XmlNode webServiceNode = xml.CreateElement("webservice");
-                webServiceNode.InnerText = txtWSPath.Text + "";
-                rootNode.AppendChild(webServiceNode);
-
-                xml.Save(folderPath + "\\epubConfigurations.xml");
+                createConfigSchema();
             }
             else if (File.Exists(folderPath + "\\epubConfigurations.xml"))
             {
@@ -87,6 +70,28 @@ namespace ePubApp
         private void btnWSPath_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void createConfigSchema()
+        {
+            //usefull link: http://csharp.net-tutorials.com/xml/writing-xml-with-the-xmldocument-class/
+
+            XmlDocument xml = new XmlDocument();
+
+            XmlDeclaration xmlDeclaration = xml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xml.AppendChild(xmlDeclaration);
+            XmlNode rootNode = xml.CreateElement("configs");
+            xml.AppendChild(rootNode);
+
+            XmlNode pathNode = xml.CreateElement("path");
+            pathNode.InnerText = txtPath.Text;
+            rootNode.AppendChild(pathNode);
+
+            XmlNode webServiceNode = xml.CreateElement("webservice");
+            webServiceNode.InnerText = txtWSPath.Text;
+            rootNode.AppendChild(webServiceNode);
+
+            xml.Save(folderPath + "\\epubConfigurations.xml");
         }
     }
 }

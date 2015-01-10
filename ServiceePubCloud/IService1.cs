@@ -30,7 +30,7 @@ namespace ServiceePubCloud
         string CreateEbook(string xmlDoc);
 
         [OperationContract]
-        string CreateChapter(XmlDocument xmlDoc);
+        void CreateChapter(XmlDocument xmlDoc);
 
         [OperationContract]
         string CreateBookmark(string xmlDoc);
