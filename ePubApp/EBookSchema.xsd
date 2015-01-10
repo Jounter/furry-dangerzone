@@ -5,7 +5,15 @@
     xmlns:mstns="http://tempuri.org/XMLSchema.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
-  <xs:element name="ebook" type="ebooktype"/>
+
+  <xs:element name="ebooks" type="ebookstype"/>
+
+  <xs:complexType name="ebookstype">
+    <xs:sequence>
+      <xs:element name="ebook" type="ebooktype"/>
+    </xs:sequence>
+  </xs:complexType>
+
 
   <xs:complexType name="ebooktype">
     <xs:sequence>
