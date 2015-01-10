@@ -33,7 +33,7 @@ namespace ServiceePubCloud
         string CreateChapter(string xmlDoc);
 
         [OperationContract]
-        string createBookmark(string xmlDoc);
+        string CreateBookmark(string xmlDoc);
 
         [OperationContract]
         bool ChapterExists(string chapterName, int chapterNumber, int EbookID);
@@ -45,7 +45,7 @@ namespace ServiceePubCloud
         bool BookmarkExists(DateTime date, int chapterID, int userID);
 
         [OperationContract]
-        string createFavorite(string xmlDoc);
+        string CreateFavorite(string xmlDoc);
 
 
        

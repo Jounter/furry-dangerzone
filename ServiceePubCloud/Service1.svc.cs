@@ -75,7 +75,7 @@ namespace ServiceePubCloud
 
         }
 
-        public void lastLogin(int IdUser, DateTime lastLogin) {
+        public void LastLogin(int IdUser, DateTime lastLogin) {
             DateStatistics dateS = new DateStatistics();
             dateS.UserID = IdUser;
         
@@ -185,7 +185,7 @@ namespace ServiceePubCloud
         }
 
 
-        public string createBookmark(string xmlDoc)
+        public string CreateBookmark(string xmlDoc)
         {
             MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\BookmarkSchema.xsd");
             xml.ValidateXML();
@@ -256,7 +256,7 @@ namespace ServiceePubCloud
             return false;
         }
 
-        public string createFavorite(string xmlDoc)
+        public string CreateFavorite(string xmlDoc)
         {
             MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\FavoriteSchema.xsd");
             xml.ValidateXML();
