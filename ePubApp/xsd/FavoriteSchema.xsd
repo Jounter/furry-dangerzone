@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FavoriteSchema"
+    targetNamespace="http://tempuri.org/FavoriteSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/FavoriteSchema.xsd"
+    xmlns:mstns="http://tempuri.org/FavoriteSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="favorite" type="favoritetype"/>
+
+  <xs:complexType name="favoritetype">
+    <xs:sequence>
+      <xs:element name="owner" type="xs:string"/>
+      <xs:element name="book" type="booktype"/>
+      <xs:element name="chapter" type="chaptertype" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="date" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="booktype">
+    <xs:sequence>
+      <xs:element name="bookname" type="xs:string"/>
+      <xs:element name="author" type="xs:string"/>
+      <xs:element name="publisher" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="chaptertype">
+    <xs:sequence>
+      <xs:element name="chaptername" type="xs:string"/>
+      <xs:element name="chapternumber" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>
