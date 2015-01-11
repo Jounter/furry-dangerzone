@@ -60,7 +60,7 @@ namespace ePubApp
             {
                 string book = epubFiles.ElementAt(i);
 
-                string path = epubPath + book;
+                string path = epubPath + "\\" + book;
 
                 livro = null;
                 try
@@ -163,7 +163,7 @@ namespace ePubApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            sendEBookXml();
         }
 
         private void sendEBookXml()
@@ -182,7 +182,7 @@ namespace ePubApp
             {
                 string book = epubFiles.ElementAt(i);
 
-                string path = epubPath + book;
+                string path = epubPath + "\\" + book;
 
                 livro = null;
 

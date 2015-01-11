@@ -42,7 +42,7 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(100, 20);
             this.txtPass.TabIndex = 0;
-            this.txtPass.Text = "123";
+            this.txtPass.Text = "hey";
             this.txtPass.UseSystemPasswordChar = true;
             // 
             // txtUser
