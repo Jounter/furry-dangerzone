@@ -114,7 +114,7 @@ namespace ePubApp
 
             string book = epubFiles.ElementAt(selectedIndex);
 
-            string path = epubPath + book;
+            string path = epubPath + "\\" + book;
 
             Epub epub = null;
             Boolean error;
