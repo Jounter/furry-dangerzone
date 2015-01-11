@@ -70,7 +70,6 @@ namespace ePubApp
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Error reading the following eBook: " + book);
                     list.Add(book + "- Corrupted!");
                 }
             }
@@ -174,8 +173,8 @@ namespace ePubApp
             xml.AppendChild(xmlDeclaration);
             XmlNode rootNode = xml.CreateElement("ebooks");
             XmlAttribute attribute = xml.CreateAttribute("xmlns");
-            attribute.Value = "http://tempuri.org/XMLSchema.xsd";
-            rootNode.Attributes.Append(attribute);
+            //attribute.Value = "http://tempuri.org/XMLSchema.xsd";
+            //rootNode.Attributes.Append(attribute);
             xml.AppendChild(rootNode);
 
             for (int i = 0; i < epubFiles.Count(); i++)
@@ -184,7 +183,6 @@ namespace ePubApp
 
                 string path = epubPath + "\\" + book;
 
-                livro = null;
 
                 try
                 {
@@ -192,112 +190,136 @@ namespace ePubApp
                 }
                 catch (Exception)
                 {
+                    livro = null;
                 }
 
-                XmlNode ebookNode = xml.CreateElement("ebook");
-                rootNode.AppendChild(ebookNode);
-
-                XmlNode titleNode = xml.CreateElement("title");
-
-                try
+                if (livro != null)
                 {
-                    titleNode.InnerText = livro.Title[0];
-                }
-                catch (Exception)
-                {
-                    string title = "Anonymous";
-                    titleNode.InnerText = title;
-                }
 
-                ebookNode.AppendChild(titleNode);
+                    XmlNode ebookNode = xml.CreateElement("ebook");
+                    rootNode.AppendChild(ebookNode);
 
-                XmlNode authorNode = xml.CreateElement("author");
+                    XmlNode titleNode = xml.CreateElement("title");
 
-                try
-                {
-                    authorNode.InnerText = livro.Creator[0];
-                }
-                catch (Exception)
-                {
-                    string author = "Anonymous";
-                    authorNode.InnerText = author;
-                }
-
-                ebookNode.AppendChild(authorNode);
-
-                XmlNode publisherNode = xml.CreateElement("publisher");
-
-                try
-                {
-                    publisherNode.InnerText = livro.Publisher[0];
-                }
-                catch (Exception)
-                {
-                    string publisher = "Anonymous";
-                    publisherNode.InnerText = publisher;
-                }
-
-                ebookNode.AppendChild(publisherNode);
-
-                XmlNode subjectNode = xml.CreateElement("subject");
-
-                try
-                {
-                    subjectNode.InnerText = livro.Subject[0];
-                }
-                catch (Exception)
-                {
-                    string subject = "No subject";
-                    subjectNode.InnerText = subject;
-                }
-
-                ebookNode.AppendChild(subjectNode);
-
-                var navPoints = new List<NavPoint>();
-                navPoints = livro.TOC;
-
-                int num;
-
-                if (navPoints.Count != 0)
-                {
-                    num = 0;
-                    foreach (NavPoint item in navPoints)
+                    try
                     {
-                        num++;
-
-                        XmlNode chapterNode = xml.CreateElement("chapter");
-                        ebookNode.AppendChild(chapterNode);
-
-                        XmlNode nameNode = xml.CreateElement("name");
-                        nameNode.InnerText = item.Title;
-                        chapterNode.AppendChild(nameNode);
-
-                        XmlNode numberNode = xml.CreateElement("number");
-                        numberNode.InnerText = num + "";
-                        chapterNode.AppendChild(numberNode);
+                        titleNode.InnerText = livro.Title[0];
                     }
-                }
-                else
-                {
-                    num = 0;
-                    foreach (DictionaryEntry item in livro.Content)
+                    catch (Exception)
                     {
-                        num++;
-                        XmlNode chapterNode = xml.CreateElement("chapter");
-                        ebookNode.AppendChild(chapterNode);
+                        string title = "Anonymous";
+                        titleNode.InnerText = title;
+                    }
 
-                        XmlNode nameNode = xml.CreateElement("name");
-                        nameNode.InnerText = "Chapter " + num;
-                        chapterNode.AppendChild(nameNode);
+                    ebookNode.AppendChild(titleNode);
 
-                        XmlNode numberNode = xml.CreateElement("number");
-                        numberNode.InnerText = num + "";
-                        chapterNode.AppendChild(numberNode);
+                    XmlNode authorNode = xml.CreateElement("author");
+
+                    try
+                    {
+                        authorNode.InnerText = livro.Creator[0];
+                    }
+                    catch (Exception)
+                    {
+                        string author = "Anonymous";
+                        authorNode.InnerText = author;
+                    }
+
+                    ebookNode.AppendChild(authorNode);
+
+                    XmlNode publisherNode = xml.CreateElement("publisher");
+
+                    try
+                    {
+                        publisherNode.InnerText = livro.Publisher[0];
+                    }
+                    catch (Exception)
+                    {
+                        string publisher = "Anonymous";
+                        publisherNode.InnerText = publisher;
+                    }
+
+                    ebookNode.AppendChild(publisherNode);
+
+                    XmlNode subjectNode = xml.CreateElement("subject");
+
+                    try
+                    {
+                        subjectNode.InnerText = livro.Subject[0];
+                    }
+                    catch (Exception)
+                    {
+                        string subject = "No subject";
+                        subjectNode.InnerText = subject;
+                    }
+
+                    ebookNode.AppendChild(subjectNode);
+
+                    var navPoints = new List<NavPoint>();
+                    navPoints = livro.TOC;
+
+                    int num;
+
+                    if (navPoints.Count != 0)
+                    {
+                        num = 0;
+                        foreach (NavPoint item in navPoints)
+                        {
+                            num++;
+
+                            XmlNode chapterNode = xml.CreateElement("chapter");
+                            ebookNode.AppendChild(chapterNode);
+
+                            XmlNode nameNode = xml.CreateElement("name");
+                            nameNode.InnerText = item.Title;
+                            chapterNode.AppendChild(nameNode);
+
+                            XmlNode numberNode = xml.CreateElement("number");
+                            numberNode.InnerText = num + "";
+                            chapterNode.AppendChild(numberNode);
+                        }
+                    }
+                    else
+                    {
+                        num = 0;
+                        foreach (DictionaryEntry item in livro.Content)
+                        {
+                            num++;
+                            XmlNode chapterNode = xml.CreateElement("chapter");
+                            ebookNode.AppendChild(chapterNode);
+
+                            XmlNode nameNode = xml.CreateElement("name");
+                            nameNode.InnerText = "Chapter " + num;
+                            chapterNode.AppendChild(nameNode);
+
+                            XmlNode numberNode = xml.CreateElement("number");
+                            numberNode.InnerText = num + "";
+                            chapterNode.AppendChild(numberNode);
+                        }
                     }
                 }
             }
 
             string xmlOutput = xml.OuterXml;
+
+
+            string path2 = System.IO.Directory.GetCurrentDirectory();
+
+            System.IO.DirectoryInfo directoryInfo =
+                System.IO.Directory.GetParent(path2);
+
+
+            System.IO.DirectoryInfo directoryInfo2 =
+                System.IO.Directory.GetParent(directoryInfo.ToString());
+
+
+            MyXMLHandler xmlValidated = new MyXMLHandler(xmlOutput, directoryInfo2 + "\\xsd\\EBookSchema.xsd");
+
+            bool lol = xmlValidated.ValidateXML();
+
+            MessageBox.Show(lol.ToString());
+
+            xml.Save("cenas.xml");
 
             serv.CreateEbook(xmlOutput);
         }

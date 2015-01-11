@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ServiceePubCloud" />
+      <xsd:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_CreateUser_InputMessage">
@@ -37,6 +38,36 @@
   <wsdl:message name="IService1_CreateChapter_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateChapterResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_CreateBookmark_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateBookmark" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateBookmark_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateBookmarkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChapterExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChapterExists" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChapterExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChapterExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EbookExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:EbookExists" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EbookExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EbookExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BookmarkExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:BookmarkExists" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BookmarkExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BookmarkExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateFavorite_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFavorite" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateFavorite_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFavoriteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CreateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateUser" message="tns:IService1_CreateUser_InputMessage" />
@@ -57,6 +88,26 @@
     <wsdl:operation name="CreateChapter">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateChapter" message="tns:IService1_CreateChapter_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateChapterResponse" message="tns:IService1_CreateChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBookmark">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateBookmark" message="tns:IService1_CreateBookmark_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateBookmarkResponse" message="tns:IService1_CreateBookmark_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChapterExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ChapterExists" message="tns:IService1_ChapterExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ChapterExistsResponse" message="tns:IService1_ChapterExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EbookExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EbookExists" message="tns:IService1_EbookExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EbookExistsResponse" message="tns:IService1_EbookExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BookmarkExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/BookmarkExists" message="tns:IService1_BookmarkExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/BookmarkExistsResponse" message="tns:IService1_BookmarkExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFavorite">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateFavorite" message="tns:IService1_CreateFavorite_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateFavoriteResponse" message="tns:IService1_CreateFavorite_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -99,6 +150,51 @@
     </wsdl:operation>
     <wsdl:operation name="CreateChapter">
       <soap:operation soapAction="http://tempuri.org/IService1/CreateChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBookmark">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateBookmark" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChapterExists">
+      <soap:operation soapAction="http://tempuri.org/IService1/ChapterExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EbookExists">
+      <soap:operation soapAction="http://tempuri.org/IService1/EbookExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BookmarkExists">
+      <soap:operation soapAction="http://tempuri.org/IService1/BookmarkExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFavorite">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateFavorite" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
