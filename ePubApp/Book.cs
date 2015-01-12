@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -179,14 +180,23 @@ namespace ePubApp
         private void sendBookMarkFavXml(String chapterTitle, int chapterNumber, Boolean isFavorite)
         {
             XmlDocument xml = new XmlDocument();
+            XmlNode rootNode;
 
             XmlDeclaration xmlDeclaration = xml.CreateXmlDeclaration("1.0", "UTF-8", null);
             xml.AppendChild(xmlDeclaration);
-            XmlNode rootNode = xml.CreateElement("favorite");
-            //XmlAttribute attribute = xml.CreateAttribute("xmlns");
-            //attribute.Value = "http://tempuri.org/XMLSchema.xsd";
-            //rootNode.Attributes.Append(attribute);
-            xml.AppendChild(rootNode);
+            if (isFavorite)
+            {
+                rootNode = xml.CreateElement("favorite");
+                //XmlAttribute attribute = xml.CreateAttribute("xmlns");
+                //attribute.Value = "http://tempuri.org/XMLSchema.xsd";
+                //rootNode.Attributes.Append(attribute);
+                xml.AppendChild(rootNode);
+            }
+            else
+            {
+                rootNode = xml.CreateElement("bookmark");
+                xml.AppendChild(rootNode);
+            }
 
             XmlNode eownerNode = xml.CreateElement("owner");
             eownerNode.InnerText = logedUser;
@@ -275,7 +285,7 @@ namespace ePubApp
 
                 if (valid)
                 {
-                    serv.CreateFavorite(xmlOutput); 
+                    serv.CreateFavorite(xmlOutput);
                     MessageBox.Show("Adicionado aos favoritos!");
                 }
                 else
@@ -290,8 +300,10 @@ namespace ePubApp
 
                 if (valid)
                 {
-                    serv.CreateBookmark(xmlOutput);
+                    //serv.CreateBookmark(xmlOutput);
                     MessageBox.Show("Adicionado aos bookmarks!");
+                    string folderpath = Directory.GetCurrentDirectory();
+                    xml.Save(folderpath + "\\Bookmarks.xml");
                 }
                 else
                 {
