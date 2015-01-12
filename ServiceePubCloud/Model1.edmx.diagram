@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="Model1.Chapter" Width="1.5" PointX="4.125" PointY="4.75" />
         <EntityTypeShape EntityType="Model1.Bookmark" Width="1.5" PointX="8.25" PointY="3.875" />
         <EntityTypeShape EntityType="Model1.Favorite" Width="1.5" PointX="5.125" PointY="0.5" />
-        <EntityTypeShape EntityType="Model1.EBookStatistics" Width="1.5" PointX="1.875" PointY="4.75" />
+        <EntityTypeShape EntityType="Model1.ConsultedEbooks" Width="1.5" PointX="1.875" PointY="4.75" />
         <EntityTypeShape EntityType="Model1.DateStatistics" Width="1.5" PointX="7.625" PointY="1.125" />
         <AssociationConnector Association="Model1.ChapterEBook" />
         <AssociationConnector Association="Model1.BookmarkChapter" />

@@ -30,7 +30,7 @@ namespace ServiceePubCloud
         public DbSet<Chapter> ChapterSet { get; set; }
         public DbSet<Bookmark> BookmarkSet { get; set; }
         public DbSet<Favorite> FavoriteSet { get; set; }
-        public DbSet<EBookStatistics> EBookStatisticsSet { get; set; }
+        public DbSet<ConsultedEbooks> ConsultedEbooksSet { get; set; }
         public DbSet<DateStatistics> DateStatisticsSet { get; set; }
     }
 }

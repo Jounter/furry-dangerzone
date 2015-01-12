@@ -152,4 +152,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getMostAccess">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getMostAccessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="getMostAccessResult" nillable="true" type="q3:ArrayOfDateStatisticsWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

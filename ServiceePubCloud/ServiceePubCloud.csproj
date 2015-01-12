@@ -79,6 +79,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Chapters.cs" />
+    <Compile Include="ConsultedEbooks.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DateStatistics.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -86,9 +89,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EBooks.cs" />
-    <Compile Include="EBookStatistics.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Favorite.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -109,6 +109,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="MyXMLHandler.cs" />
+    <Compile Include="DateStatisticsWeb.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>

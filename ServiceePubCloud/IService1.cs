@@ -27,10 +27,9 @@ namespace ServiceePubCloud
         UserWeb GetUser(string username, string password);
 
         [OperationContract]
-        string CreateEbook(string xmlDoc);
+        void CreateEbook(string xmlDoc);
 
-        [OperationContract]
-        void CreateChapter(XmlDocument xmlDoc);
+        
 
         [OperationContract]
         string CreateBookmark(string xmlDoc);
@@ -47,10 +46,8 @@ namespace ServiceePubCloud
         [OperationContract]
         string CreateFavorite(string xmlDoc);
 
-
-       
+        [OperationContract]
+        List<DateStatisticsWeb> getMostAccess();
 
     }
-
-
 }

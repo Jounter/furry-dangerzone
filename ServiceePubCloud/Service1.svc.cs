@@ -98,7 +98,7 @@ namespace ServiceePubCloud
         }
 
 
-        public string CreateEbook(string xmlDoc)
+        public void CreateEbook(string xmlDoc)
         {
             MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\EBookSchema.xsd");
             xml.ValidateXML();
@@ -108,8 +108,8 @@ namespace ServiceePubCloud
             XmlNodeList lista = doc.SelectNodes("/ebooks/ebook");
             foreach (XmlNode item in lista)
             {
-                // TODO: verificar se  BD está vazia 
-                if ((context.EBookSet.Count() == 0))
+                //verificar se o livro já existe
+                if (!(EbookExists(item["title"].InnerText, item["author"].InnerText, item["publisher"].InnerText)))
                 {
                     EBook novo = new EBook();
                     novo.EBookName = item["title"].InnerText;
@@ -117,65 +117,39 @@ namespace ServiceePubCloud
                     novo.Subject = item["subject"].InnerText;
                     novo.Publisher = item["publisher"].InnerText;
                     context.EBookSet.Add(novo);
-                    CreateChapter(doc);
                     context.SaveChanges();
-                    return "Ebook created sucessfully!";
-                }
-                else
-                {
-                    //verificar se o livro já existe
-                    EbookExists(item["title"].InnerText, item["author"].InnerText, item["publisher"].InnerText);
-
-                    EBook novo = new EBook();
-                    novo.EBookName = item["title"].InnerText;
-                    novo.Author = item["author"].InnerText;
-                    novo.Subject = item["subject"].InnerText;
-                    novo.Publisher = item["publisher"].InnerText;
-                    context.EBookSet.Add(novo);
-                    CreateChapter(doc);
-                    context.SaveChanges();
-                    return "Ebook created sucessfully!";
+                    CreateChapter(doc, novo);
                 }
             }
-            return "Ebook already exists!";
+            // context.SaveChanges();
         }
 
         public bool EbookExists(string title, string author, string publisher)
         {
             Model1Container context = new Model1Container();
-            if (context.EBookSet.Equals(title) && context.EBookSet.Equals(author) && context.EBookSet.Equals(publisher))
+            var ebook = context.EBookSet.Where(i => i.EBookName.Equals(title) && i.Author.Equals(author) && i.Publisher.Equals(publisher));
+
+            if (ebook.Count() != 0)
             {
                 return true;
             }
             return false;
         }
 
-        public void CreateChapter(XmlDocument xmlDoc)
+        public void CreateChapter(XmlDocument xmlDoc, EBook eBook)
         {
             Model1Container context = new Model1Container();
-            //XmlNode root = doc.DocumentElement;
-            //root.OuterXml;
-            XmlNodeList lista = xmlDoc.SelectNodes("/ebooks/ebook");
-            foreach (XmlNode item in lista)
+
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ebooks/ebook[contains(title,'" + eBook.EBookName + "')]/chapter");
+
+            Chapter novoCapitulo = new Chapter();
+            foreach (XmlNode itemC in nodes)
             {
-                var ebook = context.EBookSet.Where(i => i.EBookName == item["title"].InnerText && i.Author == item["author"].InnerText && i.Publisher == item["publisher"].InnerText && i.Subject == item["subject"].InnerText);
-                if (ebook.Count() != 0)
-                {
-                    EBook ebookExists = null;
-                    foreach (var us in ebook)
-                    {
-                        ebookExists = ebook.First();
-                    }
-                    XmlNodeList capitulos = xmlDoc.SelectNodes("/ebooks/ebook/chapter");
-                    Chapter novoCapitulo = new Chapter();
-                    foreach (XmlNode itemC in capitulos)
-                    {
-                        novoCapitulo.EBookID = ebookExists.EbookID;
-                        novoCapitulo.ChapterName = itemC["chaptertitle"].InnerText;
-                        novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
-                        context.ChapterSet.Add(novoCapitulo);
-                    }
-                }
+                novoCapitulo.EBookID = eBook.EbookID;
+                novoCapitulo.ChapterName = itemC["name"].InnerText;
+                novoCapitulo.ChapterNumber = Convert.ToInt32(itemC["number"].InnerText);
+                context.ChapterSet.Add(novoCapitulo);
+                context.SaveChanges();
             }
         }
 
@@ -201,7 +175,8 @@ namespace ServiceePubCloud
             XmlNodeList user = doc.SelectNodes("/bookmark");
             foreach (XmlNode itemU in user)
             {
-                var userSearch = context.UserSet.Where(i => i.Username == itemU["owner"].InnerText);
+                string username = itemU["owner"].InnerText;
+                var userSearch = context.UserSet.Where(i => i.Username.Equals(username));
                 if (userSearch.Count() != 0)
                 {
                     User userExists = null;
@@ -213,7 +188,10 @@ namespace ServiceePubCloud
                     XmlNodeList books = doc.SelectNodes("/bookmark/book");
                     foreach (XmlNode itemB in books)
                     {
-                        var bookSearch = context.EBookSet.Where(i => i.EBookName == itemB["bookname"].InnerText && i.Author == itemB["author"].InnerText && i.Publisher == itemB["publisher"].InnerText);
+                        string title = itemB["bookname"].InnerText;
+                        string author = itemB["author"].InnerText;
+                        string publisher = itemB["publisher"].InnerText;
+                        var bookSearch = context.EBookSet.Where(i => i.EBookName.Equals(title) && i.Author.Equals(author) && i.Publisher.Equals(publisher));
                         if (bookSearch.Count() != 0)
                         {
                             EBook bookExists = null;
@@ -225,7 +203,9 @@ namespace ServiceePubCloud
                             XmlNodeList chapters = doc.SelectNodes("/bookmark/chapter");
                             foreach (XmlNode itemC in chapters)
                             {
-                                var chapterSearch = context.ChapterSet.Where(i => i.ChapterName == itemC["chaptername"].InnerText && i.EBookID == bookExists.EbookID && i.ChapterNumber == Convert.ToInt32(itemC["chapternumber"].InnerText));
+                                string name = itemC["chaptername"].InnerText;
+                                int number = Convert.ToInt32(itemC["chapternumber"].InnerText);
+                                var chapterSearch = context.ChapterSet.Where(i => i.ChapterName.Equals(name) && i.EBookID == bookExists.EbookID && i.ChapterNumber == number);
                                 Chapter chapterExists = null;
                                 if (chapterSearch.Count() != 0)
                                 {
@@ -269,10 +249,12 @@ namespace ServiceePubCloud
             Model1Container context = new Model1Container();
             doc.LoadXml(xmlDoc);
             //verificar existe user
-            XmlNodeList user = doc.SelectNodes("/bookmark");
+            XmlNodeList user = doc.SelectNodes("/favorite");
             foreach (XmlNode itemU in user)
             {
-                var userSearch = context.UserSet.Where(i => i.Username == itemU["owner"].InnerText);
+
+                string username = itemU["owner"].InnerText;
+                var userSearch = context.UserSet.Where(i => i.Username.Equals(username));
                 if (userSearch.Count() != 0)
                 {
                     User userExists = null;
@@ -281,10 +263,14 @@ namespace ServiceePubCloud
                         userExists = userSearch.First();
                     }
                     //book
-                    XmlNodeList books = doc.SelectNodes("/bookmark/book");
+                    XmlNodeList books = doc.SelectNodes("/favorite/book");
                     foreach (XmlNode itemB in books)
                     {
-                        var bookSearch = context.EBookSet.Where(i => i.EBookName == itemB["bookname"].InnerText && i.Author == itemB["author"].InnerText && i.Publisher == itemB["publisher"].InnerText);
+
+                        string title = itemB["bookname"].InnerText;
+                        string author = itemB["author"].InnerText;
+                        string publisher = itemB["publisher"].InnerText;
+                        var bookSearch = context.EBookSet.Where(i => i.EBookName.Equals(title) && i.Author.Equals(author) && i.Publisher.Equals(publisher));
                         if (bookSearch.Count() != 0)
                         {
                             EBook bookExists = null;
@@ -293,12 +279,14 @@ namespace ServiceePubCloud
                                 bookExists = bookSearch.First();
                             }
                             //chapter
-                            XmlNodeList chapters = doc.SelectNodes("/bookmark/chapter");
+                            XmlNodeList chapters = doc.SelectNodes("/favorite/chapter");
                             if (chapters != null)
                             {
                                 foreach (XmlNode itemC in chapters)
                                 {
-                                    var chapterSearch = context.ChapterSet.Where(i => i.ChapterName == itemC["chaptername"].InnerText && i.EBookID == bookExists.EbookID && i.ChapterNumber == Convert.ToInt32(itemC["chapternumber"].InnerText));
+                                    string name = itemC["chaptername"].InnerText;
+                                    int number = Convert.ToInt32(itemC["chapternumber"].InnerText);
+                                    var chapterSearch = context.ChapterSet.Where(i => i.ChapterName.Equals(name) && i.EBookID == bookExists.EbookID && i.ChapterNumber == number);
                                     if (chapterSearch.Count() != 0)
                                     {
                                         Chapter chapterExists = null;
@@ -346,12 +334,31 @@ namespace ServiceePubCloud
         }
 
 
-        //public List<>() getMostAccess(){            
-        //    Model1Container context = new Model1Container();
-        //    context.DateStatisticsSet.Where(i => i.Date.ToString("dd-MM-yyyy"));
+        public List<DateStatisticsWeb> getMostAccess()
+        {
+            Model1Container context = new Model1Container();
+            List<DateTime> dataAcess = context.DateStatisticsSet.Select(i => i.Date).ToList();
+            List<DateStatisticsWeb> final = new List<DateStatisticsWeb>();
+            List<DateTime> dataLida = new List<DateTime>();
+            int count;
+            foreach (DateTime data in dataAcess)
+            {
+                if (!dataLida.Contains(data))
+                {
+                    count = 0;
 
-        //}
-
-
+                    foreach (DateTime dataF in dataAcess)
+                    {
+                        if (((data.Day.Equals(dataF.Day)) && (data.Month.Equals(dataF.Month)) && (data.Year.Equals(dataF.Year))))
+                        {
+                            count++;
+                            dataLida.Add(dataF);
+                        }
+                    }
+                    final.Add(new DateStatisticsWeb(data, count));
+                }
+            }
+            return final;
+        }
     }
 }

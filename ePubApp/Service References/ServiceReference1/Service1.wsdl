@@ -68,6 +68,12 @@
   <wsdl:message name="IService1_CreateFavorite_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateFavoriteResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_getMostAccess_InputMessage">
+    <wsdl:part name="parameters" element="tns:getMostAccess" />
+  </wsdl:message>
+  <wsdl:message name="IService1_getMostAccess_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getMostAccessResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CreateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateUser" message="tns:IService1_CreateUser_InputMessage" />
@@ -108,6 +114,10 @@
     <wsdl:operation name="CreateFavorite">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateFavorite" message="tns:IService1_CreateFavorite_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateFavoriteResponse" message="tns:IService1_CreateFavorite_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getMostAccess">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/getMostAccess" message="tns:IService1_getMostAccess_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/getMostAccessResponse" message="tns:IService1_getMostAccess_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -195,6 +205,15 @@
     </wsdl:operation>
     <wsdl:operation name="CreateFavorite">
       <soap:operation soapAction="http://tempuri.org/IService1/CreateFavorite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMostAccess">
+      <soap:operation soapAction="http://tempuri.org/IService1/getMostAccess" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

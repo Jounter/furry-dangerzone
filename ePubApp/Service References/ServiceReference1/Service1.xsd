@@ -14,4 +14,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserWeb" nillable="true" type="tns:UserWeb" />
+  <xs:complexType name="ArrayOfDateStatisticsWeb">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DateStatisticsWeb" nillable="true" type="tns:DateStatisticsWeb" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDateStatisticsWeb" nillable="true" type="tns:ArrayOfDateStatisticsWeb" />
+  <xs:complexType name="DateStatisticsWeb">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Acess" type="xs:int" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DateStatisticsWeb" nillable="true" type="tns:DateStatisticsWeb" />
 </xs:schema>
