@@ -96,6 +96,7 @@
             this.btnFavs.TabIndex = 5;
             this.btnFavs.Text = "Favorites";
             this.btnFavs.UseVisualStyleBackColor = true;
+            this.btnFavs.Click += new System.EventHandler(this.btnFavs_Click);
             // 
             // btnLogout
             // 

@@ -131,7 +131,7 @@ namespace ePubApp
 
             webBrowser1.DocumentText = htmlText;
             string chapterTitle = listBox1.SelectedItem.ToString();
-            serv.lastEbookRead(chapterTitle);
+            //serv.lastEbookRead(chapterTitle);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -159,17 +159,16 @@ namespace ePubApp
 
         private void btnBookmarkChapter_Click(object sender, EventArgs e)
         {
-            try
+            if (listBox1.SelectedIndex >= 0)
             {
                 string chapterTitle = listBox1.SelectedItem.ToString();
                 int chapterNumber = listBox1.SelectedIndex;
                 isFavorite = false;
                 sendBookMarkFavXml(chapterTitle, chapterNumber, isFavorite);
-            }
-            catch (Exception)
-            {
+            }else{
                 MessageBox.Show("Selecione um capitulo para adicionar aos favoritos!");
             }
+            
 
         }
 
@@ -184,70 +183,155 @@ namespace ePubApp
             XmlDocument xml = new XmlDocument();
             XmlNode rootNode;
 
+            XmlDocument xmlLocal = new XmlDocument();
+            string folderpath = Directory.GetCurrentDirectory();
+
+            Boolean localExists;
+            try
+            {
+                if (!isFavorite)
+                {
+                    xmlLocal.Load(folderpath + "\\Bookmarks.xml");
+                }
+                else {
+                    xmlLocal.Load(folderpath + "\\Favorites.xml");
+                }
+                
+                localExists = true;
+            }
+            catch (Exception)
+            {
+                localExists = false;
+            }
+            
+            
+
+            XmlNode baseNodeLocal;
+
             XmlDeclaration xmlDeclaration = xml.CreateXmlDeclaration("1.0", "UTF-8", null);
             xml.AppendChild(xmlDeclaration);
+
+            if (!localExists)
+            {
+                XmlDeclaration xmlDeclarationLocal = xmlLocal.CreateXmlDeclaration("1.0", "UTF-8", null);
+                xmlLocal.AppendChild(xmlDeclarationLocal);
+            }
+
+
+
             if (isFavorite)
             {
                 rootNode = xml.CreateElement("favorite");
-                //XmlAttribute attribute = xml.CreateAttribute("xmlns");
-                //attribute.Value = "http://tempuri.org/XMLSchema.xsd";
-                //rootNode.Attributes.Append(attribute);
                 xml.AppendChild(rootNode);
+
+                
+
+                if (!localExists)
+                {
+                    XmlNode rootNodeLocal = xmlLocal.CreateElement("favorites");
+                    xmlLocal.AppendChild(rootNodeLocal);
+                    baseNodeLocal = xmlLocal.CreateElement("favorite");
+                    rootNodeLocal.AppendChild(baseNodeLocal);
+                }
+                else
+                {
+                    baseNodeLocal = xmlLocal.CreateElement("favorite");
+                    XmlElement rootNodeChild = xmlLocal.DocumentElement;
+                    rootNodeChild.AppendChild(baseNodeLocal);
+                }
+
+
             }
             else
             {
                 rootNode = xml.CreateElement("bookmark");
-                xml.AppendChild(rootNode);
+                xml.AppendChild(rootNode);                
+                
+
+                if (!localExists)
+                {
+                    XmlNode rootNodeLocal = xmlLocal.CreateElement("bookmarks");
+                    xmlLocal.AppendChild(rootNodeLocal);
+                    baseNodeLocal = xmlLocal.CreateElement("bookmark");
+                    rootNodeLocal.AppendChild(baseNodeLocal);
+                }
+                else
+                {
+                    baseNodeLocal = xmlLocal.CreateElement("bookmark");
+                    XmlElement rootNodeChild = xmlLocal.DocumentElement;
+                    rootNodeChild.AppendChild(baseNodeLocal);
+                }
             }
 
             XmlNode eownerNode = xml.CreateElement("owner");
             eownerNode.InnerText = logedUser;
             rootNode.AppendChild(eownerNode);
 
+            XmlNode eownerNodeLocal = xmlLocal.CreateElement("owner");
+            eownerNodeLocal.InnerText = logedUser;
+            baseNodeLocal.AppendChild(eownerNodeLocal);
+
+
+
             XmlNode bookNode = xml.CreateElement("book");
             rootNode.AppendChild(bookNode);
 
+            XmlNode bookNodeLocal = xmlLocal.CreateElement("book");
+            baseNodeLocal.AppendChild(bookNodeLocal);
+
             XmlNode titleNode = xml.CreateElement("bookname");
+            XmlNode titleNodeLocal = xmlLocal.CreateElement("bookname");
 
             try
             {
                 titleNode.InnerText = book.Title[0];
+                titleNodeLocal.InnerText = book.Title[0];
             }
             catch (Exception)
             {
                 string title = "Anonymous";
                 titleNode.InnerText = title;
+                titleNodeLocal.InnerText = title;
             }
 
             bookNode.AppendChild(titleNode);
+            bookNodeLocal.AppendChild(titleNodeLocal);
 
             XmlNode authorNode = xml.CreateElement("author");
+            XmlNode authorNodeLocal = xmlLocal.CreateElement("author");
 
             try
             {
                 authorNode.InnerText = book.Creator[0];
+                authorNodeLocal.InnerText = book.Creator[0];
             }
             catch (Exception)
             {
                 string author = "Anonymous";
                 authorNode.InnerText = author;
+                authorNodeLocal.InnerText = author;
             }
 
             bookNode.AppendChild(authorNode);
+            bookNodeLocal.AppendChild(authorNodeLocal);
 
             XmlNode publisherNode = xml.CreateElement("publisher");
+            XmlNode publisherNodeLocal = xmlLocal.CreateElement("publisher");
 
             try
             {
                 publisherNode.InnerText = book.Publisher[0];
+                publisherNodeLocal.InnerText = book.Publisher[0];
             }
             catch (Exception)
             {
                 string publisher = "Anonymous";
                 publisherNode.InnerText = publisher;
+                publisherNodeLocal.InnerText = publisher;
             }
 
             bookNode.AppendChild(publisherNode);
+            bookNodeLocal.AppendChild(publisherNodeLocal);
 
             if (chapterTitle != null && chapterNumber >= 0)
             {
@@ -261,14 +345,32 @@ namespace ePubApp
                 XmlNode numberNode = xml.CreateElement("chapternumber");
                 numberNode.InnerText = chapterNumber + "";
                 chapterNode.AppendChild(numberNode);
+
+
+
+                XmlNode chapterNodeLocal = xmlLocal.CreateElement("chapter");
+                bookNodeLocal.AppendChild(chapterNodeLocal);
+
+                XmlNode nameNodeLocal = xmlLocal.CreateElement("chaptername");
+                nameNodeLocal.InnerText = chapterTitle;
+                chapterNodeLocal.AppendChild(nameNodeLocal);
+
+                XmlNode numberNodeLocal = xmlLocal.CreateElement("chapternumber");
+                numberNodeLocal.InnerText = chapterNumber + "";
+                chapterNodeLocal.AppendChild(numberNodeLocal);
             }
 
             XmlNode dateNode = xml.CreateElement("date");
             dateNode.InnerText = System.DateTime.Now.ToString();
             rootNode.AppendChild(dateNode);
 
+            XmlNode dateNodeLocal = xmlLocal.CreateElement("date");
+            dateNodeLocal.InnerText = System.DateTime.Now.ToString();
+            baseNodeLocal.AppendChild(dateNodeLocal);
+
 
             string xmlOutput = xml.OuterXml;
+            string xmlOutputLocal = xmlLocal.OuterXml;
 
 
             string path2 = System.IO.Directory.GetCurrentDirectory();
@@ -285,9 +387,15 @@ namespace ePubApp
                 MyXMLHandler xmlValidated = new MyXMLHandler(xmlOutput, directoryInfo2 + "\\xsd\\FavoriteSchema.xsd");
                 bool valid = xmlValidated.ValidateXML();
 
-                if (valid)
+                MyXMLHandler xmlValidatedLocal = new MyXMLHandler(xmlOutputLocal, directoryInfo2 + "\\xsd\\FavoriteLocalSchema.xsd");
+                bool validLocal = xmlValidatedLocal.ValidateXML();
+
+                if (valid && validLocal)
                 {
                     string m = serv.CreateFavorite(xmlOutput);
+
+                    xmlLocal.Save(folderpath + "\\Favorites.xml");
+
                     MessageBox.Show(m);
                 }
                 else
@@ -297,19 +405,24 @@ namespace ePubApp
             }
             else
             {
+
                 MyXMLHandler xmlValidated = new MyXMLHandler(xmlOutput, directoryInfo2 + "\\xsd\\BookmarkSchema.xsd");
                 bool valid = xmlValidated.ValidateXML();
 
-                if (valid)
+                MyXMLHandler xmlValidatedLocal = new MyXMLHandler(xmlOutputLocal, directoryInfo2 + "\\xsd\\BookmarkLocalSchema.xsd");
+                bool validLocal = xmlValidatedLocal.ValidateXML();
+
+                if (valid && validLocal)
                 {
                     string m = serv.CreateBookmark(xmlOutput);
                     MessageBox.Show(m);
-                    string folderpath = Directory.GetCurrentDirectory();
-                    xml.Save(folderpath + "\\Bookmarks.xml");
+
+                    xmlLocal.Save(folderpath + "\\Bookmarks.xml");
+
                 }
                 else
                 {
-                    MessageBox.Show("Nao foi possivel adicionar aos favoritos!");
+                    MessageBox.Show("Nao foi possivel adicionar aos bookmarks!");
                 }
             }
             
@@ -320,15 +433,13 @@ namespace ePubApp
 
         private void btnFavoriteChapter_Click(object sender, EventArgs e)
         {
-            try
+            if (listBox1.SelectedIndex >= 0)
             {
                 string chapterTitle = listBox1.SelectedItem.ToString();
                 int chapterNumber = listBox1.SelectedIndex;
                 isFavorite = true;
                 sendBookMarkFavXml(chapterTitle, chapterNumber, isFavorite); 
-            }
-            catch (Exception)
-            {
+            }else{
                 MessageBox.Show("Selecione um capitulo para adicionar aos favoritos!");
             }
 

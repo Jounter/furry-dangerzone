@@ -138,9 +138,9 @@ namespace ePubApp
         private void mostBookBookmark()
         {
             dataGridView1.Rows.Clear();
-            dataGridView1.ColumnCount = 3;
+            dataGridView1.ColumnCount = 2;
             dataGridView1.Columns[0].Name = "Book Name";
-            dataGridView1.Columns[2].Name = "Number of Bookmarks";
+            dataGridView1.Columns[1].Name = "Number of Bookmarks";
             List<EBooks> list = serv.ebooksBookmark().ToList();
 
             foreach (EBooks item in list)
@@ -154,6 +154,13 @@ namespace ePubApp
                 dataGridView1.Rows.Add(linha);
             }
             dataGridView1.Sort(this.dataGridView1.Columns[1], ListSortDirection.Descending);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Dispose();
+            this.Close();
         }
     }
 }

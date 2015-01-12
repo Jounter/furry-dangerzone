@@ -87,6 +87,30 @@ namespace ePubApp
 
         }
 
+        private void openBook(string book)
+        {
+            string path = epubPath + "\\" + book;
+
+            Epub epub = null;
+            Boolean error;
+            try
+            {
+                epub = new Epub(@path);
+                error = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error opening eBook!");
+                error = true;
+            }
+
+            if (error == false)
+            {
+                Book li = new Book(epub, logedUser);                
+                li.Show();
+            }
+        }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Do you really want to log out?", "Log Out", MessageBoxButtons.YesNo);
@@ -107,7 +131,8 @@ namespace ePubApp
 
         private void btnBM_Click(object sender, EventArgs e)
         {
-            Form bookmacks = new Bookmarks();
+
+            Form bookmacks = new Bookmarks(logedUser);
             bookmacks.ShowDialog();
         }
 
@@ -360,6 +385,12 @@ namespace ePubApp
         {
             Form stats = new Statistics();
             stats.Show();
+        }
+
+        private void btnFavs_Click(object sender, EventArgs e)
+        {
+            Form fav = new Favorites(logedUser);
+            fav.Show();
         }
 
     }
