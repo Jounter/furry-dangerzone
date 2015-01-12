@@ -31,20 +31,32 @@ namespace ePubApp
             }
             else
             {
-                if (!serv.UserExists(txtUser.Text, txtPass.Text))
+                try
                 {
-                    showErr();
-                    
+                    //UI
+                    this.Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+                    if (!serv.UserExists(txtUser.Text, txtPass.Text))
+                    {
+                        showErr();
+
+                    }
+                    else
+                    {
+                        this.Hide();
+
+                        Form menu = new Menu(txtUser.Text);
+                        menu.ShowDialog();
+
+                        this.Dispose();
+                        this.Close();
+                    }
                 }
-                else
+                finally
                 {
-                    this.Hide();
-
-                    Form menu = new Menu(txtUser.Text);
-                    menu.ShowDialog();
-
-                    this.Dispose();
-                    this.Close();
+                    //UI
+                    this.Cursor = Cursors.Default;
                 }
             }
             /*

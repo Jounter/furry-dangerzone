@@ -65,6 +65,7 @@
             // 
             // txtWSPath
             // 
+            this.txtWSPath.Enabled = false;
             this.txtWSPath.Location = new System.Drawing.Point(40, 134);
             this.txtWSPath.Name = "txtWSPath";
             this.txtWSPath.Size = new System.Drawing.Size(292, 20);

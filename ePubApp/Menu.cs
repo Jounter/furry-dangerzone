@@ -138,7 +138,18 @@ namespace ePubApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            sendEBookXml();
+            try
+            {
+                //UI
+                this.Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+                sendEBookXml();
+            }
+            finally
+            {
+                //UI
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void sendEBookXml()

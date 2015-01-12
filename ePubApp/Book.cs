@@ -130,7 +130,7 @@ namespace ePubApp
             string htmlText = book.GetContentAsHtml();
 
             webBrowser1.DocumentText = htmlText;
-            string chapterTitle = listBox1.SelectedItem.ToString();
+            //string chapterTitle = listBox1.SelectedItem.ToString();
             //serv.lastEbookRead(chapterTitle);
         }
 
