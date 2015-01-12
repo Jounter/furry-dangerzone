@@ -27,4 +27,37 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DateStatisticsWeb" nillable="true" type="tns:DateStatisticsWeb" />
+  <xs:complexType name="ArrayOfEBooks">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EBooks" nillable="true" type="tns:EBooks" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEBooks" nillable="true" type="tns:ArrayOfEBooks" />
+  <xs:complexType name="EBooks">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Author" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="EBookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EbookID" type="xs:int" />
+      <xs:element minOccurs="0" name="Publisher" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EBooks" nillable="true" type="tns:EBooks" />
+  <xs:complexType name="ArrayOfChapters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Chapters" nillable="true" type="tns:Chapters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChapters" nillable="true" type="tns:ArrayOfChapters" />
+  <xs:complexType name="Chapters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChapterID" type="xs:int" />
+      <xs:element minOccurs="0" name="ChapterName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChapterNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="EBookID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Chapters" nillable="true" type="tns:Chapters" />
 </xs:schema>

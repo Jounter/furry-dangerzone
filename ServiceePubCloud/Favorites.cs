@@ -18,6 +18,10 @@ namespace ServiceePubCloud
         public int ChapterID { get; set; }
         [DataMember]
         public System.DateTime Schedule { get; set; }
+        [DataMember]
+        public int Count { get; set; }
+        [DataMember]
+        public EBook book { get; set; }
 
         public Favorites()
         {
@@ -41,6 +45,11 @@ namespace ServiceePubCloud
             this.EBookID = favorites.EBookID;
             this.ChapterID = favorites.ChapterID;
             this.Schedule = favorites.Schedule;
+        }
+        public Favorites(EBook book, int count)
+        {
+            this.Count = count;
+            this.book = book;
         }
 
     }

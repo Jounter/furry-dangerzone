@@ -70,13 +70,13 @@
             // 
             // btnStats
             // 
-            this.btnStats.Enabled = false;
             this.btnStats.Location = new System.Drawing.Point(282, 107);
             this.btnStats.Name = "btnStats";
             this.btnStats.Size = new System.Drawing.Size(75, 23);
             this.btnStats.TabIndex = 3;
             this.btnStats.Text = "Stats";
             this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
             // 
             // btnBM
             // 

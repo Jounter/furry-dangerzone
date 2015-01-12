@@ -130,6 +130,8 @@ namespace ePubApp
             string htmlText = book.GetContentAsHtml();
 
             webBrowser1.DocumentText = htmlText;
+            string chapterTitle = listBox1.SelectedItem.ToString();
+            serv.lastEbookRead(chapterTitle);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

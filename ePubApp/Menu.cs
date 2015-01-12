@@ -81,7 +81,7 @@ namespace ePubApp
 
             if (error == false)
             {
-                Book li = new Book(epub, logedUser);
+                Book li = new Book(epub, logedUser);                
                 li.Show();
             }
 
@@ -354,6 +354,12 @@ namespace ePubApp
                 list.Add("No books were found!");
                 listBox1.DataSource = list;
             }
+        }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            Form stats = new Statistics();
+            stats.Show();
         }
 
     }

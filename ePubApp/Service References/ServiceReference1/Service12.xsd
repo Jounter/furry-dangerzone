@@ -101,4 +101,64 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="favoriteEBook">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="favoriteEBookResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="favoriteEBookResult" nillable="true" type="q3:ArrayOfEBooks" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="favoriteChapter">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="favoriteChapterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="favoriteChapterResult" nillable="true" type="q4:ArrayOfChapters" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="capitulosEbooksBookmark">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="capitulosEbooksBookmarkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="capitulosEbooksBookmarkResult" nillable="true" type="q5:ArrayOfChapters" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ebooksBookmark">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ebooksBookmarkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="ebooksBookmarkResult" nillable="true" type="q6:ArrayOfEBooks" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lastEbookRead">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="xmlDoc" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lastEbookReadResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

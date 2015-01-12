@@ -38,5 +38,20 @@ namespace ServiceePubCloud
         [OperationContract]
         List<DateStatisticsWeb> getMostAccess();
 
+        [OperationContract]
+        List<EBooks> favoriteEBook();
+
+        [OperationContract]
+        List<Chapters> favoriteChapter();
+
+        [OperationContract]
+        List<Chapters> capitulosEbooksBookmark();
+
+        [OperationContract]
+        List<EBooks> ebooksBookmark();
+
+        [OperationContract]
+        void lastEbookRead(string xmlDoc);
+
     }
 }

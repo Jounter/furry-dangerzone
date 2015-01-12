@@ -247,6 +247,240 @@ namespace ePubApp.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EBooks", Namespace="http://schemas.datacontract.org/2004/07/ServiceePubCloud")]
+    [System.SerializableAttribute()]
+    public partial class EBooks : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuthorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EBookNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EbookIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PublisherField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Author {
+            get {
+                return this.AuthorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuthorField, value) != true)) {
+                    this.AuthorField = value;
+                    this.RaisePropertyChanged("Author");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Count {
+            get {
+                return this.CountField;
+            }
+            set {
+                if ((this.CountField.Equals(value) != true)) {
+                    this.CountField = value;
+                    this.RaisePropertyChanged("Count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EBookName {
+            get {
+                return this.EBookNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EBookNameField, value) != true)) {
+                    this.EBookNameField = value;
+                    this.RaisePropertyChanged("EBookName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EbookID {
+            get {
+                return this.EbookIDField;
+            }
+            set {
+                if ((this.EbookIDField.Equals(value) != true)) {
+                    this.EbookIDField = value;
+                    this.RaisePropertyChanged("EbookID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Publisher {
+            get {
+                return this.PublisherField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PublisherField, value) != true)) {
+                    this.PublisherField = value;
+                    this.RaisePropertyChanged("Publisher");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Subject {
+            get {
+                return this.SubjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectField, value) != true)) {
+                    this.SubjectField = value;
+                    this.RaisePropertyChanged("Subject");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chapters", Namespace="http://schemas.datacontract.org/2004/07/ServiceePubCloud")]
+    [System.SerializableAttribute()]
+    public partial class Chapters : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ChapterIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChapterNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ChapterNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EBookIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ChapterID {
+            get {
+                return this.ChapterIDField;
+            }
+            set {
+                if ((this.ChapterIDField.Equals(value) != true)) {
+                    this.ChapterIDField = value;
+                    this.RaisePropertyChanged("ChapterID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChapterName {
+            get {
+                return this.ChapterNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChapterNameField, value) != true)) {
+                    this.ChapterNameField = value;
+                    this.RaisePropertyChanged("ChapterName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ChapterNumber {
+            get {
+                return this.ChapterNumberField;
+            }
+            set {
+                if ((this.ChapterNumberField.Equals(value) != true)) {
+                    this.ChapterNumberField = value;
+                    this.RaisePropertyChanged("ChapterNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Count {
+            get {
+                return this.CountField;
+            }
+            set {
+                if ((this.CountField.Equals(value) != true)) {
+                    this.CountField = value;
+                    this.RaisePropertyChanged("Count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EBookID {
+            get {
+                return this.EBookIDField;
+            }
+            set {
+                if ((this.EBookIDField.Equals(value) != true)) {
+                    this.EBookIDField = value;
+                    this.RaisePropertyChanged("EBookID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
@@ -292,6 +526,36 @@ namespace ePubApp.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getMostAccess", ReplyAction="http://tempuri.org/IService1/getMostAccessResponse")]
         System.Threading.Tasks.Task<ePubApp.ServiceReference1.DateStatisticsWeb[]> getMostAccessAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/favoriteEBook", ReplyAction="http://tempuri.org/IService1/favoriteEBookResponse")]
+        ePubApp.ServiceReference1.EBooks[] favoriteEBook();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/favoriteEBook", ReplyAction="http://tempuri.org/IService1/favoriteEBookResponse")]
+        System.Threading.Tasks.Task<ePubApp.ServiceReference1.EBooks[]> favoriteEBookAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/favoriteChapter", ReplyAction="http://tempuri.org/IService1/favoriteChapterResponse")]
+        ePubApp.ServiceReference1.Chapters[] favoriteChapter();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/favoriteChapter", ReplyAction="http://tempuri.org/IService1/favoriteChapterResponse")]
+        System.Threading.Tasks.Task<ePubApp.ServiceReference1.Chapters[]> favoriteChapterAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/capitulosEbooksBookmark", ReplyAction="http://tempuri.org/IService1/capitulosEbooksBookmarkResponse")]
+        ePubApp.ServiceReference1.Chapters[] capitulosEbooksBookmark();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/capitulosEbooksBookmark", ReplyAction="http://tempuri.org/IService1/capitulosEbooksBookmarkResponse")]
+        System.Threading.Tasks.Task<ePubApp.ServiceReference1.Chapters[]> capitulosEbooksBookmarkAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ebooksBookmark", ReplyAction="http://tempuri.org/IService1/ebooksBookmarkResponse")]
+        ePubApp.ServiceReference1.EBooks[] ebooksBookmark();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ebooksBookmark", ReplyAction="http://tempuri.org/IService1/ebooksBookmarkResponse")]
+        System.Threading.Tasks.Task<ePubApp.ServiceReference1.EBooks[]> ebooksBookmarkAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/lastEbookRead", ReplyAction="http://tempuri.org/IService1/lastEbookReadResponse")]
+        void lastEbookRead(string xmlDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/lastEbookRead", ReplyAction="http://tempuri.org/IService1/lastEbookReadResponse")]
+        System.Threading.Tasks.Task lastEbookReadAsync(string xmlDoc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -375,6 +639,46 @@ namespace ePubApp.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ePubApp.ServiceReference1.DateStatisticsWeb[]> getMostAccessAsync() {
             return base.Channel.getMostAccessAsync();
+        }
+        
+        public ePubApp.ServiceReference1.EBooks[] favoriteEBook() {
+            return base.Channel.favoriteEBook();
+        }
+        
+        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.EBooks[]> favoriteEBookAsync() {
+            return base.Channel.favoriteEBookAsync();
+        }
+        
+        public ePubApp.ServiceReference1.Chapters[] favoriteChapter() {
+            return base.Channel.favoriteChapter();
+        }
+        
+        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.Chapters[]> favoriteChapterAsync() {
+            return base.Channel.favoriteChapterAsync();
+        }
+        
+        public ePubApp.ServiceReference1.Chapters[] capitulosEbooksBookmark() {
+            return base.Channel.capitulosEbooksBookmark();
+        }
+        
+        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.Chapters[]> capitulosEbooksBookmarkAsync() {
+            return base.Channel.capitulosEbooksBookmarkAsync();
+        }
+        
+        public ePubApp.ServiceReference1.EBooks[] ebooksBookmark() {
+            return base.Channel.ebooksBookmark();
+        }
+        
+        public System.Threading.Tasks.Task<ePubApp.ServiceReference1.EBooks[]> ebooksBookmarkAsync() {
+            return base.Channel.ebooksBookmarkAsync();
+        }
+        
+        public void lastEbookRead(string xmlDoc) {
+            base.Channel.lastEbookRead(xmlDoc);
+        }
+        
+        public System.Threading.Tasks.Task lastEbookReadAsync(string xmlDoc) {
+            return base.Channel.lastEbookReadAsync(xmlDoc);
         }
     }
 }

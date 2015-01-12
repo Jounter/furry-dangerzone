@@ -16,6 +16,7 @@ namespace ServiceePubCloud
     {
         public Chapter()
         {
+            this.ChapterID = -1;
             this.Bookmark = new HashSet<Bookmark>();
             this.EBookStatistics = new HashSet<ConsultedEbooks>();
             this.User = new HashSet<User>();

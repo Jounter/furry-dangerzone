@@ -49,6 +49,36 @@
   <wsdl:message name="IService1_getMostAccess_OutputMessage">
     <wsdl:part name="parameters" element="tns:getMostAccessResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_favoriteEBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:favoriteEBook" />
+  </wsdl:message>
+  <wsdl:message name="IService1_favoriteEBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:favoriteEBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_favoriteChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:favoriteChapter" />
+  </wsdl:message>
+  <wsdl:message name="IService1_favoriteChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:favoriteChapterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_capitulosEbooksBookmark_InputMessage">
+    <wsdl:part name="parameters" element="tns:capitulosEbooksBookmark" />
+  </wsdl:message>
+  <wsdl:message name="IService1_capitulosEbooksBookmark_OutputMessage">
+    <wsdl:part name="parameters" element="tns:capitulosEbooksBookmarkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ebooksBookmark_InputMessage">
+    <wsdl:part name="parameters" element="tns:ebooksBookmark" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ebooksBookmark_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ebooksBookmarkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_lastEbookRead_InputMessage">
+    <wsdl:part name="parameters" element="tns:lastEbookRead" />
+  </wsdl:message>
+  <wsdl:message name="IService1_lastEbookRead_OutputMessage">
+    <wsdl:part name="parameters" element="tns:lastEbookReadResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CreateUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateUser" message="tns:IService1_CreateUser_InputMessage" />
@@ -77,6 +107,26 @@
     <wsdl:operation name="getMostAccess">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/getMostAccess" message="tns:IService1_getMostAccess_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/getMostAccessResponse" message="tns:IService1_getMostAccess_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="favoriteEBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/favoriteEBook" message="tns:IService1_favoriteEBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/favoriteEBookResponse" message="tns:IService1_favoriteEBook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="favoriteChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/favoriteChapter" message="tns:IService1_favoriteChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/favoriteChapterResponse" message="tns:IService1_favoriteChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="capitulosEbooksBookmark">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/capitulosEbooksBookmark" message="tns:IService1_capitulosEbooksBookmark_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/capitulosEbooksBookmarkResponse" message="tns:IService1_capitulosEbooksBookmark_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ebooksBookmark">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ebooksBookmark" message="tns:IService1_ebooksBookmark_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ebooksBookmarkResponse" message="tns:IService1_ebooksBookmark_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="lastEbookRead">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/lastEbookRead" message="tns:IService1_lastEbookRead_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/lastEbookReadResponse" message="tns:IService1_lastEbookRead_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -137,6 +187,51 @@
     </wsdl:operation>
     <wsdl:operation name="getMostAccess">
       <soap:operation soapAction="http://tempuri.org/IService1/getMostAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="favoriteEBook">
+      <soap:operation soapAction="http://tempuri.org/IService1/favoriteEBook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="favoriteChapter">
+      <soap:operation soapAction="http://tempuri.org/IService1/favoriteChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="capitulosEbooksBookmark">
+      <soap:operation soapAction="http://tempuri.org/IService1/capitulosEbooksBookmark" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ebooksBookmark">
+      <soap:operation soapAction="http://tempuri.org/IService1/ebooksBookmark" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lastEbookRead">
+      <soap:operation soapAction="http://tempuri.org/IService1/lastEbookRead" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

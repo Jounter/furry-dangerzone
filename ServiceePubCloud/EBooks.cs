@@ -19,6 +19,8 @@ namespace ServiceePubCloud
         public string Publisher { get; set; }
         [DataMember]
         public string Subject { get; set; }
+        [DataMember]
+        public int Count { get; set; }
 
         public EBooks()
         {
@@ -36,6 +38,16 @@ namespace ServiceePubCloud
             this.Author = Author;
             this.Publisher = Publisher;
             this.Subject = Subject;
+        }
+
+        public EBooks(int EbookID, string EBookName, string Author, string Publisher, string Subject, int count)
+        {
+            this.EbookID = EbookID;
+            this.EBookName = EBookName;
+            this.Author = Author;
+            this.Publisher = Publisher;
+            this.Subject = Subject;
+            this.Count = count;
         }
     }
 }

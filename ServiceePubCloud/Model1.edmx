@@ -86,7 +86,7 @@
     <Key>
       <PropertyRef Name="ChapterID" />
     </Key>
-    <Property Name="ChapterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" DefaultValue="-1" />
     <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ChapterNumber" Type="int" Nullable="false" />
     <Property Name="EBookID" Type="int" Nullable="false" />
@@ -353,7 +353,7 @@
           <Key>
             <PropertyRef Name="ChapterID" />
           </Key>
-          <Property Type="Int32" Name="ChapterID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ChapterID" Nullable="false" annotation:StoreGeneratedPattern="Identity" DefaultValue="-1" />
           <Property Type="String" Name="ChapterName" Nullable="false" />
           <Property Type="Int32" Name="ChapterNumber" Nullable="false" />
           <NavigationProperty Name="EBook" Relationship="Model1.ChapterEBook" FromRole="Chapter" ToRole="EBook" />

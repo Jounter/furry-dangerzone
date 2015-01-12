@@ -15,24 +15,35 @@ namespace ServiceePubCloud
         [DataMember]
         public string ChapterName { get; set; }
         [DataMember]
-        public string ChapterNumber { get; set; }
+        public int ChapterNumber { get; set; }
         [DataMember]
         public int EBookID { get; set; }
+        [DataMember]
+        public int Count { get; set; }
 
         public Chapters()
         {
             ChapterID = 0;
             ChapterName = "";
-            ChapterNumber = "";
+            ChapterNumber = 0;
             EBookID = 0;
         }
 
-        public Chapters(int chapterID, string chapterName, string chapterNumber, int ebookID)
+        public Chapters(int chapterID, string chapterName, int chapterNumber, int ebookID)
         {
             this.ChapterID = chapterID;
             this.ChapterName = chapterName;
-            this.ChapterNumber = chapterName;
+            this.ChapterNumber = chapterNumber;
             this.EBookID = ebookID;
+        }
+
+        public Chapters(int chapterID, string chapterName, int chapterNumber, int ebookID, int count)
+        {
+            this.ChapterID = chapterID;
+            this.ChapterName = chapterName;
+            this.ChapterNumber = ChapterNumber;
+            this.EBookID = ebookID;
+            this.Count = count;
         }
 
     }

@@ -17,7 +17,8 @@ namespace ServiceePubCloud
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        string folderPath = Directory.GetCurrentDirectory();
+        private UserWeb userWeb;
+        private string folderPath = Directory.GetCurrentDirectory();
 
         public string CreateUser(string username, string password, string name, string email, DateTime birthdate)
         {
@@ -92,6 +93,7 @@ namespace ServiceePubCloud
             if (user != null)
             {
                 LastLogin(user.Id, (DateTime)user.LastLogin);
+                this.userWeb = user;
                 return true;
             }
             return false;
@@ -320,7 +322,7 @@ namespace ServiceePubCloud
                                 Favorite novoFavorite = new Favorite();
                                 novoFavorite.UserID = userExists.UserID;
                                 novoFavorite.EBookID = bookExists.EbookID;
-                                //novoFavorite.ChapterID = 0;
+                                //novoFavorite.ChapterID =DBNull;
                                 novoFavorite.Date = DateTime.Now;
                                 context.FavoriteSet.Add(novoFavorite);
                                 context.SaveChanges();
@@ -345,6 +347,47 @@ namespace ServiceePubCloud
                 return true;
             }
             return false;
+        }
+
+        public void lastEbookRead(string xmlDoc)
+        {
+            MyXMLHandler xml = new MyXMLHandler(xmlDoc, folderPath + "\\xsd\\EBookSchema.xsd");
+            xml.ValidateXML();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xmlDoc);
+            Model1Container context = new Model1Container();
+            var user = context.UserSet.Where(i => i.UserID == userWeb.Id);
+            if (user.Count() != 0)
+            {
+                User userExists = null;
+                foreach (var us in user)
+                {
+                    userExists = user.First();
+                }
+                XmlNodeList lista = doc.SelectNodes("/ebooks/ebook");
+                foreach (XmlNode item in lista)
+                {
+                    //verificar se o livro já existe
+                    if (!(EbookExists(item["title"].InnerText, item["author"].InnerText, item["publisher"].InnerText)))
+                    {
+                        string title = item["bookname"].InnerText;
+                        string author = item["author"].InnerText;
+                        string publisher = item["publisher"].InnerText;
+                        var bookSearch = context.EBookSet.Where(i => i.EBookName.Equals(title) && i.Author.Equals(author) && i.Publisher.Equals(publisher));
+                        if (bookSearch.Count() != 0)
+                        {
+                            EBook bookExists = null;
+                            foreach (var us in lista)
+                            {
+                                bookExists = bookSearch.First();
+                            }
+                            userExists.LastEBookRead = bookExists.EbookID;
+                            context.UserSet.Add(userExists);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -373,6 +416,157 @@ namespace ServiceePubCloud
                 }
             }
             return final;
+        }
+
+        public List<EBooks> favoriteEBook()
+        {
+            Model1Container context = new Model1Container();
+            List<EBook> dataAcess = context.FavoriteSet.Select(i => i.EBook).ToList();
+            List<EBooks> final = new List<EBooks>();
+            List<EBook> eBookLido = new List<EBook>();
+            int count;
+            foreach (EBook eBook in dataAcess)
+            {
+                if (!eBookLido.Contains(eBook))
+                {
+                    count = 0;
+
+                    foreach (EBook eBookF in dataAcess)
+                    {
+                        if (eBook.Equals(eBookF))
+                        {
+                            count++;
+                            eBookLido.Add(eBookF);
+                        }
+                    }
+                    EBooks novoBook = new EBooks();
+                    novoBook.Author = eBook.Author;
+                    novoBook.EbookID = eBook.EbookID;
+                    novoBook.EBookName = eBook.EBookName;
+                    novoBook.Publisher = eBook.Publisher;
+                    novoBook.Subject = eBook.Subject;
+                    novoBook.Count = count;
+                    final.Add(novoBook);
+                }
+            }
+            return final;
+        }
+
+
+        public List<Chapters> favoriteChapter()
+        {
+            Model1Container context = new Model1Container();
+            List<Chapter> dataAcess = context.FavoriteSet.Select(i => i.Chapter).ToList();
+            List<Chapters> finalS = new List<Chapters>();
+            List<Chapter> eBookLido = new List<Chapter>();
+            int count;
+            foreach (Chapter eBook in dataAcess)
+            {
+                if (!eBookLido.Contains(eBook))
+                {
+
+                    count = 0;
+                    foreach (Chapter eBookF in dataAcess)
+                    {
+                        if (eBookF.ChapterID != 0)
+                        {
+                            if (eBook.Equals(eBookF))
+                            {
+                                count++;
+                                eBookLido.Add(eBookF);
+                            }
+                        }
+                    }
+                    Chapters novochap = new Chapters();
+                    novochap.ChapterID = eBook.ChapterID;
+                    novochap.ChapterName = eBook.ChapterName;
+                    novochap.ChapterNumber = eBook.ChapterNumber;
+                    novochap.EBookID = eBook.EBookID;
+                    novochap.Count = count;
+                    finalS.Add(novochap);
+                }
+            }
+
+            return finalS;
+        }
+
+        public List<Chapters> capitulosEbooksBookmark()
+        {
+            Model1Container context = new Model1Container();
+            List<Chapter> dataAcess = context.BookmarkSet.Select(i => i.Chapter).ToList();
+            List<Chapters> finalS = new List<Chapters>();
+            List<Chapter> eBookLido = new List<Chapter>();
+            int count;
+
+            foreach (Chapter eBook in dataAcess)
+            {
+                if (!eBookLido.Contains(eBook))
+                {
+
+                    count = 0;
+                    foreach (Chapter eBookF in dataAcess)
+                    {
+
+                        if (eBook.Equals(eBookF))
+                        {
+                            count++;
+                            eBookLido.Add(eBookF);
+                        }
+                    }
+                    Chapters novochap = new Chapters();
+                    novochap.ChapterID = eBook.ChapterID;
+                    novochap.ChapterName = eBook.ChapterName;
+                    novochap.ChapterNumber = eBook.ChapterNumber;
+                    novochap.EBookID = eBook.EBookID;
+                    novochap.Count = count;
+                    finalS.Add(novochap);
+                }
+            }
+            return finalS;
+        }
+
+
+        public List<EBooks> ebooksBookmark()
+        {
+            Model1Container context = new Model1Container();
+            List<Chapter> allChapterList = context.BookmarkSet.Select(i => i.Chapter).ToList();
+            List<EBook> book = new List<EBook>();
+            foreach (Chapter chapter in allChapterList)
+            {
+                EBook novo = context.EBookSet.Where(i => i.EbookID == chapter.EBookID).First();
+                book.Add(novo);
+            }
+
+            List<EBooks> finalS = new List<EBooks>();
+            List<EBook> eBookLido = new List<EBook>();
+            int count;
+
+            foreach (EBook eBook in book)
+            {
+                if (!eBookLido.Contains(eBook))
+                {
+
+                    count = 0;
+                    foreach (EBook eBookF in book)
+                    {
+
+                        if (eBook.Equals(eBookF))
+                        {
+                            count++;
+                            eBookLido.Add(eBookF);
+                        }
+                    }
+                    EBooks novoeBook = new EBooks();
+                    novoeBook.Author = eBook.Author;
+                    novoeBook.EbookID = eBook.EbookID;
+                    novoeBook.EBookName = eBook.EBookName;
+                    novoeBook.Publisher = eBook.Publisher;
+                    novoeBook.Subject = eBook.Subject;
+                    novoeBook.Count = count;
+                    finalS.Add(novoeBook);
+                }
+            }
+            return finalS;
         }
     }
 }
