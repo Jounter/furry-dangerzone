@@ -12,7 +12,6 @@
     <xs:sequence>
       <xs:element name="owner" type="xs:string"/>
       <xs:element name="book" type="booktype"/>
-      <xs:element name="chapter" type="chaptertype" minOccurs="0" maxOccurs="1"/>
       <xs:element name="date" type="xs:date"/>
     </xs:sequence>
   </xs:complexType>
@@ -22,6 +21,9 @@
       <xs:element name="bookname" type="xs:string"/>
       <xs:element name="author" type="xs:string"/>
       <xs:element name="publisher" type="xs:string"/>
+      <xs:sequence>
+        <xs:element name="chapter" type="chaptertype" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
     </xs:sequence>
   </xs:complexType>
 

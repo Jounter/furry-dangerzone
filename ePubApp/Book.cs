@@ -247,14 +247,10 @@ namespace ePubApp
 
             bookNode.AppendChild(publisherNode);
 
-            XmlNode dateNode = xml.CreateElement("date");
-            dateNode.InnerText = System.DateTime.Now.ToString();
-            rootNode.AppendChild(dateNode);
-
             if (chapterTitle != null && chapterNumber >= 0)
             {
                 XmlNode chapterNode = xml.CreateElement("chapter");
-                rootNode.AppendChild(chapterNode);
+                bookNode.AppendChild(chapterNode);
 
                 XmlNode nameNode = xml.CreateElement("chaptername");
                 nameNode.InnerText = chapterTitle;
@@ -264,6 +260,10 @@ namespace ePubApp
                 numberNode.InnerText = chapterNumber + "";
                 chapterNode.AppendChild(numberNode);
             }
+
+            XmlNode dateNode = xml.CreateElement("date");
+            dateNode.InnerText = System.DateTime.Now.ToString();
+            rootNode.AppendChild(dateNode);
 
 
             string xmlOutput = xml.OuterXml;
