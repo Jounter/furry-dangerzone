@@ -285,8 +285,8 @@ namespace ePubApp
 
                 if (valid)
                 {
-                    serv.CreateFavorite(xmlOutput);
-                    MessageBox.Show("Adicionado aos favoritos!");
+                    string m = serv.CreateFavorite(xmlOutput);
+                    MessageBox.Show(m);
                 }
                 else
                 {
@@ -300,8 +300,8 @@ namespace ePubApp
 
                 if (valid)
                 {
-                    //serv.CreateBookmark(xmlOutput);
-                    MessageBox.Show("Adicionado aos bookmarks!");
+                    string m = serv.CreateBookmark(xmlOutput);
+                    MessageBox.Show(m);
                     string folderpath = Directory.GetCurrentDirectory();
                     xml.Save(folderpath + "\\Bookmarks.xml");
                 }

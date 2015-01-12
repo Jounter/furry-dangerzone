@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ServiceePubCloud" />
-  <xs:import schemaLocation="http://localhost:2452/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="CreateUser">
     <xs:complexType>
       <xs:sequence>
@@ -59,20 +58,6 @@
   </xs:element>
   <xs:element name="CreateEbookResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CreateEbookResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CreateChapter">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="xmlDoc" nillable="true" type="q2:ArrayOfanyType" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CreateChapterResponse">
-    <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
@@ -87,54 +72,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="CreateBookmarkResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ChapterExists">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="chapterName" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="chapterNumber" type="xs:int" />
-        <xs:element minOccurs="0" name="EbookID" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ChapterExistsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ChapterExistsResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EbookExists">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="author" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="publisher" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EbookExistsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EbookExistsResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="BookmarkExists">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="date" type="xs:dateTime" />
-        <xs:element minOccurs="0" name="chapterID" type="xs:int" />
-        <xs:element minOccurs="0" name="userID" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="BookmarkExistsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="BookmarkExistsResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -160,7 +97,7 @@
   <xs:element name="getMostAccessResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="getMostAccessResult" nillable="true" type="q3:ArrayOfDateStatisticsWeb" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ServiceePubCloud" minOccurs="0" name="getMostAccessResult" nillable="true" type="q2:ArrayOfDateStatisticsWeb" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

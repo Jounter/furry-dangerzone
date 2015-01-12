@@ -270,44 +270,16 @@ namespace ePubApp.ServiceReference1 {
         System.Threading.Tasks.Task<ePubApp.ServiceReference1.UserWeb> GetUserAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateEbook", ReplyAction="http://tempuri.org/IService1/CreateEbookResponse")]
-        string CreateEbook(string xmlDoc);
+        void CreateEbook(string xmlDoc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateEbook", ReplyAction="http://tempuri.org/IService1/CreateEbookResponse")]
-        System.Threading.Tasks.Task<string> CreateEbookAsync(string xmlDoc);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateChapter", ReplyAction="http://tempuri.org/IService1/CreateChapterResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ePubApp.ServiceReference1.UserWeb))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ePubApp.ServiceReference1.DateStatisticsWeb[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ePubApp.ServiceReference1.DateStatisticsWeb))]
-        void CreateChapter(object[] xmlDoc);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateChapter", ReplyAction="http://tempuri.org/IService1/CreateChapterResponse")]
-        System.Threading.Tasks.Task CreateChapterAsync(object[] xmlDoc);
+        System.Threading.Tasks.Task CreateEbookAsync(string xmlDoc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateBookmark", ReplyAction="http://tempuri.org/IService1/CreateBookmarkResponse")]
         string CreateBookmark(string xmlDoc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateBookmark", ReplyAction="http://tempuri.org/IService1/CreateBookmarkResponse")]
         System.Threading.Tasks.Task<string> CreateBookmarkAsync(string xmlDoc);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ChapterExists", ReplyAction="http://tempuri.org/IService1/ChapterExistsResponse")]
-        bool ChapterExists(string chapterName, int chapterNumber, int EbookID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ChapterExists", ReplyAction="http://tempuri.org/IService1/ChapterExistsResponse")]
-        System.Threading.Tasks.Task<bool> ChapterExistsAsync(string chapterName, int chapterNumber, int EbookID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EbookExists", ReplyAction="http://tempuri.org/IService1/EbookExistsResponse")]
-        bool EbookExists(string title, string author, string publisher);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EbookExists", ReplyAction="http://tempuri.org/IService1/EbookExistsResponse")]
-        System.Threading.Tasks.Task<bool> EbookExistsAsync(string title, string author, string publisher);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BookmarkExists", ReplyAction="http://tempuri.org/IService1/BookmarkExistsResponse")]
-        bool BookmarkExists(System.DateTime date, int chapterID, int userID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BookmarkExists", ReplyAction="http://tempuri.org/IService1/BookmarkExistsResponse")]
-        System.Threading.Tasks.Task<bool> BookmarkExistsAsync(System.DateTime date, int chapterID, int userID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateFavorite", ReplyAction="http://tempuri.org/IService1/CreateFavoriteResponse")]
         string CreateFavorite(string xmlDoc);
@@ -373,20 +345,12 @@ namespace ePubApp.ServiceReference1 {
             return base.Channel.GetUserAsync(username, password);
         }
         
-        public string CreateEbook(string xmlDoc) {
-            return base.Channel.CreateEbook(xmlDoc);
+        public void CreateEbook(string xmlDoc) {
+            base.Channel.CreateEbook(xmlDoc);
         }
         
-        public System.Threading.Tasks.Task<string> CreateEbookAsync(string xmlDoc) {
+        public System.Threading.Tasks.Task CreateEbookAsync(string xmlDoc) {
             return base.Channel.CreateEbookAsync(xmlDoc);
-        }
-        
-        public void CreateChapter(object[] xmlDoc) {
-            base.Channel.CreateChapter(xmlDoc);
-        }
-        
-        public System.Threading.Tasks.Task CreateChapterAsync(object[] xmlDoc) {
-            return base.Channel.CreateChapterAsync(xmlDoc);
         }
         
         public string CreateBookmark(string xmlDoc) {
@@ -395,30 +359,6 @@ namespace ePubApp.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string> CreateBookmarkAsync(string xmlDoc) {
             return base.Channel.CreateBookmarkAsync(xmlDoc);
-        }
-        
-        public bool ChapterExists(string chapterName, int chapterNumber, int EbookID) {
-            return base.Channel.ChapterExists(chapterName, chapterNumber, EbookID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ChapterExistsAsync(string chapterName, int chapterNumber, int EbookID) {
-            return base.Channel.ChapterExistsAsync(chapterName, chapterNumber, EbookID);
-        }
-        
-        public bool EbookExists(string title, string author, string publisher) {
-            return base.Channel.EbookExists(title, author, publisher);
-        }
-        
-        public System.Threading.Tasks.Task<bool> EbookExistsAsync(string title, string author, string publisher) {
-            return base.Channel.EbookExistsAsync(title, author, publisher);
-        }
-        
-        public bool BookmarkExists(System.DateTime date, int chapterID, int userID) {
-            return base.Channel.BookmarkExists(date, chapterID, userID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> BookmarkExistsAsync(System.DateTime date, int chapterID, int userID) {
-            return base.Channel.BookmarkExistsAsync(date, chapterID, userID);
         }
         
         public string CreateFavorite(string xmlDoc) {

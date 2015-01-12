@@ -85,6 +85,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "Statistics";
             this.Text = "Statistics";
+            this.Load += new System.EventHandler(this.Statistics_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

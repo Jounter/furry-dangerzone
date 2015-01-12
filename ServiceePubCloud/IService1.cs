@@ -28,20 +28,9 @@ namespace ServiceePubCloud
 
         [OperationContract]
         void CreateEbook(string xmlDoc);
-
         
-
         [OperationContract]
         string CreateBookmark(string xmlDoc);
-
-        [OperationContract]
-        bool ChapterExists(string chapterName, int chapterNumber, int EbookID);
-
-        [OperationContract]
-        bool EbookExists(string title, string author, string publisher);
-
-        [OperationContract]
-        bool BookmarkExists(DateTime date, int chapterID, int userID);
 
         [OperationContract]
         string CreateFavorite(string xmlDoc);

@@ -34,5 +34,10 @@ namespace ePubApp
             }
             dataGridView1.Sort(this.dataGridView1.Columns[1], ListSortDirection.Descending);
         }
+
+        private void Statistics_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
