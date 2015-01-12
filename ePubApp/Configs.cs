@@ -16,10 +16,13 @@ namespace ePubApp
     {
         string folderPath;
         //string[] files;
+        string logedUser;
 
-        public Configs()
+        public Configs(string username)
         {
             InitializeComponent();
+
+            this.logedUser = username;
 
             folderPath = Directory.GetCurrentDirectory();
             //files = Directory.GetFiles(@"" + path + "\\", "*.xml", SearchOption.AllDirectories);
@@ -45,17 +48,8 @@ namespace ePubApp
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            XmlDocument xml = new XmlDocument();
-            xml.Load(folderPath + "\\epubConfigurations.xml");
-
-            foreach (XmlNode node in xml.SelectNodes("/configs"))
-            {
-                node.SelectSingleNode("path").InnerText = txtPath.Text;
-                node.SelectSingleNode("webservice").InnerText = txtWSPath.Text;
-            }
-
-            xml.Save(folderPath + "\\epubConfigurations.xml");
-
+            this.Hide();
+            this.Dispose();
             this.Close();
         }
 
@@ -92,6 +86,28 @@ namespace ePubApp
             rootNode.AppendChild(webServiceNode);
 
             xml.Save(folderPath + "\\epubConfigurations.xml");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(folderPath + "\\epubConfigurations.xml");
+
+            foreach (XmlNode node in xml.SelectNodes("/configs"))
+            {
+                node.SelectSingleNode("path").InnerText = txtPath.Text;
+                node.SelectSingleNode("webservice").InnerText = txtWSPath.Text;
+            }
+
+            xml.Save(folderPath + "\\epubConfigurations.xml");
+
+            this.Hide();
+
+            Form menu = new Menu(logedUser);
+            menu.ShowDialog();
+
+            this.Dispose();
+            this.Close();
         }
     }
 }

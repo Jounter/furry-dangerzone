@@ -34,56 +34,7 @@ namespace ePubApp
 
             this.logedUser = username;
 
-            configPath = Directory.GetCurrentDirectory() + "\\epubConfigurations.xml";
-
-            if (!File.Exists(configPath) || checkPathNotEmpty().Equals("empty"))
-            {
-                epubPath = Directory.GetCurrentDirectory();
-            }
-            else
-            {
-                XmlDocument xml = new XmlDocument();
-                xml.Load(configPath);
-
-                foreach (XmlNode node in xml.SelectNodes("/configs"))
-                {
-                    epubPath = node.SelectSingleNode("path").InnerText;
-                }
-            }
-
-            byte[] bytes = Encoding.Default.GetBytes(epubPath);
-            epubPath = Encoding.UTF8.GetString(bytes);
-            epubFiles = Directory.GetFiles(epubPath, "*.epub").
-                Select(path => Path.GetFileName(path)).ToArray();
-
-            for (int i = 0; i < epubFiles.Count(); i++)
-            {
-                string book = epubFiles.ElementAt(i);
-
-                string path = epubPath + "\\" + book;
-
-                livro = null;
-                try
-                {
-                    livro = new Epub(@path);
-                    list.Add(livro.Title[0]);
-                }
-                catch (Exception)
-                {
-                    list.Add(book + "- Corrupted!");
-                }
-            }
-
-            if (list.Count > 0)
-            {
-                listBox1.DataSource = list;
-            }
-            else
-            {
-                MessageBox.Show("Please choose a directory containing books!");
-                list.Add("No books were found!");
-                listBox1.DataSource = list;
-            }
+            loadEBooks();
         }
 
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -98,7 +49,7 @@ namespace ePubApp
 
         private void btnConfigs_Click(object sender, EventArgs e)
         {
-            Form config = new Configs();
+            Form config = new Configs(logedUser);
             config.ShowDialog();
         }
 
@@ -130,7 +81,7 @@ namespace ePubApp
 
             if (error == false)
             {
-                Book li = new Book(epub);
+                Book li = new Book(epub, logedUser);
                 li.Show();
             }
 
@@ -315,13 +266,18 @@ namespace ePubApp
 
             MyXMLHandler xmlValidated = new MyXMLHandler(xmlOutput, directoryInfo2 + "\\xsd\\EBookSchema.xsd");
 
-            bool lol = xmlValidated.ValidateXML();
+            bool valid = xmlValidated.ValidateXML();
 
-            MessageBox.Show(lol.ToString());
-
-            xml.Save("cenas.xml");
-
-            serv.CreateEbook(xmlOutput);
+            if (valid)
+            {
+                serv.CreateEbook(xmlOutput);
+                MessageBox.Show("Sincronismo efectuado com sucesso!");
+            }
+            else
+            {
+                MessageBox.Show("Nao foi possivel sincronizar!");
+            }
+            
         }
 
         private string checkPathNotEmpty()
@@ -343,6 +299,60 @@ namespace ePubApp
             else
             {
                 return path;
+            }
+        }
+
+        private void loadEBooks(){
+
+            configPath = Directory.GetCurrentDirectory() + "\\epubConfigurations.xml";
+
+            if (!File.Exists(configPath) || checkPathNotEmpty().Equals("empty"))
+            {
+                epubPath = Directory.GetCurrentDirectory();
+            }
+            else
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(configPath);
+
+                foreach (XmlNode node in xml.SelectNodes("/configs"))
+                {
+                    epubPath = node.SelectSingleNode("path").InnerText;
+                }
+            }
+
+            byte[] bytes = Encoding.Default.GetBytes(epubPath);
+            epubPath = Encoding.UTF8.GetString(bytes);
+            epubFiles = Directory.GetFiles(epubPath, "*.epub").
+                Select(path => Path.GetFileName(path)).ToArray();
+
+            for (int i = 0; i < epubFiles.Count(); i++)
+            {
+                string book = epubFiles.ElementAt(i);
+
+                string path = epubPath + "\\" + book;
+
+                livro = null;
+                try
+                {
+                    livro = new Epub(@path);
+                    list.Add(livro.Title[0]);
+                }
+                catch (Exception)
+                {
+                    list.Add(book + "- Corrupted!");
+                }
+            }
+
+            if (list.Count > 0)
+            {
+                listBox1.DataSource = list;
+            }
+            else
+            {
+                MessageBox.Show("Please choose a directory containing books!");
+                list.Add("No books were found!");
+                listBox1.DataSource = list;
             }
         }
 

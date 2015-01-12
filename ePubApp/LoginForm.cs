@@ -43,6 +43,7 @@ namespace ePubApp
                     Form menu = new Menu(txtUser.Text);
                     menu.ShowDialog();
 
+                    this.Dispose();
                     this.Close();
                 }
             }

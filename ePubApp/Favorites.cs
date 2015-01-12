@@ -19,15 +19,15 @@ namespace ePubApp
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //Form book = new Book();
-            //book.ShowDialog();
-
             this.Dispose();
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Form book = new Book();
+            //book.ShowDialog();
+
             this.Dispose();
             this.Close();
         }

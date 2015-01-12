@@ -43,7 +43,7 @@
             this.lblPub = new System.Windows.Forms.Label();
             this.ReadChapter = new System.Windows.Forms.Button();
             this.btnBookmarkChapter = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFavoriteChapter = new System.Windows.Forms.Button();
             this.txtSubject = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -186,14 +186,15 @@
             this.btnBookmarkChapter.UseVisualStyleBackColor = true;
             this.btnBookmarkChapter.Click += new System.EventHandler(this.btnBookmarkChapter_Click);
             // 
-            // button1
+            // btnFavoriteChapter
             // 
-            this.button1.Location = new System.Drawing.Point(36, 375);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(167, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Favorite Selected Chapter";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnFavoriteChapter.Location = new System.Drawing.Point(36, 375);
+            this.btnFavoriteChapter.Name = "btnFavoriteChapter";
+            this.btnFavoriteChapter.Size = new System.Drawing.Size(167, 23);
+            this.btnFavoriteChapter.TabIndex = 20;
+            this.btnFavoriteChapter.Text = "Favorite Selected Chapter";
+            this.btnFavoriteChapter.UseVisualStyleBackColor = true;
+            this.btnFavoriteChapter.Click += new System.EventHandler(this.btnFavoriteChapter_Click);
             // 
             // txtSubject
             // 
@@ -210,7 +211,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1042, 485);
             this.Controls.Add(this.txtSubject);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFavoriteChapter);
             this.Controls.Add(this.btnBookmarkChapter);
             this.Controls.Add(this.ReadChapter);
             this.Controls.Add(this.lblPub);
@@ -251,7 +252,7 @@
         private System.Windows.Forms.Label lblPub;
         private System.Windows.Forms.Button ReadChapter;
         private System.Windows.Forms.Button btnBookmarkChapter;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFavoriteChapter;
         private System.Windows.Forms.TextBox txtSubject;
     }
 }
