@@ -205,7 +205,7 @@ namespace ePubApp
             XmlNode bookNode = xml.CreateElement("book");
             rootNode.AppendChild(bookNode);
 
-            XmlNode titleNode = xml.CreateElement("title");
+            XmlNode titleNode = xml.CreateElement("bookname");
 
             try
             {
