@@ -42,7 +42,6 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(100, 20);
             this.txtPass.TabIndex = 0;
-            this.txtPass.Text = "hey";
             this.txtPass.UseSystemPasswordChar = true;
             // 
             // txtUser
@@ -51,7 +50,6 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(100, 20);
             this.txtUser.TabIndex = 1;
-            this.txtUser.Text = "hey";
             // 
             // lblUser
             // 

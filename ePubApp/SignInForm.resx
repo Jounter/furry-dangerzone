@@ -230,9 +230,6 @@
   <data name="txtUser.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="txtUser.Text" xml:space="preserve">
-    <value>hey</value>
-  </data>
   <data name="&gt;&gt;txtUser.Name" xml:space="preserve">
     <value>txtUser</value>
   </data>
@@ -253,9 +250,6 @@
   </data>
   <data name="txtPass.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
-  </data>
-  <data name="txtPass.Text" xml:space="preserve">
-    <value>123</value>
   </data>
   <data name="&gt;&gt;txtPass.Name" xml:space="preserve">
     <value>txtPass</value>
@@ -305,9 +299,6 @@
   <data name="txtRetypePass.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="txtRetypePass.Text" xml:space="preserve">
-    <value>123</value>
-  </data>
   <data name="&gt;&gt;txtRetypePass.Name" xml:space="preserve">
     <value>txtRetypePass</value>
   </data>
@@ -356,9 +347,6 @@
   <data name="txtName.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="txtName.Text" xml:space="preserve">
-    <value>hey</value>
-  </data>
   <data name="&gt;&gt;txtName.Name" xml:space="preserve">
     <value>txtName</value>
   </data>
@@ -406,9 +394,6 @@
   </data>
   <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>hey</value>
   </data>
   <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
     <value>textBox1</value>
